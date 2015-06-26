@@ -221,6 +221,26 @@ class CoolShowSearch
 		return $count;
 	}
 	
+	private function _setChannel($nCoolType)
+	{
+		if ($coolshow->_nSort == COOLXIU_SEARCH_CHOICE){
+			$coolshow->setChannel(REQUEST_CHANNEL_CHOICE);
+		}
+		if ($coolshow->nCharge == 0){
+			$coolshow->setChannel(REQUEST_CHANNEL_CHARGE_NO);
+		}
+		if ($coolshow->nCharge == 1){
+			$coolshow->setChannel(REQUEST_CHANNEL_CHARGE_YES);
+		}
+		
+		if($nCoolType == COOLXIU_TYPE_THEMES_CONTACT){
+			$coolshow->setChannel(REQUEST_CHANNEL_CONTACT);
+		}
+		if($nCoolType == COOLXIU_TYPE_THEMES_ICON){
+			$coolshow->setChannel(REQUEST_CHANNEL_ICON);
+		}
+	}	
+	
 	public function getCoolShow($nCoolType, $start = 0, $limit = 10)
 	{
 		try {
@@ -232,6 +252,8 @@ class CoolShowSearch
 			}
 			
 			$this->_setCoolShowParam($coolshow);
+			
+			$this->_setChannel($nCoolType);
 			
 			$strSql = $coolshow->getCoolShowListSql($start, $limit);
 			if(!$strSql){
