@@ -83,7 +83,6 @@ class RecordTask
 			
 			$req = new Request();
 			$req->setRecord();
-			$req->setCoolType($nCoolType);
 			
 	// 		$result = $record->saveRecord($nCoolType, $req);
 	// 		if(!$result){
@@ -107,7 +106,6 @@ class RecordTask
 		
 			$br = new Browse();
 			$br->setRecord();
-			$br->setCoolType($nCoolType);
 		
 	// 		$result = $record->saveRecord($nCoolType, $br);
 	// 		if(!$result){
@@ -135,7 +133,6 @@ class RecordTask
 		
 		$dl = new Download();
 		$dl->setRecord();
-		$dl->setCoolType($nCoolType);
 // 		Log::write('RecordTask::saveDownload() cpid:'.$dl->cpid.', channer:'.$dl->channel, 'error');
 		
 		$result = $record->saveRecord($nCoolType, $dl);
@@ -252,8 +249,7 @@ class RecordTask
 	
 		$apply  = new Apply();
 		$apply->setRecord();
-		$apply->setCoolType($nCoolType);
-	
+		
 		$result = $record->saveRecord($nCoolType, $apply);
 		if(!$result){
 			Log::write('RecordTask::saveApply():saveRecord() failed', 'log');
@@ -273,6 +269,15 @@ class RecordTask
 		$nType 	   	 = (int)(isset($_GET['type'])?$_GET['type']:0);
 		if ($nCoolType == COOLXIU_TYPE_RING){
 			$nType = $nType - 1;
+		}
+		
+		#ICON图标、通讯录都是主题模块的别名
+		if($nCoolType == COOLXIU_TYPE_THEMES_CONTACT
+		|| $nCoolType == COOLXIU_TYPE_THEMES_ICON){
+			$nCoolType 	= COOLXIU_TYPE_THEMES;
+		}
+		if($nCoolType == COOLXIU_TYPE_LIVE_WALLPAPER){
+			$nCoolType 	= COOLXIU_TYPE_SCENE;
 		}
 		
 		$result = false;		

@@ -1,5 +1,6 @@
 <?php
 require_once 'tasks/Records/Record.class.php';
+require_once 'configs/config.php';
 
 class Request extends Record
 {	
@@ -19,6 +20,32 @@ class Request extends Record
 		$this->subtype  = (int)(isset($_GET['subtype'])?$_GET['subtype']:$this->subtype);
 		$this->channel 	= (int)(isset($_GET['chanel'])?$_GET['chanel']:0);
 		$this->vercode 	= (int)(isset($_GET['versionCode'])?$_GET['versionCode']:0);
+		
+		$nSort     = (int)(isset($_GET['sort'])?$_GET['sort']:0);
+		$nCharge   = (int)(isset($_GET['charge'])?$_GET['charge']:2);
+		if ($nSort == COOLXIU_SEARCH_CHOICE){
+			$this->channel = REQUEST_CHANNEL_CHOICE;
+		}
+		if ($nCharge == 0){
+			$this->channel 	= REQUEST_CHANNEL_CHARGE_NO;
+		}
+		if ($nCharge == 1){
+			$this->channel 	= REQUEST_CHANNEL_CHARGE_YES;
+		}
+		
+		$nCoolType = (int)(isset($_GET['moduletype'])?$_GET['moduletype']:'');
+		if($nCoolType == COOLXIU_TYPE_THEMES_CONTACT){
+			$this->channel 	= REQUEST_CHANNEL_CONTACT;
+		}
+		if($nCoolType == COOLXIU_TYPE_THEMES_ICON){
+			$this->channel 	=  REQUEST_CHANNEL_ICON;
+		}
+		if($nCoolType == COOLXIU_TYPE_LIVE_WALLPAPER){
+			$this->channel 	= REQUEST_CHANNEL_LIVEWP;
+		}
+		
+		$this->setCoolType($nCoolType);
+		
 		parent::setParam();
 		
 		$this->checkParam();

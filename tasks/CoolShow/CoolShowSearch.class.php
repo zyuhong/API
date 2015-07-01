@@ -221,7 +221,7 @@ class CoolShowSearch
 		return $count;
 	}
 	
-	private function _setChannel($nCoolType)
+	private function _setChannel($coolshow, $nCoolType)
 	{
 		if ($coolshow->_nSort == COOLXIU_SEARCH_CHOICE){
 			$coolshow->setChannel(REQUEST_CHANNEL_CHOICE);
@@ -239,6 +239,9 @@ class CoolShowSearch
 		if($nCoolType == COOLXIU_TYPE_THEMES_ICON){
 			$coolshow->setChannel(REQUEST_CHANNEL_ICON);
 		}
+		if($nCoolType == COOLXIU_TYPE_LIVE_WALLPAPER){
+			$coolshow->setChannel(REQUEST_CHANNEL_LIVEWP);
+		}
 	}	
 	
 	public function getCoolShow($nCoolType, $start = 0, $limit = 10)
@@ -253,7 +256,7 @@ class CoolShowSearch
 			
 			$this->_setCoolShowParam($coolshow);
 			
-			$this->_setChannel($nCoolType);
+			$this->_setChannel($coolshow, $nCoolType);
 			
 			$strSql = $coolshow->getCoolShowListSql($start, $limit);
 			if(!$strSql){

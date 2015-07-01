@@ -8,6 +8,8 @@ class Download extends Record
 	public $cpid;		//资源的公共ID
 	public $author;		//作者
 	public $url;		//地址
+	public $page;		//当前页
+	public $position;	//位置
 	
 	public function __construct()
 	{	
@@ -16,6 +18,8 @@ class Download extends Record
 		$this->cpid		 = '';
 		$this->url	 	 = '';
 		$this->author	 = '';
+		$this->page = 0;	
+		$this->position = 0;
 	}
 
 	public function setRecord()
@@ -26,6 +30,12 @@ class Download extends Record
 		$this->type 	= (int)(isset($_GET['type'])?$_GET['type']:0);
 		$this->channel 	= (int)(isset($_GET['channel'])?$_GET['channel']:0);
 		$this->author	= isset($_GET['author'])?$_GET['author']:0;
+		
+		$this->page = (int)(isset($_GET['pageno'])?$_GET['pageno']:0);
+		$this->position = (int)(isset($_GET['position'])?$_GET['position']:0);
+		
+		$nCoolType 	 = isset($_GET['moduletype'])?$_GET['moduletype']:'';
+		$this->setCoolType($nCoolType);
 		
 		parent::setParam();
 		

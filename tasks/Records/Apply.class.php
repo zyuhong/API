@@ -1,6 +1,8 @@
 <?php
 require_once 'public/public.php';
 require_once 'tasks/Records/Record.class.php';
+require_once 'configs/config.php';
+
 class Apply extends Record
 {
 	public $id;			//资源ID
@@ -20,6 +22,19 @@ class Apply extends Record
 		$this->id 		= isset($_GET['id'])?$_GET['id']:'';
 		$this->cpid		= isset($_GET['cpid'])?$_GET['cpid']:'';
 		$this->applytype= (int)(isset($_GET['applytype'])?$_GET['applytype']:0);
+		
+		$nCoolType 	 = isset($_GET['moduletype'])?$_GET['moduletype']:'';
+		$this->setCoolType($nCoolType);
+		
+		if($nCoolType == COOLXIU_TYPE_THEMES_CONTACT){
+			$this->applytype 	= REQUEST_CHANNEL_CONTACT;
+		}	
+		if($nCoolType == COOLXIU_TYPE_THEMES_ICON){
+			$this->applytype 	= REQUEST_CHANNEL_ICON;
+		}
+		if($nCoolType == COOLXIU_TYPE_LIVE_WALLPAPER){
+			$this->applytype 	= REQUEST_CHANNEL_LIVEWP;
+		}
 		
 		parent::setParam();
 		$this->checkParam();

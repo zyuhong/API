@@ -45,6 +45,17 @@ class StatisInterface
 		$this->nOpType  	 = isset($_GET['optype'])?$_GET['optype']:'';
 		$this->nOpSubType 	 = isset($_GET['opsubtype'])?$_GET['opsubtype']:'';
 		$this->nChannel 	 = (int)(isset($_GET['channel'])?$_GET['channel']:0);
+		
+		#ICON图标、通讯录都是主题模块的别名
+		if($this->nModuleType == COOLXIU_TYPE_THEMES_CONTACT 
+				|| $this->nModuleType == COOLXIU_TYPE_THEMES_ICON){
+			$this->nType	 = 	$this->nModuleType;
+			$this->nModuleType 	= COOLXIU_TYPE_THEMES;
+		}
+		if($this->nModuleType == COOLXIU_TYPE_LIVE_WALLPAPER){
+			$this->nType	 = 	$this->nModuleType;
+			$this->nModuleType 	= COOLXIU_TYPE_SCENE;
+		}
 	}
 	
 	public function doStatis()

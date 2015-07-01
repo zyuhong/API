@@ -25,11 +25,13 @@ class WallpaperProtocol{
 	public $download_times;		//下载次数
 	public $type;				//具体类型
 	public $author;				//作者
+	public $channel;			//下载渠道
 	
 	function __construct(){
 		$this->_product = new Product();
 		$this->_vercode				= 0;
 		$this->id					=	0;
+		$this->cpid					=   '';
 		$this->size					= 	0;
 		$this->wp_widget_url		= 	'';
 		$this->wp_url				= 	'';
@@ -38,7 +40,8 @@ class WallpaperProtocol{
 		$this->width				=   0;
 		$this->height				= 	0;
 		$this->download_times		= 	0;
-		$this->author				=   '';		
+		$this->author				=   '';	
+		$this->channel			    = 0;
 	}
 	
 	public function setVercode($vercode)
@@ -107,6 +110,8 @@ class WallpaperProtocol{
 		$this->download_times	= (int)isset($row['download_times'])?$row['download_times']:1001;
 		$this->download_times	+= rand(1000, 10000);
 		$this->author			=   isset($row['author'])?$row['author']:'';
+		
+		$this->channel			= $channel;			//下载渠道
 	}
 	
 	public function setProtocol($row, $channel = 0)
@@ -120,6 +125,8 @@ class WallpaperProtocol{
 		$this->download_times	= (int)isset($row['download_times'])?$row['download_times']:1001;
 		$this->download_times	+= rand(1000, 10000);
 		$this->author			=   isset($row['author'])?$row['author']:'';
+		
+		$this->channel			= $channel;			//下载渠道
 	}
 	
 	function setAndroideskWallpaper($row, $channel = 0, $cpid = ''){
@@ -132,6 +139,8 @@ class WallpaperProtocol{
 		$this->download_times	= (int)isset($row['download_times'])?$row['download_times']:1001;
 		$this->download_times	+= rand(1000, 10000);
 		$this->author			=  isset($row['author'])?$row['author']:'';
+		
+		$this->channel			= $channel;			//下载渠道
 	}
 
 	public function setCpid($strCpid)
