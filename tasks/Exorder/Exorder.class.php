@@ -30,8 +30,11 @@ class Exorder
 		$strName = '';
 		switch ($nType){
 			case COOLXIU_TYPE_THEMES_CONTACT:
+				$strName = 'CT';break;
 			case COOLXIU_TYPE_THEMES_ICON:
+				$strName = 'IC';break;
 			case COOLXIU_TYPE_THEMES_MMS:
+				$strName = 'CT';break;
 			case COOLXIU_TYPE_THEMES:
 				$strName = 'TH';break;
 			case COOLXIU_TYPE_RING:
@@ -40,6 +43,8 @@ class Exorder
 				$strName = 'FT';break;
 			case COOLXIU_TYPE_SCENE:
 				$strName = 'SC';break;
+			case COOLXIU_TYPE_LIVE_WALLPAPER:
+				$strName = 'WP';break;
 		}
 
 		$this->nType   = $nType;

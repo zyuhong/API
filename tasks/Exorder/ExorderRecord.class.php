@@ -3,7 +3,7 @@ require_once 'public/public.php';
 
 defined("SQL_CHECK_MOBILE_EXORDER")
 	or define("SQL_CHECK_MOBILE_EXORDER", "SELECT COUNT(*) FROM tb_yl_exorder_record " 
-										." WHERE status = 1 AND product = '%s' AND cooltype = %d AND identity = '%s' AND %s ");
+										." WHERE status = 1 AND product = '%s' AND identity = '%s' AND %s "); //AND cooltype = %d
 	
 defined("SQL_INSERT_MOBILE_EXORDER")
 	or define("SQL_INSERT_MOBILE_EXORDER", "INSERT INTO tb_yl_exorder_record "
