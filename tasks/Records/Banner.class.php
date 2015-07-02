@@ -18,6 +18,9 @@ class Banner extends Record
 		$this->channel 	= (int)(isset($_GET['chanel'])?$_GET['chanel']:0);
 		$this->vercode 	= (int)(isset($_GET['versionCode'])?$_GET['versionCode']:0);
 
+		$nCoolType = (int)(isset($_GET['type'])?$_GET['type']:4);
+		$this->setCoolType($nCoolType);
+		
 		parent::setParam();
 		
 		$this->checkParam();

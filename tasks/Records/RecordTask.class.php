@@ -152,6 +152,10 @@ class RecordTask
 		}
 
 		$record->close();
+		
+		$queue = new QueueTask();
+		$queue->push('dl', $nCoolType, json_encode($dl), 'coolshow_dl_count');
+		
 		return true;
 	}
 	/**
@@ -213,7 +217,6 @@ class RecordTask
 		
 		$banner = new Banner();
 		$banner->setRecord();
-		$banner->setCoolType($nCoolType);
 		
 		$result = $record->saveRecord($nCoolType, $banner);
 		if(!$result){
@@ -222,6 +225,9 @@ class RecordTask
 		}
 
 		$record->close();
+		
+		$queue = new QueueTask();
+		$queue->push('banner', $nCoolType, json_encode($banner), 'coolshow_banner_count');
 		return true;
 	}
 	
@@ -257,6 +263,9 @@ class RecordTask
 		}
 
 		$record->close();
+		
+		$queue = new QueueTask();
+		$queue->push('apply', $nCoolType, json_encode($apply), 'coolshow_apply_count');
 		return true;
 	}
 	
