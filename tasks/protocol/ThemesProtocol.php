@@ -33,9 +33,9 @@ class ThemesProtocol extends Protocol
 	public $description;		//主题描述
 	public $them_file_url;		//主题URI,绝对路径
 	public $main_prev_url;		//主缩略图URI
-	public $main_contact_url;	//contact主缩略图URI
-	public $main_icon_url;		//icon主缩略图URI
-	public $main_mms_url;		//mms主缩略图URI
+	public $main_contact_url;	//contact主缩略图URI 判断是否为通讯录主题
+	public $main_icon_url;		//icon主缩略图URI 判断是否为图标主题
+	public $main_mms_url;		//mms主缩略图URI 
 	
 	private $_index;	
 	public $index_contact;		//contact预览图索引
@@ -109,16 +109,13 @@ class ThemesProtocol extends Protocol
 		$this->main_prev_url 	= $g_arr_host_config['cdnhost'].$strUrl;//$prev['prev_url'];
 		
 		$strUrl = isset($prev['pre_contact'])?$prev['pre_contact']:'';
-		if (empty($strUrl)) $strUrl = $prev['prev_url'];
-		$this->main_contact_url = $g_arr_host_config['cdnhost'].$strUrl;//$prev['prev_url'];
+		if (!empty($strUrl)) $this->main_contact_url = $g_arr_host_config['cdnhost'].$strUrl;//$prev['prev_url'];
 
 		$strUrl = isset($prev['pre_icon'])?$prev['pre_icon']:'';
-		if (empty($strUrl)) $strUrl = $prev['prev_url'];
-		$this->main_icon_url = $g_arr_host_config['cdnhost'].$strUrl;//$prev['prev_url'];
+		if (!empty($strUrl)) $this->main_icon_url = $g_arr_host_config['cdnhost'].$strUrl;//$prev['prev_url'];
 		
 		$strUrl = isset($prev['pre_mms'])?$prev['pre_mms']:'';
-		if (empty($strUrl)) $strUrl = $prev['prev_url'];
-		$this->main_mms_url = $g_arr_host_config['cdnhost'].$strUrl;//$prev['prev_url'];
+		if (!empty($strUrl)) $this->main_mms_url = $g_arr_host_config['cdnhost'].$strUrl;//$prev['prev_url'];
 		
 	}
 
