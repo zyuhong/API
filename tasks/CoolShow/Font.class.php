@@ -1,6 +1,7 @@
 <?php
 require_once 'public/public.php';
 require_once 'configs/config.php';
+require_once 'lib/WriteLog.lib.php';
 require_once 'tasks/CoolShow/CoolShow.class.php';
 require_once 'tasks/CoolShow/FontSql.sql.php';
 require_once 'tasks/protocol/FontProtocol.php';
@@ -19,7 +20,7 @@ class Font extends CoolShow
 	public function setPayRatio()
 	{
 		if ($this->_nVercode > 28) {
-			$this->nPay			= 2;
+			$this->nPay			= 1;
 			$this->nFree		= 1;
 		}else{
 			$this->nPay			= 1;
@@ -31,6 +32,7 @@ class Font extends CoolShow
 		$strCondition = $this->_getCondition();
 		$strOrder = $this->_getSort();
 		$sql = sprintf(SQL_SELECT_FONT, $strCondition, $strOrder, $nStart, $nLimit);
+// 		Log::write('Font::getCoolShowListSql() SQL'.$sql, 'debug');
 		return $sql;
 	}
 
