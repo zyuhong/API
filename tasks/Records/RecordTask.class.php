@@ -350,4 +350,24 @@ class RecordTask
 		return true;
 	}
 	
+	public function saveMyrsc($nCoolType)
+	{
+		$record = new ApplyRecord();
+	
+		$apply  = new Apply();
+		$apply->setRecord();
+	
+		$result = $record->saveRecord($nCoolType, $apply);
+		if(!$result){
+			Log::write('RecordTask::saveApply():saveRecord() failed', 'log');
+			// 			return false;
+		}
+	
+		$record->close();
+	
+		$queue = new QueueTask();
+		$queue->push('apply', $nCoolType, json_encode($apply), 'coolshow_apply_count');
+		return true;
+	}
+	
 }

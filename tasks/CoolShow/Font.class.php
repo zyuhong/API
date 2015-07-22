@@ -82,6 +82,12 @@ class Font extends CoolShow
 		return $sql;
 	}
 	
+	public function getCoolShowDetailSql($strId)
+	{
+		$sql = 	sprintf(SQL_SELECT_FONT_BY_ID, $strId);
+		return $sql;
+	}	
+	
 	public function getSelectAlbumsSql($strId, $nStart = 0, $nNum = 100)
 	{
 		$strId = sql_check_str($strId, 64);

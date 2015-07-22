@@ -68,7 +68,7 @@ class CoolShowSearch
 			$arr_param = json_decode($json_param, true);
 	
 			$strProduct = isset($arr_param['product'])?$arr_param['product']:'';
-			$nProtocolCode = (int)(isset($arr_param['protocolCode'])?$arr_param['protocolCode']:0);#新增的版本判断依据
+			$nProtocolCode = (int)(isset($arr_param['protocolCode'])?$arr_param['protocolCode']:0);#新增的版本判断依据
 		}
 		$nProtocolCode  = (int)(isset($_GET['protocolCode'])?$_GET['protocolCode']:$nProtocolCode);#新版本在主GET参数中追加20150522
 		
@@ -555,6 +555,7 @@ class CoolShowSearch
 			}
 			
 			$rows = $this->_getDb()->getCoolShow($strSql);
+			
 			if($rows === false){
 				Log::write('CoolShowSearch::_getAlbums():getCoolShow() failed, SQL:'.$strSql, 'log');
 				return false;
@@ -621,12 +622,12 @@ class CoolShowSearch
 			}
 			
 			$result = array('result'=>true,
-							'theme'=>$arrTheme,
-							'wallpaper'=>$arrTheme,
-							'font'=>$arrFont,
-							'scene'=>$arrScene,
+							'themes'=>$arrTheme,
+							'wallpapers'=>$arrWallpaper,
+							'fonts'=>$arrFont,
+							'lockscreens'=>$arrScene,
 							'ring'=>$arrRing,
-							'lwallpaper'=>$arrLwp,);
+							'livewallpapers'=>$arrLwp,);
 			
 			$json_result = json_encode($result);
 				

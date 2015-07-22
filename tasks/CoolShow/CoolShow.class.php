@@ -239,6 +239,8 @@ abstract class CoolShow
 	abstract function getSelectRscSql($id);
 	abstract function getSelectInfoByIdSql($id, $nChannel = 0);
 	
+// 	abstract function getCoolShowDetailSql($strId);
+	
 	abstract function getLucene($rows);
 	
 	abstract function getCoolShowWebSql($nSortType, $nStart = 0, $nLimit = 10);

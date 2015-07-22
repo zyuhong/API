@@ -94,6 +94,7 @@ abstract class MongoRecord
 			case COOLXIU_TYPE_ALARM:{
 				$strDatabase = 'db_yl_alarm_record_'.date('Ym');
 			}break;
+				
 			default:return false; 
 		}
 		$this->_db = $strDatabase;

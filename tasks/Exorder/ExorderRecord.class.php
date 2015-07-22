@@ -30,7 +30,7 @@ defined("SQL_INSERT_CHARGE_RECORD")
 										." VALUES ('%s', %d, '%s',  '%s', '%s', '%s')");
 
 defined("SQL_SELECT_CHARGE_BY_CYID")
-	or define("SQL_SELECT_CHARGE_BY_CYID", "SELECT DISTINCT cpid, insert_time FROM tb_yl_charge_record WHERE cyid = '%s' AND cooltype = %d limit %d, %d ");
+	or define("SQL_SELECT_CHARGE_BY_CYID", "SELECT cpid, insert_time FROM tb_yl_charge_record WHERE cyid = '%s' AND cooltype = %d GROUP BY cpid limit %d, %d ");
 	
 class ExorderRecord
 {	

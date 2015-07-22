@@ -50,6 +50,14 @@ class Ring extends CoolShow
 		
 		return $strCondition;
 	}	
+	
+	
+	public function getCoolShowDetailSql($strId)
+	{
+		$sql = 	sprintf(SQL_SELECT_RING_WITH_ID, $strId);
+		return $sql;
+	}
+	
 	public function getSelectAlbumsSql($strId, $nStart = 0, $nNum = 100){
 		$strId = sql_check_str($strId, 64);
 		$sql = sprintf(SQL_SELECT_RING_ALBUMS, $strId, $nStart, $nNum);

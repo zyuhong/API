@@ -109,7 +109,7 @@ class Theme extends CoolShow
 	{
 		$strKernel = sprintf(' AND tinfo.kernel = %d ', $this->_nKernel);
 		if($this->_nKernel >= 4){
-			$strKernel = sprintf(' AND tinfo.kernel >= 3 AND tinfo.kernel <= %d ', $this->_nKernel);
+			$strKernel = sprintf(' AND tinfo.kernel >= 3 ');// AND tinfo.kernel <= %d, $this->_nKernel);
 		}
 		
 		$this->_resetRatio();
