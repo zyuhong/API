@@ -13,11 +13,11 @@ class ExorderRecordDb extends DBManager
 		$this->connectMySqlPara($g_arr_db_config['coolshow_charge_record']);
 	}
 	
-	public function checkMobileCharged($strProduct, $nCoolType, $strId, $strMeid, $strImsi)
+	public function checkMobileCharged($strProduct, $nCoolType, $strId, $strMeid, $strImsi, $strCyid)
 	{
 		try{
-#			return true;
-			$sql = ExorderRecord::getCheckMobileChargedSql($strProduct, $nCoolType, $strId, $strMeid, $strImsi);
+
+			$sql = ExorderRecord::getCheckMobileChargedSql($strProduct, $nCoolType, $strId, $strMeid, $strImsi, $strCyid);
 			if(!$sql){
 				Log::write('ExorderDb::checkMobileExorder() SQL is empty', 'log');
 				return false;

@@ -38,22 +38,30 @@ class ExorderRecord
 	{
 	}
 	
-	static public function getCheckMobileChargedSql($strProduct, $nCoolType, $strId, $strMeid, $strImsi)
+	static public function getCheckMobileChargedSql($strProduct, $nCoolType, $strId, $strMeid, $strImsi, $strCyid = '')
 	{
 		$strFiledCondition = ''; 
 		if(!empty($strMeid)){
 			$strMeid = sql_check_str($strMeid, 50);
-			$strFiledCondition = " meid = '".$strMeid."'";
+			$strFiledCondition = " ( meid = '".$strMeid."'";
 		}else if(!empty($strImsi)){
 			$strImsi = sql_check_str($strImsi, 50);
-			$strFiledCondition = " imsi = '".$strImsi."'";
+			$strFiledCondition = " ( imsi = '".$strImsi."'";
 		}
+		
 		if(empty($strFiledCondition)){
 			return false;
 		}
 		
+		if(!empty($strCyid)){
+			$strCyid = sql_check_str($strCyid, 50);
+			$strFiledCondition .= " OR cyid = '".$strCyid."' ) ";
+		}else{
+			$strFiledCondition .= " ) ";
+		}
+		
 		$strProduct = sql_check_str($strProduct, 30);			
-		$sql = sprintf(SQL_CHECK_MOBILE_EXORDER, $strProduct, $nCoolType, $strId, $strFiledCondition);
+		$sql = sprintf(SQL_CHECK_MOBILE_EXORDER, $strProduct, $strId, $strFiledCondition);//$nCoolType, 
 		return $sql;
 	}
 	
