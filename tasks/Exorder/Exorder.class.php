@@ -34,7 +34,7 @@ class Exorder
 			case COOLXIU_TYPE_THEMES_ICON:
 				$strName = 'IC';break;
 			case COOLXIU_TYPE_THEMES_MMS:
-				$strName = 'CT';break;
+				$strName = 'MM';break;
 			case COOLXIU_TYPE_THEMES:
 				$strName = 'TH';break;
 			case COOLXIU_TYPE_RING:
