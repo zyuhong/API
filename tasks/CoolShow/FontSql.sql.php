@@ -6,7 +6,7 @@
 defined("SQL_SELECT_FONT")
 	or define("SQL_SELECT_FONT", "SELECT pay.*, rule.ruleid as ruleid, rule.score as score, incrule.ruleid as incruleid, incrule.score as incscore, 
 										dl.download_times, "
-								." font.ischarge, font.identity, font.fname, font.size, font.md5, name, url, purl, largepreurl, preview_url, width, height"
+								." font.ischarge, font.identity, font.fname, font.size, font.md5, name, url, purl, lurl, largepreurl, preview_url, width, height"
 								." FROM tb_yl_font font"
 								." LEFT JOIN tb_yl_font_preview preview ON font.identity= preview.identity"
 								." LEFT JOIN tb_yl_pay pay ON pay.waresid = font.waresid AND pay.appid = font.appid " 
@@ -20,7 +20,7 @@ defined("SQL_SELECT_FONT")
 defined("SQL_SELECT_FONT_ALBUM")
 	or define("SQL_SELECT_FONT_ALBUM", "SELECT pay.*, rule.ruleid as ruleid, rule.score as score, incrule.ruleid as incruleid, incrule.score as incscore, 
 										dl.download_times, "
-								." font.ischarge, font.identity, font.fname, font.size, font.md5, name, url, purl, largepreurl, preview_url, width, height"
+								." font.ischarge, font.identity, font.fname, font.size, font.md5, name, url, purl, lurl, largepreurl, preview_url, width, height"
 								." FROM tb_yl_albums_res ares"
 								." LEFT JOIN  tb_yl_font font ON font.identity = ares.cpid "
 								." LEFT JOIN tb_yl_font_preview preview ON font.identity= preview.identity"
@@ -49,7 +49,7 @@ defined("SQL_SELECT_FONT_BY_ID")
 	or define("SQL_SELECT_FONT_BY_ID", "SELECT pay.*, rule.ruleid as ruleid, rule.score as score, incrule.ruleid as incruleid, incrule.score as incscore, 
 										dl.download_times, "
 								." font.ischarge, font.identity, font.author, font.cyid as userid, "
-								." font.fname, font.size, font.md5, name, url, purl, largepreurl, preview_url, width, height"
+								." font.fname, font.size, font.md5, name, url, purl, lurl, largepreurl, preview_url, width, height"
 								." FROM tb_yl_font font"
 								." LEFT JOIN tb_yl_font_preview preview ON font.identity= preview.identity"
 								." LEFT JOIN tb_yl_pay pay ON pay.waresid = font.waresid AND pay.appid = font.appid " 
@@ -65,7 +65,7 @@ defined("SQL_SELECT_FONT_BANNER")
 		or define("SQL_SELECT_FONT_BANNER", "SELECT pay.*, rule.ruleid as ruleid, rule.score as score, incrule.ruleid as incruleid, incrule.score as incscore, 
 										dl.download_times, "
 									." font.bannerid, font.bannername, font.bannerurl,"
-									." font.ischarge, font.identity, font.fname, font.size, font.md5, name, url, purl, largepreurl, preview_url, width, height"
+									." font.ischarge, font.identity, font.fname, font.size, font.md5, name, url, purl, lurl, largepreurl, preview_url, width, height"
 									." FROM (SELECT b.identity AS bannerid, b.name AS bannername, b.url AS bannerurl, b.istop, f.* " 		
 									."		FROM tb_yl_banner_list  bl "  		
 									." 		LEFT JOIN tb_yl_banner b ON b.identity = bl.bannerid " 			
@@ -83,7 +83,7 @@ defined("SQL_SELECT_FONT_BANNER")
  */		
 defined("SQL_SELECT_FONT_WEB")
 	or define("SQL_SELECT_FONT_WEB", "SELECT pay.*, dl.download_times, "
-								." font.ischarge, font.identity, font.fname, font.size, font.md5, name, url, purl, largepreurl, preview_url, width, height"
+								." font.ischarge, font.identity, font.fname, font.size, font.md5, name, url, purl, lurl, largepreurl, preview_url, width, height"
 								." FROM tb_yl_font font"
 								." LEFT JOIN tb_yl_font_preview preview ON font.identity= preview.identity"
 								." LEFT JOIN tb_yl_pay pay ON pay.waresid = font.waresid AND pay.appid = font.appid " 

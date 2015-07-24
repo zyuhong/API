@@ -65,6 +65,12 @@ class FontProtocol extends Protocol
 		
 		$this->url		= $this->_getDownloadUrl();
 		$largepreurl = isset($row['largepreurl'])?$row['largepreurl']:'';
+		
+		$lurl = isset($row['lurl'])?$row['lurl']:'';
+		if(!empty($lurl)){
+			$largepreurl = $lurl;
+		}
+		
 		$previewurl  = isset($row['preview_url'])?$row['preview_url']:'';
 		$purl 		 = isset($row['purl'])?$row['purl']:'';
 		global $g_arr_host_config;
