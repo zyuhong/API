@@ -11,6 +11,9 @@ require_once 'tasks/Records/BrowseRecord.class.php';
 require_once 'tasks/Records/Banner.class.php';
 require_once 'tasks/Records/BannerRecord.class.php';
 
+require_once 'tasks/Records/Albums.class.php';
+require_once 'tasks/Records/AlbumsRecord.class.php';
+
 require_once 'tasks/Records/DownloadCount.class.php';
 require_once 'tasks/Records/DownloadOrder.class.php';
 require_once 'tasks/Records/DownloadRecord.class.php';
@@ -228,6 +231,26 @@ class RecordTask
 		
 		$queue = new QueueTask();
 		$queue->push('banner', $nCoolType, json_encode($banner), 'coolshow_banner_count');
+		return true;
+	}
+	
+	public function saveAlbums($nCoolType)
+	{
+		$record = new AlbumsRecord();
+	
+		$albums = new Albums();
+		$albums->setRecord();
+	
+		$result = $record->saveRecord($nCoolType, $albums);
+		if(!$result){
+			Log::write('RecordTask::saveAlbums():saveRecord() failed', 'log');
+			// 			return false;
+		}
+	
+		$record->close();
+	
+		$queue = new QueueTask();
+		$queue->push('albums', $nCoolType, json_encode($albums), 'coolshow_albums_count');
 		return true;
 	}
 	

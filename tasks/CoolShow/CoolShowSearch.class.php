@@ -512,7 +512,12 @@ class CoolShowSearch
 	public function getAlbums($nCoolType, $strId, $nChannel = 5, $nStart = 0, $nNum = 100)
 	{
 		try {
-			$memKey = 'banner'.$nCoolType.$strId.$nStart.$nNum;
+			$nKernel   = (int)(isset($_GET['kernelCode']))?$_GET['kernelCode']:1;
+			$nWidth    = (int)(isset($_GET['width']))?$_GET['width']:540;
+			$nHeight   = (int)(isset($_GET['height']))?$_GET['height']:960;
+			$protocolCode = (int)(isset($_GET['protocolCode'])?$_GET['protocolCode']:1); 
+							
+			$memKey = 'banner'.$nCoolType.$strId.$nStart.$nNum.$nKernel.$nWidth.$nHeight.$protocolCode;
 			
 			$result = $this->_memcached->getSearchResult($memKey);
 			if($result){
@@ -578,7 +583,12 @@ class CoolShowSearch
 	public function getNewBanner($nCoolType, $strId, $nChannel = 5)
 	{
 		try {
-			$memKey = 'newbanner'.$strId;
+			$nKernel   = (int)(isset($_GET['kernelCode']))?$_GET['kernelCode']:1;#默认值不可变，防止最初版本（未增加此字段的版本）异常
+			$nWidth    = (int)(isset($_GET['width']))?$_GET['width']:540;
+			$nHeight   = (int)(isset($_GET['height']))?$_GET['height']:960;
+			$protocolCode = (int)(isset($_GET['protocolCode'])?$_GET['protocolCode']:1);
+			
+			$memKey = 'newbanner'.$strId.$nKernel.$nWidth.$nHeight.$protocolCode;
 			$result = $this->_memcached->getSearchResult($memKey);
 			if($result){
 // 				Log::write('CoolShowSearch::getNewBanner():getSearchResult()'.$memKey, 'debug');
