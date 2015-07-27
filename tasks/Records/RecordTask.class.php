@@ -218,6 +218,10 @@ class RecordTask
 	{
 		$record = new BannerRecord();
 		
+		if ($nCoolType == COOLXIU_TYPE_SCENE_WALLPAPER){
+			$nCoolType = COOLXIU_TYPE_ANDROIDESK_WALLPAPER;
+		}
+		
 		$banner = new Banner();
 		$banner->setRecord();
 		

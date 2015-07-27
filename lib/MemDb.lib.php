@@ -49,7 +49,7 @@ class MemDb{
 		$key = md5($sql);
 		$result = $this->memcached->get($key);
 		if(!$result){
-			log::write("MemDb::getSearchResult():get() key:".$key." failed", "log");
+// 			log::write("MemDb::getSearchResult():get() key:".$key." failed", "log");
 			return false;
 		}
 		return $result;

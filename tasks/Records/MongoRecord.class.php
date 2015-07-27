@@ -58,6 +58,7 @@ abstract class MongoRecord
 		$strDatabase = '';
 		switch($type){
 			case COOLXIU_TYPE_WALLPAPER:
+			case COOLXIU_TYPE_SCENE_WALLPAPER:
 			case COOLXIU_TYPE_ANDROIDESK_WALLPAPER:{
 				$strDatabase = 'db_yl_wp_record_'.date('Ym');
 			}break;
