@@ -223,7 +223,7 @@ class AndroidWallpaperDb extends DBManager{
 			
 			$arr_android_wp = $this->_getAndroidWpList($sql);
 			if($arr_android_wp === false){
-				Log::write("AndroidWallpaperDb::searchWpList():getAndroidWpList() failed", "log");
+				Log::write("AndroidWallpaperDb::searchWpList():getAndroidWpList() failed, product".$this->_product->name.", width:".$this->_width.", height:".$this->_height, "log");
 				return false;
 			}
 			// 查询当前请求返回的壁纸量

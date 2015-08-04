@@ -3,7 +3,7 @@ require_once 'public/public.php';
 
 defined("SQL_CHECK_MOBILE_EXORDER")
 	or define("SQL_CHECK_MOBILE_EXORDER", "SELECT COUNT(*) FROM tb_yl_exorder_record " 
-										." WHERE status = 1 AND product = '%s' AND identity = '%s' AND %s "); //AND cooltype = %d
+										." WHERE status = 1 AND %s "); //AND cooltype = %d AND product = '%s' identity = '%s' AND
 	
 defined("SQL_INSERT_MOBILE_EXORDER")
 	or define("SQL_INSERT_MOBILE_EXORDER", "INSERT INTO tb_yl_exorder_record "
@@ -38,7 +38,7 @@ class ExorderRecord
 	{
 	}
 	
-	static public function getCheckMobileChargedSql($strProduct, $nCoolType, $strId, $strMeid, $strImsi, $strCyid = '')
+	static public function getCheckMobileChargedSql($strProduct, $nCoolType, $strId, $strCpid, $strMeid, $strImsi, $strCyid = '')
 	{
 		$strFiledCondition = ''; 
 		if(!empty($strMeid)){
@@ -60,8 +60,18 @@ class ExorderRecord
 			$strFiledCondition .= " ) ";
 		}
 		
+		#兼容旧版本只上报了ID，带有已购功能的要用CPID 20150804
+		$strTemp = sprintf("AND identity = '%s' ", $strId);
+		if(empty($strCpid)){
+			$strTemp = sprintf(" AND identity = '%s' ", $strId);
+		}else{
+			$strTemp = sprintf(" AND cpid = '%s' ", $strCpid);
+		}
+		
+		$strFiledCondition .= $strTemp;
+		
 		$strProduct = sql_check_str($strProduct, 30);			
-		$sql = sprintf(SQL_CHECK_MOBILE_EXORDER, $strProduct, $strId, $strFiledCondition);//$nCoolType, 
+		$sql = sprintf(SQL_CHECK_MOBILE_EXORDER,  $strId, $strFiledCondition);//$nCoolType, $strProduct,
 		return $sql;
 	}
 	
