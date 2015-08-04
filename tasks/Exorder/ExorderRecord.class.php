@@ -71,7 +71,7 @@ class ExorderRecord
 		$strFiledCondition .= $strTemp;
 		
 		$strProduct = sql_check_str($strProduct, 30);			
-		$sql = sprintf(SQL_CHECK_MOBILE_EXORDER,  $strId, $strFiledCondition);//$nCoolType, $strProduct,
+		$sql = sprintf(SQL_CHECK_MOBILE_EXORDER, $strFiledCondition);//$nCoolType, $strProduct,
 		return $sql;
 	}
 	
