@@ -15,9 +15,8 @@ class Album extends CoolShow
 	
 	public function getSelectBannerListSql($nCoolType, $bAlbum = 0)
 	{
-		if ($bAlbum){
-			$strCondition = ' AND (album = 1 OR istop = 0) ';
-		}else{
+		$strCondition = '';
+		if (!$bAlbum){
 			$strCondition = ' AND album = 0 ';
 		}
 		$sql = sprintf(SQL_SELECT_ALBUM_LIST, $nCoolType, $strCondition);

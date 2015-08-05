@@ -64,6 +64,12 @@ $reuslt = array('result'=>true,
 				'charged'=>false);
 echo json_encode($reuslt);
 
+
+$lookup		= isset($_GET['lookup'])?$_GET['lookup']:0;#0表示拉取订单号和收费信息，1表示查询收费信息
+if($lookup){
+	exit();
+}
+
 require_once 'tasks/CoolShow/CoolShowSearch.class.php';
 require_once 'tasks/Records/RecordTask.class.php';
 $coolshow = new CoolShowSearch();

@@ -56,6 +56,7 @@ class ScreenProtocol extends Protocol
 	public function setProtocol($row, $nChannel = 0, $newver = false)
 	{
 		$this->id				= isset($row['sceneCode'])?$row['sceneCode']:0;
+		$this->cpid				= isset($row['sceneCode'])?$row['sceneCode']:0;
 		$this->sceneId			= isset($row['sceneCode'])?$row['sceneCode']:0;
 		$this->sceneEName		= isset($row['enName'])?$row['enName']:'';
 		$this->sceneZName		= isset($row['zhName'])?$row['zhName']:'';
