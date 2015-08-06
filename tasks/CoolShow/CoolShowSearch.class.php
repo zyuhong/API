@@ -358,7 +358,7 @@ class CoolShowSearch
 	 * @param unknown_type $nCoolType
 	 * @return string|Ambigous <boolean, unknown>|multitype:
 	 */
-	public function getBannerList($nCoolType, $bAlbum = 0)
+	public function getBannerList($nCoolType, $bAlbum = 0, $nStart = 0, $nNum = 0)
 	{
 		try {
 			$coolshow = new Album();			
@@ -370,7 +370,7 @@ class CoolShowSearch
 				$coolshow->setSceneWallpaper(true);
 			}
 			
-			$strSql = $coolshow->getSelectBannerListSql($nCoolType, $bAlbum);
+			$strSql = $coolshow->getSelectBannerListSql($nCoolType, $bAlbum, $nStart, $nNum);
 			if(!$strSql){
 				Log::write("CoolShowSearch::getBannerList():getSelectBannerListSql() failed Sql is empty", "log");
 				$result = get_rsp_result(false, 'get bannerlist sql failed');
@@ -392,7 +392,7 @@ class CoolShowSearch
 			if($nCoolType == COOLXIU_TYPE_ANDROIDESK_WALLPAPER){
 				$nCoolType = COOLXIU_TYPE_WALLPAPER;
 			}	
-			$protocol = $coolshow->getProtocol($rows, $nCoolType);
+			$protocol = $coolshow->getProtocol($rows, $nCoolType, $bAlbum);
 			if($protocol === false){
 				Log::write("CoolShowSearch::getBannerList():getBannerProtocol() failed", "log");
 				$result = get_rsp_result(false, 'get bannerlist protocol failed');
@@ -1181,7 +1181,7 @@ class CoolShowSearch
 			$coolshow->setChannel(REQUEST_CHANNEL_RECOMMENED);
 
 			$strSql = $coolshow->getRecommendSql();
-			$result = $this->_memcached->getSearchResult($strSql);
+			$result = $this->_memcached->getSearchResult($strSql.$strCpid);
 			if($result){
 // 				Log::write('CoolXiuDb::searchCoolXiuList():getSearchResult()'.$strSql, 'log');
 				return json_encode($result);
@@ -1204,7 +1204,7 @@ class CoolShowSearch
 							'score'=>$score,
 							'recommend' => $arrProtocol);
 			
-			$this->_memcached->setSearchResult($strSql, $result, 60*60);
+			$this->_memcached->setSearchResult($strSql.$strCpid, $result, 60*60);
 			return json_encode($result);
 			
 		}catch (Exception $e){
@@ -1326,14 +1326,14 @@ class CoolShowSearch
 		}
 	}
 	
-	public function getWallpaper($bChoice = 0, $start = 0, $limit = 10)
+	public function getWallpaper($bChoice = 0, $req_type = 0, $start = 0, $limit = 10)
 	{
 		try {
 			$coolshow = new Wallpaper();
 			$this->_setCoolShowParam($coolshow);
-			$coolshow->setChannel(REQUEST_CHANNEL_COMMEN);
+			$coolshow->setChannel(REQUEST_CHANNEL_BANNER);
 				
-			$strSql = $coolshow->getChoiceWallpaperSql($start, $limit, $bChoice);
+			$strSql = $coolshow->getChoiceWallpaperSql($start, $limit, $bChoice, $req_type);
 			if(!$strSql){
 				Log::write('CoolShowSearch::getWallpaper():getChoiceWallpaperSql() failed, Sql is empty', 'log');
 				return false;
@@ -1375,9 +1375,9 @@ class CoolShowSearch
 		return $result;
 	}
 	
-	public function getChoiceWallpaer($start = 0, $limit = 10)
+	public function getChoiceWallpaer($req_type = 0, $start = 0, $limit = 10)
 	{
-		$result = $this->getWallpaper(false, $start, $limit);
+		$result = $this->getWallpaper(false, $req_type, $start, $limit);
 		if (!$result){
 			$result = get_rsp_result(false, 'get wallpaper falied');
 			return $result;

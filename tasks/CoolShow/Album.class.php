@@ -13,17 +13,11 @@ class Album extends CoolShow
 		parent::__construct();
 	}
 	
-	public function getSelectBannerListSql($nCoolType, $bAlbum = 0)
+	public function getSelectBannerListSql($nCoolType, $bAlbum = 0, $nStart = 0, $nNum = 0)
 	{
-<<<<<<< HEAD
-		$strCondition = '';
-		if (!$bAlbum){
-=======
+		$strCondition = ' AND album = 0 ';
 		if ($bAlbum){
-			$strCondition = ' ';
-		}else{
->>>>>>> fb363ac6dd17b5683de311e45936ad784604bad7
-			$strCondition = ' AND album = 0 ';
+			$strCondition = sprintf(' LIMIT %d, %d ', $nStart, $nNum);
 		}
 		$sql = sprintf(SQL_SELECT_ALBUM_LIST, $nCoolType, $strCondition);
 		return $sql;
@@ -40,11 +34,12 @@ class Album extends CoolShow
 		return $this->getProtocol($rows);
 	}
 	
-	public function getProtocol($rows, $nType = 0)
+	public function getProtocol($rows, $nType = 0, $bAlbum = 0)
 	{
 		$arrTop = array();
 		$arrBottom = array();
 		$arrFoot = array();
+		$arrAll = array();
 		foreach($rows as $row){
 			$banner = new BannerProtocol();
 			$banner->setProtocol($row, $nType);
@@ -61,10 +56,12 @@ class Album extends CoolShow
 				case 2:
 					array_push($arrFoot, $banner);break;
 			}
+			array_push($arrAll, $banner);
 		}
 		return array('top'=>$arrTop,
 					 'bottom' => $arrBottom,
-					 'foot' => $arrFoot,);
+					 'foot' => $arrFoot,
+					 'all' => $arrAll);
 	}
 	
 	public function getBannerProtocol($rows, $nType = 0)
