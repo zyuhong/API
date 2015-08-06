@@ -15,6 +15,8 @@ class AndroidWallpaperDb extends DBManager{
 	private $_adWp;	
 	private $_width;
 	private $_height;	
+	private $_start;
+	private $_num;	
 	private $_type;
 	private $_product;
 	private $_memcached;
@@ -41,6 +43,10 @@ class AndroidWallpaperDb extends DBManager{
 		$this->_adWp->setAndroidWp($width, $height, $start, $req_num, $req_type);
 		$this->_width  = $width * 2;
 		$this->_height = $height;
+
+		$this->_start  = $start;
+		$this->_num	   = $req_num;
+		
 		$this->_type   = $req_type;
 	}
 	private function _setType($type)
@@ -205,49 +211,100 @@ class AndroidWallpaperDb extends DBManager{
 		$this->_height	= $resolution[2]; 
 	} 
 	
-	function searchWpList($sorttype = 0){
+	
+	private function _getWpList($sorttype = 0) 
+	{
 		try{
 			$arr_size_tag = $this->_getAndroidWpSizeTag();
 			if($arr_size_tag === false){
-				Log::write("AndroidWallpaperDb::searchWpList():_getAndroidWpSizeTag() failed", "log");
+				Log::write("AndroidWallpaperDb::_getWpList():_getAndroidWpSizeTag() failed", "log");
 				return false;
 			}
-			
+				
 			$sql = $this->_adWp->getSelectAndroidWpByLimitSql($arr_size_tag[0], $sorttype);
 			$result = $this->_memcached->getSearchResult($sql);
 			if($result){
-				return json_encode($result);
+				return $result;
 			}
-			
+				
 			$this->_explodeRatio($arr_size_tag);
-			
+				
 			$arr_android_wp = $this->_getAndroidWpList($sql);
 			if($arr_android_wp === false){
-				Log::write("AndroidWallpaperDb::searchWpList():getAndroidWpList() failed, product".$this->_product->name.", width:".$this->_width.", height:".$this->_height, "log");
+				Log::write("AndroidWallpaperDb::_getWpList():getAndroidWpList() failed, product".$this->_product->name.", width:".$this->_width.", height:".$this->_height, "log");
 				return false;
 			}
 			// 查询当前请求返回的壁纸量
-			$rsp_num = $this->getQueryCount();	
-					
+			$rsp_num = $this->getQueryCount();
+				
 			$count = $this->_getAndroidWpCount();
 			if($count === false){
-				Log::write("AndroidWallpaperDb::searchWpList():_getAndroidWpCount() failed", "log");
+				Log::write("AndroidWallpaperDb::_getWpList():_getAndroidWpCount() failed", "log");
 				return false;
 			}
-
+		
 			$json_rsp =  array('total_number'=>$count,
-									'ret_number'=>$rsp_num,
-									"wallpapers"=>$arr_android_wp);
-			
+					'ret_number'=>$rsp_num,
+					"wallpapers"=>$arr_android_wp);
+				
 			$result = $this->_memcached->setSearchResult($sql, $json_rsp, 3*60*60);
 			if(!$result){
-				Log::write("AndroidWallpaperDb::setSearchResult() failed", "log");
+				Log::write("AndroidWallpaperDb::_getWpList:setSearchResult() failed", "log");
 			}
 		}catch(Exception $e){
-			Log::write("AndroidWallpaperDb::searchWpList()exception error:".$e->getMessage(), "log");
+			Log::write("AndroidWallpaperDb::_getWpList()exception error:".$e->getMessage(), "log");
 			return false;
-		}		
-		return json_encode($json_rsp);		
+		}
+		return $json_rsp;
+	}
+	
+	public function searchWpList($sorttype = 0)
+	{
+		/**
+		 * 2015.08.06
+		 * 自运营壁纸叠加到安卓壁纸智商
+		 * 需要兼容旧版本
+		 * 
+		 */
+
+		$num   = $this->_num;
+		$start = $this->_start;
+		$nRetTotal = 0;
+		$nRetNum  = 0;
+		$arrRetWallpaper = array();
+		
+		if ($this->_type == 0){
+			$coolshow = new CoolShowSearch();
+			$result = $coolshow->getWallpaper(true, $this->_start, $this->_num);
+			if($result){
+				$nCpTotal = $result['total_number'];
+				$nRetNum = $result['ret_number'];
+				$arrRetWallpaper = $result['wallpapers'];
+				
+				if ($nCpTotal >= ($this->_start + $this->_num)){
+					return json_encode($result);
+				}
+				
+				if($nRetNum == 0){
+					$num   = $this->_num;
+					$start = $this->_start - $nCpTotal;
+				}else{
+					$num   = $this->_num - $nRetNum;
+					$start = 0;
+				}
+			}
+		}
+				
+		$this->_adWp->setReqNum($start, $num);
+		$result = $this->_getWpList($sorttype);
+		if (!$result){
+			return false;
+		}
+		
+		$json_rsp =  array('total_number'=>$nCpTotal + $result['total_number'],
+						   'ret_number'=>$nRetNum + $result['ret_number'],
+							'wallpapers'=>array_merge($arrRetWallpaper, $result['wallpapers']));		
+		return json_encode($json_rsp);
 	}	
 	
 	

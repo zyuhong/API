@@ -1326,57 +1326,62 @@ class CoolShowSearch
 		}
 	}
 	
-	public function getChoiceWallpaer($start = 0, $limit = 10)
+	public function getWallpaper($bChoice = 0, $start = 0, $limit = 10)
 	{
 		try {
 			$coolshow = new Wallpaper();
 			$this->_setCoolShowParam($coolshow);
-			$coolshow->setChannel(REQUEST_CHANNEL_BANNER);
-			
-			$strSql = $coolshow->getChoiceWallpaperSql($start, $limit);
-			if(!$strSql){
-				Log::write('CoolShowSearch::getChoiceWallpaer():getChoiceWallpaperSql() failed, Sql is empty', 'log');
-				$result = get_rsp_result(false, 'get protocol sql empty');
-				return $result;
-			}
+			$coolshow->setChannel(REQUEST_CHANNEL_COMMEN);
 				
+			$strSql = $coolshow->getChoiceWallpaperSql($start, $limit, $bChoice);
+			if(!$strSql){
+				Log::write('CoolShowSearch::getWallpaper():getChoiceWallpaperSql() failed, Sql is empty', 'log');
+				return false;
+			}
+		
 //  		Log::write('CoolShowSearch::getChoiceWallpaer():getCoolShowListSql(), SQL:'.$strSql, 'debug');
 			$result = $this->_memcached->getSearchResult($strSql);
 			if($result){
 // 				Log::write('CoolShowSearch::getChoiceWallpaer():getSearchResult()'.$strSql, 'log');
-				return json_encode($result);
-			}
-			
-			$arrProtocol = $this->_getProtocol($coolshow, $strSql);
-			if(!$arrProtocol){
-				Log::write('CoolShowSearch::getChoiceWallpaer():_getProtocol() failed', 'log');
-				$result = get_rsp_result(false, 'get protocol failed');
-				return $result;
-			}
-
-			$strSql = $coolshow->getCountChoiceWallpaperSql();
-			$count = $this->_getDb()->getCoolShowCount($strSql);
-			if($count === false){
-				Log::write('CoolShowSearch::getChoiceWallpaer():getCoolShowCount() failed, SQL:'.$strSql, 'log');
-				$result = get_rsp_result(false, 'get choice wallpaper count failed');
 				return $result;
 			}
 				
-			
+			$arrProtocol = $this->_getProtocol($coolshow, $strSql);
+			if($arrProtocol === false){
+				Log::write('CoolShowSearch::getWallpaper():_getProtocol() failed', 'log');
+				return false;
+			}
+		
+			$strSql = $coolshow->getCountChoiceWallpaperSql($bChoice);
+			$count = $this->_getDb()->getCoolShowCount($strSql);
+			if($count === false){
+				Log::write('CoolShowSearch::getWallpaper():getCoolShowCount() failed, SQL:'.$strSql, 'log');
+				return  false;
+			}
+				
 			$result =  array(
 					'total_number'=> $count,
 					'ret_number'  => count($arrProtocol),
 					$coolshow->strType     => $arrProtocol
 			);
-				
+		
 			$this->_memcached->setSearchResult($strSql, $result, 12*60*60);
-				
+		
 		}catch(Exception $e){
-			Log::write('CoolShowSearch::getChoiceWallpaer() excepton error:'.$e->getMessage(), 'log');
-			$result = get_rsp_result(false, 'get coolshow exception');
+			Log::write('CoolShowSearch::getWallpaper() excepton error:'.$e->getMessage(), 'log');
+			return false;
+		}
+		
+		return $result;
+	}
+	
+	public function getChoiceWallpaer($start = 0, $limit = 10)
+	{
+		$result = $this->getWallpaper(false, $start, $limit);
+		if (!$result){
+			$result = get_rsp_result(false, 'get wallpaper falied');
 			return $result;
 		}
-	
 		return json_encode($result);
 	}
 	

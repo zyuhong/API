@@ -91,17 +91,25 @@ class Wallpaper extends CoolShow
 		return $sql;
 	}
 	
-	public function getChoiceWallpaperSql($nStart, $nLimit)
+	public function getChoiceWallpaperSql($nStart, $nLimit, $bChoice = 0)
 	{
 		$this->_resetRatio();
-		$sql = sprintf(SQL_SELECT_CHOICE_WALLPAPER_INFO, $this->_nWidth, $this->_nHeight, $nStart, $nLimit);
+		$strCondition = '';
+		if($bChoice){
+			$strCondition = ' AND choice = 1';
+		}
+		$sql = sprintf(SQL_SELECT_CHOICE_WALLPAPER_INFO, $this->_nWidth, $this->_nHeight, $strCondition, $nStart, $nLimit);
 		return $sql;
 	}
 	
-	public function getCountChoiceWallpaperSql()
+	public function getCountChoiceWallpaperSql($bChoice = 0)
 	{
 		$this->_resetRatio();
-		$sql = sprintf(SQL_COUNT_CHOICE_WALLPAPER_INFO, $this->_nWidth, $this->_nHeight);
+		$strCondition = '';
+		if($bChoice){
+			$strCondition = ' AND choice = 1';
+		}
+		$sql = sprintf(SQL_COUNT_CHOICE_WALLPAPER_INFO, $this->_nWidth, $this->_nHeight, $strCondition);
 		return $sql;
 	}
 	

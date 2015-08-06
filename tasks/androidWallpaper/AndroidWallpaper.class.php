@@ -62,6 +62,12 @@
 				
 		}
 		
+		public function setReqNum($start, $num)
+		{
+			$this->start	 = $start;
+			$this->req_num	 = $num;
+		}
+		
 		function getSelectAndroidWpSizeTagSql(){
 			$sql = sprintf(SQL_SELECT_SIZE_TAG_FOR_REQ, $this->type_tag);
 			return $sql;
