@@ -273,27 +273,27 @@ class AndroidWallpaperDb extends DBManager{
 		$nRetNum  = 0;
 		$arrRetWallpaper = array();
 		
-		if ($this->_type == 0){
-			$coolshow = new CoolShowSearch();
-			$result = $coolshow->getWallpaper(true, $this->_start, $this->_num);
-			if($result){
-				$nCpTotal = $result['total_number'];
-				$nRetNum = $result['ret_number'];
-				$arrRetWallpaper = $result['wallpapers'];
-				
-				if ($nCpTotal >= ($this->_start + $this->_num)){
-					return json_encode($result);
-				}
-				
-				if($nRetNum == 0){
-					$num   = $this->_num;
-					$start = $this->_start - $nCpTotal;
-				}else{
-					$num   = $this->_num - $nRetNum;
-					$start = 0;
-				}
+// 		if ($this->_type == 0){
+		$coolshow = new CoolShowSearch();
+		$result = $coolshow->getWallpaper(true, $this->_type, $this->_start, $this->_num);
+		if($result){
+			$nCpTotal = $result['total_number'];
+			$nRetNum = $result['ret_number'];
+			$arrRetWallpaper = $result['wallpapers'];
+			
+			if ($nCpTotal >= ($this->_start + $this->_num)){
+				return json_encode($result);
+			}
+			
+			if($nRetNum == 0){
+				$num   = $this->_num;
+				$start = $this->_start - $nCpTotal;
+			}else{
+				$num   = $this->_num - $nRetNum;
+				$start = 0;
 			}
 		}
+// 		}
 				
 		$this->_adWp->setReqNum($start, $num);
 		$result = $this->_getWpList($sorttype);
