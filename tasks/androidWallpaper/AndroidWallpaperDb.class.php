@@ -272,10 +272,12 @@ class AndroidWallpaperDb extends DBManager{
 		$nRetTotal = 0;
 		$nRetNum  = 0;
 		$arrRetWallpaper = array();
-		
-// 		if ($this->_type == 0){
+		$bChoice = false;
+ 		if ($this->_type == 0){
+ 			$bChoice = true;
+		}
 		$coolshow = new CoolShowSearch();
-		$result = $coolshow->getWallpaper(true, $this->_type, $this->_start, $this->_num);
+		$result = $coolshow->getWallpaper($bChoice, $this->_type, $this->_start, $this->_num);
 		if($result){
 			$nCpTotal = $result['total_number'];
 			$nRetNum = $result['ret_number'];
@@ -294,7 +296,7 @@ class AndroidWallpaperDb extends DBManager{
 			}
 		}
 // 		}
-				
+
 		$this->_adWp->setReqNum($start, $num);
 		$result = $this->_getWpList($sorttype);
 		if (!$result){
