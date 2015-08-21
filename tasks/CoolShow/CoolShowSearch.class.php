@@ -1352,7 +1352,7 @@ class CoolShowSearch
 				return false;
 			}
 		
-			$strSql = $coolshow->getCountChoiceWallpaperSql($bChoice);
+			$strSql = $coolshow->getCountChoiceWallpaperSql($bChoice, $req_type);
 			$count = $this->_getDb()->getCoolShowCount($strSql);
 			if($count === false){
 				Log::write('CoolShowSearch::getWallpaper():getCoolShowCount() failed, SQL:'.$strSql, 'log');
