@@ -38,10 +38,15 @@ class ExorderDb extends DBManager
 				}
 			}else{
 // 				Log::write('ExorderDb::createExorder():saveExorder()'.$exorder->strDate, 'log');
-				if ($exorder->strDate == $strNow){
+// 				if ($exorder->strDate == $strNow){
+// 					$nExorder = $exorder->nExorder + 1;
+// 				}
+// 				Log::write('ExorderDb::createExorder():updateExorder()'.$nExorder, 'log');
+				
+				if ($exorder->nExorder < 999999){//一天不可超过999999个订单，不然会出错，如果一天订单量到了这个级别，需要 调整数据，确认订单号位数是否够 
 					$nExorder = $exorder->nExorder + 1;
 				}
-// 				Log::write('ExorderDb::createExorder():updateExorder()'.$nExorder, 'log');
+					
 				$bResult = $this->updateExorder($strNow, $nType, $nExorder);
 				if(!$bResult){
 					Log::write('ExorderDb::createExorder():updateExorder() failed', 'log');

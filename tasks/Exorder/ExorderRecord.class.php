@@ -7,10 +7,10 @@ defined("SQL_CHECK_MOBILE_EXORDER")
 	
 defined("SQL_INSERT_MOBILE_EXORDER")
 	or define("SQL_INSERT_MOBILE_EXORDER", "INSERT INTO tb_yl_exorder_record "
-										." (exorder, status, count, ruleid, score, appid, waresid, money, "
+										." (exorder, status, channel, count, ruleid, score, appid, waresid, money, "
 										." cooltype, identity, cpid, name, userid, author, type, " 
 										." product, meid, cyid, imsi, net, vercode, kernel, insert_time)"
-										." VALUES ('%s', 0, 1, '%s', %d, '%s',  '%s', %d, "
+										." VALUES ('%s', 0, '%s', 1, '%s', %d, '%s',  '%s', %d, "
 										." %d,  '%s', '%s', '%s', '%s', '%s',  %d, "
 										." '%s', '%s', '%s', '%s', '%s', '%s', %d, '%s')");
 	
@@ -79,13 +79,13 @@ class ExorderRecord
 									$strId, $cpid, $name, $userid, $author, $type,
 									$appid, $waresid, $money,
 									$strProduct, $strMeid, $strCyid, $strImsi, $strNet,
-									$strVercode, $kernel)
+									$strVercode, $kernel, $channel = 'yx')
 	{	
 		$strProduct = sql_check_str($strProduct, 30);
 		$strMeid = sql_check_str($strMeid, 50);
 		$strImsi = sql_check_str($strImsi, 50);
 		$strExorder = sql_check_str($strExorder, 30);
-		$sql = sprintf(SQL_INSERT_MOBILE_EXORDER, $strExorder, $ruleid, $score, $appid, $waresid, $money,
+		$sql = sprintf(SQL_INSERT_MOBILE_EXORDER, $strExorder, $channel, $ruleid, $score, $appid, $waresid, $money,
 												  $nCoolType, $strId, $cpid, $name, $userid,  $author, $type,
 												  $strProduct, $strMeid, $strCyid, $strImsi, $strNet, $strVercode, $kernel,
 												  date('Y-m-d H:i:s'));

@@ -56,14 +56,14 @@ class ExorderRecordDb extends DBManager
 									$strId, $cpid, $name, $userid, $author, $type,
 									$appid, $waresid, $money,
 									$strProduct, $strMeid, $strCyid, $strImsi, $strNet,
-									$strVercode, $kernel)
+									$strVercode, $kernel, $channel = 'yx')
 	{
 		try{	
 			$sql = ExorderRecord::getInsertMobileExorderSql($nCoolType, $strExorder, $ruleid, $score,
 									$strId, $cpid, $name, $userid, $author, $type,
 									$appid, $waresid, $money,
 									$strProduct, $strMeid, $strCyid, $strImsi, $strNet,
-									$strVercode, $kernel);
+									$strVercode, $kernel, $channel);
 			$bResult = $this->executeSql($sql);
 			if(!$bResult){
 				Log::write('ExorderDb::saveMobileExorder():executeSql() failed, SQL:'.$sql, 'log');
