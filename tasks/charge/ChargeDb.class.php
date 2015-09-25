@@ -25,6 +25,12 @@ class ChargeDb extends DBManager
 	{
 		$this->_chargeRecord->setNChargeRecord($arrChargeRecord);
 	}
+	
+	public function setQikuChargeRecord($arrChargeRecord)
+	{
+		$this->_chargeRecord->setQikuChargeRecord($arrChargeRecord);
+	}
+	
 	public function recordCharge()
 	{
 		$bResult = $this->_chargeRecord->checkChargeRecord();
@@ -44,6 +50,24 @@ class ChargeDb extends DBManager
 	}
 	
 	public function recordNCharge()
+	{
+		$bResult = $this->_chargeRecord->checkChargeRecord();
+		if(!$bResult){
+			Log::write('CharegeDb::recordNCharge():checkChargeRecord() failed', 'log');
+			return false;
+		}
+	
+		$sql = $this->_chargeRecord->getNInsertSql();
+		$bResult = $this->executeSql($sql);
+		if(!$bResult){
+			Log::write('CharegeDb::recordNCharge():executeSql() failed', 'log');
+			return false;
+		}
+	
+		return true;
+	}
+	
+	public function recordQikuCharge()
 	{
 		$bResult = $this->_chargeRecord->checkChargeRecord();
 		if(!$bResult){

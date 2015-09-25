@@ -31,6 +31,9 @@ class ChargeRecord
 	
 	public $insert_time;
 	
+	public $strChannel;			//所属运营商
+	
+	
 	public function __construct()
 	{
 		$this->strCpid			= '';
@@ -47,6 +50,7 @@ class ChargeRecord
 		$this->strTransTime		= '';
 		$this->strSign			= '';
 		$this->insert_time		= date("Y-m-d H:i:s");
+		$this->strChannel		= 'yx';
 	}
 	
 	public function checkChargeRecord()
@@ -80,6 +84,8 @@ class ChargeRecord
 		$this->nResult			=  isset($arrChargeRecord['result'])?$arrChargeRecord['result']:1;
 		$this->nTransType		=  isset($arrChargeRecord['transtype'])?$arrChargeRecord['transtype']:0;
 		$this->strTransTime		=  isset($arrChargeRecord['transtime'])?$arrChargeRecord['transtime']:'';
+
+		$this->strChannel		= 'cp';
 	}
 	
 	public function setNChargeRecord($arrChargeRecord)
@@ -101,6 +107,29 @@ class ChargeRecord
 		$this->strPhone			=  isset($arrChargeRecord['phone'])?$arrChargeRecord['phone']:0;
 		$this->strOperators		=  isset($arrChargeRecord['operators'])?$arrChargeRecord['operators']:0;
 // 		$this->strSign			=  isset($arrChargeRecord['operators'])?$arrChargeRecord['operators']:0;
+		$this->strChannel		= 'yx';
+	}
+	
+	public function setQikuChargeRecord($arrChargeRecord)
+	{
+		$this->strExorderNo		=  isset($arrChargeRecord['exorderno'])?$arrChargeRecord['exorderno']:'';
+		$this->strTransid		=  isset($arrChargeRecord['transid'])?$arrChargeRecord['transid']:'';
+		$this->strAppid			=  isset($arrChargeRecord['appid'])?$arrChargeRecord['appid']:'';
+		$this->strAppName		=  isset($arrChargeRecord['appname'])?$arrChargeRecord['appname']:'';//
+		$this->strWaresid		=  isset($arrChargeRecord['waresid'])?$arrChargeRecord['waresid']:'';
+		$this->strMerName		=  isset($arrChargeRecord['mername'])?$arrChargeRecord['mername']:'';//
+		$this->strChargePoint	=  isset($arrChargeRecord['changepoint'])?$arrChargeRecord['changepoint']:'';//
+		$this->strChargePointName =  isset($arrChargeRecord['chargepointname'])?$arrChargeRecord['chargepointname']:'';//
+		$nMoney 				=  isset($arrChargeRecord['money'])?$arrChargeRecord['money']:0;
+		$this->nMoney 			=  $nMoney * 100;//统一为分
+		$this->nResult			=  isset($arrChargeRecord['result'])?$arrChargeRecord['result']:0;
+		$this->strTransTime		=  isset($arrChargeRecord['transtime'])?$arrChargeRecord['transtime']:'';
+		$this->strPayType		=  isset($arrChargeRecord['paytype'])?$arrChargeRecord['paytype']:0;
+		$this->strPayTypeName	=  isset($arrChargeRecord['paytypename'])?$arrChargeRecord['paytypename']:0;//
+		$this->strPhone			=  isset($arrChargeRecord['phone'])?$arrChargeRecord['phone']:0;//
+		$this->strOperators		=  isset($arrChargeRecord['operators'])?$arrChargeRecord['operators']:0;//
+// 		$this->strSign			=  isset($arrChargeRecord['operators'])?$arrChargeRecord['operators']:0;//
+		$this->strChannel		= 'qk';
 	}
 	
 	public function setSign($strSign)
@@ -129,6 +158,7 @@ class ChargeRecord
 	public function getNInsertSql()
 	{
 		$sql = sprintf(YL_SQL_INSERT_N_CHARGE_RECORD,  $this->strExorderNo,
+				$this->strChannel,
 				$this->strTransid,
 				$this->strAppid,
 				$this->strAppName,
