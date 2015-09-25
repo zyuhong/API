@@ -15,7 +15,7 @@ class Album extends CoolShow
 	
 	public function getSelectBannerListSql($nCoolType, $bAlbum = 0, $nStart = 0, $nNum = 0)
 	{
-		$strCondition = ' AND album = 0 ';
+		$strCondition = ' AND album = 0  ORDER BY update_time DESC ';
 		if ($bAlbum){
 			$strCondition = sprintf(' LIMIT %d, %d ', $nStart, $nNum);
 		}

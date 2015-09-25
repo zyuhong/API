@@ -16,7 +16,7 @@ defined("SQL_COUNT_SCENE")
 	
 defined("SQL_SELECT_SCENE_APK")
 	or define("SQL_SELECT_SCENE_APK", "SELECT pay.*, scene.*, rule.ruleid as ruleid, rule.score as score, incrule.ruleid as incruleid, incrule.score as incscore, 
-									dl.download_times, tinfo.url as turl "
+									dl.mdl, dl.download_times, tinfo.url as turl "
 								." FROM tb_yl_scene scene"
 								." LEFT JOIN tb_yl_pay pay ON pay.waresid = scene.waresid AND pay.appid = scene.appid "
 								." LEFT JOIN tb_yl_scene_download dl ON dl.cpid = scene.sceneCode"

@@ -5,7 +5,7 @@
  
 defined("SQL_SELECT_FONT")
 	or define("SQL_SELECT_FONT", "SELECT pay.*, rule.ruleid as ruleid, rule.score as score, incrule.ruleid as incruleid, incrule.score as incscore, 
-										dl.download_times, "
+										dl.mdl, dl.download_times, "
 								." font.ischarge, font.identity, font.fname, font.size, font.md5, name, url, purl, lurl, largepreurl, preview_url, width, height"
 								." FROM tb_yl_font font"
 								." LEFT JOIN tb_yl_font_preview preview ON font.identity= preview.identity"

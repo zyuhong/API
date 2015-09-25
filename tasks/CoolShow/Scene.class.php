@@ -57,7 +57,7 @@ class Scene extends CoolShow
 		$strOrderBy = ' ORDER BY scene.asort DESC ';
 		switch ($this->_nSort){
 			case  COOLXIU_SEARCH_HOT:
-				$strOrderBy   = ' ORDER BY download_times DESC ';
+				$strOrderBy   = ' ORDER BY mdl DESC ';
 				break;
 			case  COOLXIU_SEARCH_LAST:
 				$strOrderBy   = ' ORDER BY scene.insert_time DESC ';

@@ -27,6 +27,26 @@ class Wallpaper extends CoolShow
 		return $sql;
 	}
 	
+	protected function _resetRatio()
+	{
+		parent::_resetRatio();
+
+		if(($this->_nWidth == 960 && $this->_nHeight == 800) 
+			|| ($this->_nWidth == 960 && $this->_nHeight == 854)){
+
+			$this->_nWidth   = 1080;
+			$this->_nHeight   = 960;
+		}
+		
+
+		if(($this->_nWidth == 1440 && $this->_nHeight == 1280)
+			|| ($this->_nWidth == 2400 && $this->_nHeight == 1920)){
+		
+			$this->_nWidth   = 2160;
+			$this->_nHeight  = 1920;
+		}
+	}
+	
 	public function getCoolShowCountSql()
 	{
 		$this->_resetRatio();
@@ -94,22 +114,22 @@ class Wallpaper extends CoolShow
 	public function getChoiceWallpaperSql($nStart, $nLimit, $bChoice = 0, $nType = 0)
 	{
 		$this->_resetRatio();
-		$strCondition = '';
+		$strCondition = sprintf(' AND type = %d ', $nType);
 		if($bChoice){
-			$strCondition = ' AND choice = 1';
+			$strCondition = '';// AND choice = 1 ';
 		}
-		$sql = sprintf(SQL_SELECT_CHOICE_WALLPAPER_INFO, $nType, $this->_nWidth, $this->_nHeight, $strCondition, $nStart, $nLimit);
+		$sql = sprintf(SQL_SELECT_CHOICE_WALLPAPER_INFO, $this->_nWidth, $this->_nHeight, $strCondition, $nStart, $nLimit);
 		return $sql;
 	}
 	
 	public function getCountChoiceWallpaperSql($bChoice = 0, $nType = 0)
 	{
 		$this->_resetRatio();
-		$strCondition = '';
+		$strCondition = sprintf(' AND type = %d ', $nType);
 		if($bChoice){
-			$strCondition = ' AND choice = 1';
+			$strCondition = '';// AND choice = 1 ';
 		}
-		$sql = sprintf(SQL_COUNT_CHOICE_WALLPAPER_INFO, $nType, $this->_nWidth, $this->_nHeight, $strCondition);
+		$sql = sprintf(SQL_COUNT_CHOICE_WALLPAPER_INFO, $this->_nWidth, $this->_nHeight, $strCondition);
 		return $sql;
 	}
 	

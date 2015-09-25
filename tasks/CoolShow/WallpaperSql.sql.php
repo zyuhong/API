@@ -71,10 +71,10 @@ defined("SQL_SELECT_WLLPAPER_BANNER_LARGE_URL")
  */	
 defined("SQL_SELECT_CHOICE_WALLPAPER_INFO")
 	or define("SQL_SELECT_CHOICE_WALLPAPER_INFO", "SELECT * FROM tb_yl_wallpaper "
-												." WHERE 1=1 AND valid = 1 AND type = %d AND width=%d AND height=%d %s "
-												." ORDER BY insert_time DESC  "
+												." WHERE 1=1 AND valid = 1 AND width=%d AND height=%d %s "
+												." ORDER BY asort ASC, insert_time DESC  "
 												." LIMIT %d, %d ");
 	
 defined("SQL_COUNT_CHOICE_WALLPAPER_INFO")
 	or define("SQL_COUNT_CHOICE_WALLPAPER_INFO", "SELECT COUNT(*) FROM tb_yl_wallpaper "
-												." WHERE 1=1 AND valid = 1 AND type = %d AND width = %d AND height = %d  %s ");
+												." WHERE 1=1 AND valid = 1 AND width = %d AND height = %d  %s ");

@@ -19,7 +19,7 @@ defined("SQL_SELECT_THEME_INFO")
        							." preview.url AS prev_url, preview.type AS prev_type"
 								." FROM (SELECT t.*, tinfo.identity, tinfo.kernel, tinfo.height, tinfo.width," 
 								." 				tinfo.url, tinfo.size, tinfo.md5, tinfo.img_num, " 
-								." 				tinfo.effect, tinfo.font_style, tinfo.keyguard_style, dl.download_times "
+								." 				tinfo.effect, tinfo.font_style, tinfo.keyguard_style, dl.mdl, dl.download_times "
 								." 		FROM tb_yl_theme t "
 								." 		INNER JOIN tb_yl_theme_info tinfo ON t.cpid = tinfo.cpid 
 										LEFT JOIN tb_yl_theme_download dl ON dl.cpid = t.cpid "

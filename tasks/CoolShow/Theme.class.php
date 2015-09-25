@@ -177,7 +177,7 @@ class Theme extends CoolShow
 		if($this->_nProtocolCode >= 3 )$strOrderBy = ' ORDER BY t.tdate DESC ';
 		switch ($this->_nSort){
 			case  COOLXIU_SEARCH_HOT:
-				$strOrderBy   = ' ORDER BY download_times DESC ';
+				$strOrderBy   = ' ORDER BY mdl DESC ';
 				break;
 			case  COOLXIU_SEARCH_LAST:
 				$strOrderBy   = ' ORDER BY t.insert_time DESC ';
