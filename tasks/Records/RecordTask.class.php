@@ -125,6 +125,28 @@ class RecordTask
 		}
 		return true;
 	}
+	
+	public function saveAdBrowse($nCoolType)
+	{
+		try {
+			$record = new BrowseRecord();
+	
+			$br = new Browse();
+			$br->setRecord();
+	
+			$result = $record->saveRecord($nCoolType, $br);
+			if(!$result){
+				Log::write('RecordTask::saveAdBrowse():saveRecord() failed', 'log');
+// 				return false;
+			}
+	
+			$record->close();
+			
+		}catch (Exception $e){
+			Log::write('RecordTask::saveAdBrowse():QueueTask():push() failed', 'log');
+		}
+		return true;
+	}
 	/**
 	 * 下载记录
 	 * @param unknown_type $nCoolType
@@ -144,17 +166,17 @@ class RecordTask
 // 			return false;
 		}
 		
-		$record = new DownloadRecord();
-		$dlCount = new DownloadCount();
-		$dlCount->setRecord();
+// 		$record = new DownloadRecord();
+// 		$dlCount = new DownloadCount();
+// 		$dlCount->setRecord();
 		
-		$result = $record->saveCountRecord($nCoolType, $dlCount);
-		if(!$result){
-			Log::write('RecordTask::saveDownload():saveCountRecord() failed', 'log');
+// 		$result = $record->saveCountRecord($nCoolType, $dlCount);
+// 		if(!$result){
+// 			Log::write('RecordTask::saveDownload():saveCountRecord() failed', 'log');
 // 			return false;
-		}
+// 		}
 
-		$record->close();
+// 		$record->close();
 		
 		$queue = new QueueTask();
 		$queue->push('dl', $nCoolType, json_encode($dl), 'coolshow_dl_count');
@@ -175,7 +197,7 @@ class RecordTask
 	 */
 	public function saveOrder($nCoolType, $strId, $cpid, $ruleid, $score,
 							  $name, $userid, $author, $type, 
-							  $appid, $waresid, $money, $strExorder)
+							  $appid, $waresid, $money, $strExorder, $channel = 'yx')
 	{
 		$record = new DownloadRecord();
 		
@@ -184,7 +206,7 @@ class RecordTask
 		$order->setCoolType($nCoolType);
 		$order->setOrderParam($strId, $cpid, $ruleid, $score,
 							  $name, $userid, $author, $type, 
-							  $appid, $waresid, $money, $strExorder);
+							  $appid, $waresid, $money, $strExorder, $channel);
 		
 		$result = $record->saveOrderRecord($nCoolType, $order);
 		if(!$result){
@@ -335,6 +357,30 @@ class RecordTask
 				$result = $this->saveApply($nCoolType);
 				break;
 			case -1:
+				Log::write('RecordTask::saveStaticRecord no module type failed', 'error');
+				break;
+		}
+		return $result;
+	}
+	
+	public function saveAdStaticRecord()
+	{
+		$strId 	 	 = isset($_GET['id'])?$_GET['id']:'';
+		$nCoolType   = (int)(isset($_GET['type'])?$_GET['type']:0);//banner\adver
+		$nOpType  	 = isset($_GET['optype'])?$_GET['optype']:-1;
+		
+		
+		$nCoolType = 23+$nCoolType;
+		
+		$result = false;
+		switch ($nOpType){
+			case self::YL_COOLSHOW_OPTYPE_REQ:
+				$result = $this->saveAdBrowse($nCoolType);
+				break;
+			case self::YL_COOLSHOW_OPTYPE_BROWSER:
+				$result = $this->saveApply($nCoolType);
+				break;
+			default:
 				Log::write('RecordTask::saveStaticRecord no module type failed', 'error');
 				break;
 		}

@@ -95,6 +95,12 @@ abstract class MongoRecord
 			case COOLXIU_TYPE_ALARM:{
 				$strDatabase = 'db_yl_alarm_record_'.date('Ym');
 			}break;
+			case COOLXIU_TYPE_AD_ADVER:{
+				$strDatabase = 'db_yl_adver_record_'.date('Ym');
+			}break;
+			case COOLXIU_TYPE_AD_BANNER:{
+				$strDatabase = 'db_yl_banner_record_'.date('Ym');
+			}break;
 				
 			default:return false; 
 		}

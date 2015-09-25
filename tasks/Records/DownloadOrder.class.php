@@ -26,6 +26,7 @@ class DownloadOrder extends Download
 	public $ruleid;		//积分规则
 	public $score;		//积分值
 	public $isscore;	//是否积分消费
+	public $channel;	//支付渠道
 	public function __construct()
 	{	
 // 		$this->product	 = '';
@@ -51,6 +52,7 @@ class DownloadOrder extends Download
 		$this->ruleid	 = '';
 		$this->score	 = 0;
 		$this->isscore	 = 0;
+		$this->channel	 = 'yx';
 	}
 
 	public function setOrder($strExorder, $isScore)
@@ -62,7 +64,7 @@ class DownloadOrder extends Download
 	
 	public function setOrderParam($strId, $cpid, $ruleid, $score, 
 								  $name, $userid, $author, $type, 
-								  $appid, $waresid, $money, $strExorder)
+								  $appid, $waresid, $money, $strExorder, $channel = 'yx')
 	{
 
 		$this->name		= $name;
@@ -79,6 +81,7 @@ class DownloadOrder extends Download
 
  		$this->ruleid	 = $ruleid;
  		$this->score	 = $score;
+ 		$this->channel   = $channel;
 // 		$this->transid	= $strTransid;
 // 		$this->feetype	= $nFeetype;
 // 		$this->result	= $nResult;
