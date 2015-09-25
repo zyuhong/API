@@ -269,7 +269,7 @@ class AndroidWallpaperDb extends DBManager{
 
 		$num   = $this->_num;
 		$start = $this->_start;
-		$nRetTotal = 0;
+		$nCpTotal = 0;
 		$nRetNum  = 0;
 		$arrRetWallpaper = array();
 		$bChoice = false;
@@ -278,14 +278,19 @@ class AndroidWallpaperDb extends DBManager{
 		}
 		$coolshow = new CoolShowSearch();
 		$result = $coolshow->getWallpaper($bChoice, $this->_type, $this->_start, $this->_num);
+		if(!$result){
+			return  false;
+		}
+		return json_encode($result);
+		
 		if($result){
 			$nCpTotal = $result['total_number'];
 			$nRetNum = $result['ret_number'];
 			$arrRetWallpaper = $result['wallpapers'];
 			
-			if ($nCpTotal >= ($this->_start + $this->_num)){
-				return json_encode($result);
-			}
+// 			if ($nCpTotal >= ($this->_start + $this->_num)){
+// 				return json_encode($result);
+// 			}
 			
 			if($nRetNum == 0){
 				$num   = $this->_num;
@@ -302,9 +307,9 @@ class AndroidWallpaperDb extends DBManager{
 		if (!$result){
 			return false;
 		}
-		
-		$json_rsp =  array('total_number'=>$nCpTotal + $result['total_number'],
-						   'ret_number'=>$nRetNum + $result['ret_number'],
+
+		$json_rsp =  array('total_number'=>(int)($nCpTotal) + (int)($result['total_number']),
+						   'ret_number'=>(int)($nRetNum) + (int)($result['ret_number']),
 							'wallpapers'=>array_merge($arrRetWallpaper, $result['wallpapers']));		
 		return json_encode($json_rsp);
 	}	
