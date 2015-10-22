@@ -41,7 +41,7 @@ class Font extends CoolShow
 		$strOrderBy = ' ORDER BY font.asort DESC ';
 		switch ($this->_nSort){
 			case  COOLXIU_SEARCH_HOT:
-				$strOrderBy   = ' ORDER BY mdl DESC ';
+				$strOrderBy   = ' ORDER BY download_times DESC ';
 				break;
 			case  COOLXIU_SEARCH_LAST:
 				$strOrderBy   = ' ORDER BY font.insert_time DESC ';

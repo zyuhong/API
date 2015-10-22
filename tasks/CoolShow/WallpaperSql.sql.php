@@ -20,7 +20,7 @@ defined("SQL_SELECT_WALLPAPER_ALBUMS")
 							." FROM tb_yl_albums_res ares "
 							." LEFT JOIN tb_yl_wallpaper wp ON wp.cpid = ares.cpid"
 							." WHERE ares.albumid = '%s' AND ares.valid =1 AND ares.cooltype = 3 AND wp.valid = 1 AND wp.width= %d AND wp.height= %d "
-							." ORDER BY wp.folder DESC "		);
+							." ORDER BY wp.asort DESC "		);
 
 /**
  * 获取混合安桌壁纸bnner区信息
@@ -72,7 +72,7 @@ defined("SQL_SELECT_WLLPAPER_BANNER_LARGE_URL")
 defined("SQL_SELECT_CHOICE_WALLPAPER_INFO")
 	or define("SQL_SELECT_CHOICE_WALLPAPER_INFO", "SELECT * FROM tb_yl_wallpaper "
 												." WHERE 1=1 AND valid = 1 AND width=%d AND height=%d %s "
-												." ORDER BY asort ASC, insert_time DESC  "
+												." ORDER BY asort DESC, insert_time DESC  "
 												." LIMIT %d, %d ");
 	
 defined("SQL_COUNT_CHOICE_WALLPAPER_INFO")

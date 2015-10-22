@@ -358,7 +358,7 @@ class CoolShowSearch
 	 * @param unknown_type $nCoolType
 	 * @return string|Ambigous <boolean, unknown>|multitype:
 	 */
-	public function getBannerList($nCoolType, $bAlbum = 0, $nStart = 0, $nNum = 0)
+	public function getBannerList($nCoolType, $bAlbum = 0, $nStart = 0, $nNum = 0, $nProtocolCode = 0)
 	{
 		try {
 			$coolshow = new Album();			
@@ -370,7 +370,7 @@ class CoolShowSearch
 				$coolshow->setSceneWallpaper(true);
 			}
 			
-			$strSql = $coolshow->getSelectBannerListSql($nCoolType, $bAlbum, $nStart, $nNum);
+			$strSql = $coolshow->getSelectBannerListSql($nCoolType, $bAlbum, $nStart, $nNum, $nProtocolCode);
 			if(!$strSql){
 				Log::write("CoolShowSearch::getBannerList():getSelectBannerListSql() failed Sql is empty", "log");
 				$result = get_rsp_result(false, 'get bannerlist sql failed');

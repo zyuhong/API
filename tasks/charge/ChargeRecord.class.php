@@ -121,7 +121,7 @@ class ChargeRecord
 		$this->strChargePoint	=  isset($arrChargeRecord['changepoint'])?$arrChargeRecord['changepoint']:'';//
 		$this->strChargePointName =  isset($arrChargeRecord['chargepointname'])?$arrChargeRecord['chargepointname']:'';//
 		$nMoney 				=  isset($arrChargeRecord['money'])?$arrChargeRecord['money']:0;
-		$this->nMoney 			=  $nMoney * 100;//统一为分
+		$this->nMoney 			=  $nMoney;// * 100;//统一为分
 		$this->nResult			=  isset($arrChargeRecord['result'])?$arrChargeRecord['result']:0;
 		$this->strTransTime		=  isset($arrChargeRecord['transtime'])?$arrChargeRecord['transtime']:'';
 		$this->strPayType		=  isset($arrChargeRecord['paytype'])?$arrChargeRecord['paytype']:0;

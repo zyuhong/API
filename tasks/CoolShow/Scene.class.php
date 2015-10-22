@@ -31,8 +31,8 @@ class Scene extends CoolShow
 	public function setPayRatio()
 	{
 		if ($this->_nVercode > 28) {
-			$this->nPay			= 2;
-			$this->nFree		= 1;
+			$this->nPay			= 1;
+			$this->nFree		= 2;
 		}else{
 			$this->nPay		    = 1;
 			$this->nFree		= 1;
@@ -57,7 +57,7 @@ class Scene extends CoolShow
 		$strOrderBy = ' ORDER BY scene.asort DESC ';
 		switch ($this->_nSort){
 			case  COOLXIU_SEARCH_HOT:
-				$strOrderBy   = ' ORDER BY mdl DESC ';
+				$strOrderBy   = ' ORDER BY download_times DESC ';
 				break;
 			case  COOLXIU_SEARCH_LAST:
 				$strOrderBy   = ' ORDER BY scene.insert_time DESC ';

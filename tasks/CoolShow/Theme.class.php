@@ -23,8 +23,8 @@ class Theme extends CoolShow
 	public function setPayRatio()
 	{
 		if ($this->_nVercode > 28) {
-			$this->nPay			= 2;
-			$this->nFree		= 1;
+			$this->nPay			= 1;
+			$this->nFree		= 2;
 		}else{
 			$this->nPay		    = 1;
 			$this->nFree		= 1;

@@ -28,7 +28,7 @@ class ThemesProtocol extends Protocol
 
 	public $id;					//主题ID
 	public $name;				//主题名
-	//public $enname;			//主题名英文
+	public $enname;				//主题名英文
 	public $size;				//主题文件大小
 	public $description;		//主题描述
 	public $them_file_url;		//主题URI,绝对路径
@@ -66,6 +66,7 @@ class ThemesProtocol extends Protocol
 		$this->id					=	0;
 		$this->author				= 	'';
 		$this->name					= 	'';
+		$this->enname				= 	'';
 		$this->size					= 	0;
 		$this->description			= 	'';
 		$this->them_file_url		= 	'';
@@ -170,6 +171,7 @@ class ThemesProtocol extends Protocol
 		$this->cpid 			= isset($theme_row['cpid'])?$theme_row['cpid']:0;
 		$this->type 			= (int)isset($theme_row['type'])?$theme_row['type']:0;
 		$this->name 			= isset($theme_row['name'])?$theme_row['name']:'';
+		$this->enname 			= isset($theme_row['note'])?$theme_row['note']:'';
 		$this->size 			= (int)isset($theme_row['size'])?$theme_row['size']:0;
 		$this->effect 			= isset($theme_row['effect'])?$theme_row['effect']:'';
 		$this->font_style 		= isset($theme_row['font_style'])?$theme_row['font_style']:'';

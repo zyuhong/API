@@ -13,9 +13,14 @@ class Album extends CoolShow
 		parent::__construct();
 	}
 	
-	public function getSelectBannerListSql($nCoolType, $bAlbum = 0, $nStart = 0, $nNum = 0)
+	public function getSelectBannerListSql($nCoolType, $bAlbum = 0, $nStart = 0, $nNum = 0, $nProtocolCode = 0)
 	{
-		$strCondition = ' AND album = 0  ORDER BY update_time DESC ';
+		$strCondition = '';
+		if($nProtocolCode < 3 ){
+			$strCondition .= ' AND H5 = 0 ';
+		}
+		
+		$strCondition .= ' AND album = 0  ORDER BY update_time DESC ';
 		if ($bAlbum){
 			$strCondition = sprintf(' LIMIT %d, %d ', $nStart, $nNum);
 		}
