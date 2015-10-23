@@ -33,8 +33,8 @@ try{
 		$limit  = $_GET['reqNum'];
 		$start 	  = $limit * $page;
 	}else{
-		$page 		= isset($_POST['start'])?$_POST['start']:0;
-		$limit 		= isset($_POST['limit'])?$_POST['limit']:10;
+		$page 		= (int)(isset($_POST['start'])?$_POST['start']:0);
+		$limit 		= (int)(isset($_POST['limit'])?$_POST['limit']:10);
 		$start   	= $page;
 	}
 

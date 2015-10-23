@@ -10,7 +10,7 @@ try{
 		Log::write('wpbrowse:ID is empty', 'log');
 		exit;
 	}
-	$nChannel = isset($_GET['channel'])?$_GET['channel']:0;
+	$nChannel = (int)(isset($_GET['channel'])?$_GET['channel']:0);
 	
 	require_once("tasks/CoolShow/CoolShowSearch.class.php");
 	

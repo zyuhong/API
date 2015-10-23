@@ -6,7 +6,7 @@ require_once 'lib/WriteLog.lib.php';
 
 try{
 	require_once 'tasks/Collect/CollectTask.class.php';
-	$nType 	= isset($_GET['type'])?$_GET['type']:0;
+	$nType 	= (int)(isset($_GET['type'])?$_GET['type']:0);
 	$collect = new CollectTask();
 	if($nType == 0){
 		$result = $collect->getMyDesigner();

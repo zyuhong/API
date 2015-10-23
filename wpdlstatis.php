@@ -7,9 +7,9 @@ if (!isset($_GET['id'])){
 	exit;
 }
 $id = $_GET['id'];
-$height  = isset($_GET['height'])?$_GET['height']:0;
-$width   = isset($_GET['width'])?$_GET['width']:0;
-$statis_type =  isset($_GET['statistype'])?$_GET['statistype']:2;
+$height  = (int)(isset($_GET['height'])?$_GET['height']:0);
+$width   = (int)(isset($_GET['width'])?$_GET['width']:0);
+$statis_type =  (int)(isset($_GET['statistype'])?$_GET['statistype']:2);
 try{
 	$cooltype = COOLXIU_TYPE_WALLPAPER;
 	switch($statis_type){
@@ -22,7 +22,7 @@ try{
 		}break;
 		case 2:{//壁纸、主题应用
 
-			$apply_type = isset($_GET['applytype'])?$_GET['applytype']:0;
+			$apply_type = (int)(isset($_GET['applytype'])?$_GET['applytype']:0);
 			if($apply_type == 4){
 				$cooltype = COOLXIU_TYPE_THEMES;
 			}

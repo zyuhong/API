@@ -8,13 +8,13 @@
 require_once 'lib/WriteLog.lib.php';
 require_once 'configs/config.php';
 
-$nCoolType = isset($_GET['type'])?$_GET['type']:0;  //cooltype:主题、壁纸、铃声、专题等分类
+$nCoolType = (int)(isset($_GET['type'])?$_GET['type']:0);  //cooltype:主题、壁纸、铃声、专题等分类
 $protocolCode = (int)(isset($_GET['protocolCode'])?$_GET['protocolCode']:1); //20150506
 $bAlbum    = (int)(isset($_GET['album'])?$_GET['album']:0);
-$nPage     = isset($_GET['page'])?$_GET['page']:0;
-$nNum      = isset($_GET['num'])?$_GET['num']:100;
+$nPage     = (int)(isset($_GET['page'])?$_GET['page']:0);
+$nNum      = (int)(isset($_GET['num'])?$_GET['num']:100);
 $strId     = isset($_GET['id'])?$_GET['id']:'';
-$nChannel  = isset($_GET['channel'])?$_GET['channel']:REQUEST_CHANNEL_BANNER;
+$nChannel  = (int)(isset($_GET['channel'])?$_GET['channel']:REQUEST_CHANNEL_BANNER);
 if (empty($strId) || strlen($strId) > 32){
 	Log::write('strId length is wrong', 'log');
 	exit();

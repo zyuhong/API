@@ -9,7 +9,7 @@ try{
 		exit;
 	}
 	$product  = isset($_GET['product'])?$_GET['product']:'';
-	$channel   = isset($_GET['channel'])?$_GET['channel']:0;
+	$channel   = (int)(isset($_GET['channel'])?$_GET['channel']:0);
 	
 	require_once 'configs/config.php';
 	require_once("tasks/CoolShow/CoolShowSearch.class.php");

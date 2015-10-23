@@ -10,7 +10,7 @@ session_start();
 require_once 'tasks/CoolShow/CoolShowSearch.class.php';
 require_once 'configs/config.php';
 
-$nCoolType = isset($_GET['type'])?$_GET['type']:4;  
+$nCoolType = (int)(isset($_GET['type'])?$_GET['type']:4);  
 
 $coolshow = new CoolShowSearch();
 $json_result = $coolshow->getWidgetBanner($nCoolType);

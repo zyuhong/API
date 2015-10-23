@@ -56,8 +56,8 @@ try{
 	
 	require_once 'tasks/statis/ReqStatis.class.php';
 	$reqStatis = new ReqStatis();
-	$type = isset($_GET['type'])?$_GET['type']:0;
-	$channel = isset($_GET['channel'])?$_GET['channel']:0;
+	$type = (int)(isset($_GET['type'])?$_GET['type']:0);
+	$channel = (int)(isset($_GET['channel'])?$_GET['channel']:0);
 	
 	$reqStatis->recordDownloadRequest($id, COOLXIU_TYPE_THEMES, 0, 0, $cpid, $url, $type, $channel);
 	

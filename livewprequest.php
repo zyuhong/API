@@ -5,13 +5,13 @@
 //以下部分测试通过
 	
 	if(isset($_GET['page']) && isset($_GET['reqNum'])){
-		$req_page = isset($_GET['page'])?$_GET['page']:0;
-		$req_num  = isset($_GET['reqNum'])?$_GET['reqNum']:10;
+		$req_page = (int)(isset($_GET['page'])?$_GET['page']:0);
+		$req_num  = (int)(isset($_GET['reqNum'])?$_GET['reqNum']:10);
 	
 		$start 	  = $req_num * $req_page;
 	}else{
-		$req_page 	= isset($_POST['start'])?$_POST['start']:0;
-		$req_num 	= isset($_POST['limit'])?$_POST['limit']:10;
+		$req_page 	= (int)(isset($_POST['start'])?$_POST['start']:0);
+		$req_num 	= (int)(isset($_POST['limit'])?$_POST['limit']:10);
 		$start   	= $req_page;
 	}
 	

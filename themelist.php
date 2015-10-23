@@ -7,11 +7,11 @@
 
 session_start();
 
-$nWidth    = isset($_GET['width'])?$_GET['width']:1080;
-$nHeight   = isset($_GET['height'])?$_GET['height']:960;
-$nKernel   = isset($_GET['kernelcode'])?$_GET['kernelcode']:3;
-$start     = isset($_GET['start'])?$_GET['start']:0;
-$limit	   = isset($_GET['limit'])?$_GET['limit']:20;
+$nWidth    = (int)(isset($_GET['width'])?$_GET['width']:1080);
+$nHeight   = (int)(isset($_GET['height'])?$_GET['height']:960);
+$nKernel   = (int)(isset($_GET['kernelcode'])?$_GET['kernelcode']:3);
+$start     = (int)(isset($_GET['start'])?$_GET['start']:0);
+$limit	   = (int)(isset($_GET['limit'])?$_GET['limit']:20);
 
 require_once 'tasks/CoolShow/CoolShowDb.class.php';
 $coolShowDb = new CoolShowDb();

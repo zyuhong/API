@@ -8,10 +8,10 @@
 require_once 'lib/WriteLog.lib.php';
 
 try{
-	$nCoolType = isset($_GET['type'])?$_GET['type']:0;  //cooltype:主题、壁纸、铃声、字体等分类
+	$nCoolType = (int)(isset($_GET['type'])?$_GET['type']:0);  //cooltype:主题、壁纸、铃声、字体等分类
 	$strCyid     = isset($_GET['cyid'])?$_GET['cyid']:'';
-	$nPage     = isset($_GET['page'])?$_GET['page']:0;
-	$nNum     = isset($_GET['num'])?$_GET['num']:0;
+	$nPage     = (int)(isset($_GET['page'])?$_GET['page']:0);
+	$nNum     = (int)(isset($_GET['num'])?$_GET['num']:0);
 	
 	$nStart = $nPage * $nNum;
 	

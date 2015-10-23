@@ -28,7 +28,7 @@ try{
 //	require_once 'tasks/statis/ReqStatis.class.php';
 //	$reqStatis = new ReqStatis();
 	$cpid = isset($_GET['cpid'])?$_GET['cpid']:'';
-	$type = isset($_GET['type'])?$_GET['type']:0;
+	$type = (int)(isset($_GET['type'])?$_GET['type']:0);
 //	$reqStatis->recordDownloadRequest($id, COOLXIU_TYPE_WIDGET, $height, $width, $cpid, $url, $type);
 
 }catch(Exception $e){

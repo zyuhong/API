@@ -3,17 +3,17 @@ try{
 	require_once 'lib/WriteLog.lib.php';
 	
 	if(isset($_GET['page']) && isset($_GET['reqNum'])){
-		$req_page = isset($_GET['page'])?$_GET['page']:0;
-		$req_num  = isset($_GET['reqNum'])?$_GET['reqNum']:10;
+		$req_page = (int)(isset($_GET['page'])?$_GET['page']:0);
+		$req_num  = (int)(isset($_GET['reqNum'])?$_GET['reqNum']:10);
 		$start 	  = $req_num * $req_page;
 	}else{
-		$req_page 	= isset($_POST['start'])?$_POST['start']:0;
-		$req_num 	= isset($_POST['limit'])?$_POST['limit']:10;
+		$req_page 	= (int)(isset($_POST['start'])?$_POST['start']:0);
+		$req_num 	= (int)(isset($_POST['limit'])?$_POST['limit']:10);
 		$start   	= $req_page;
 	}
-	$width 	  = isset($_GET['width'])?$_GET['width']:720;
-	$height   = isset($_GET['height'])?$_GET['height']:1280;
-	$kernelcode = isset($_GET['kernelcode'])?$_GET['kernelcode']:2;
+	$width 	  = (int)(isset($_GET['width'])?$_GET['width']:720);
+	$height   = (int)(isset($_GET['height'])?$_GET['height']:1280);
+	$kernelcode = (int)(isset($_GET['kernelcode'])?$_GET['kernelcode']:2);
 	$vercode = (int)(isset($_GET['versionCode'])?$_GET['versionCode']:0);
 	
 	if($req_num === null || $req_page === null){

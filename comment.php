@@ -14,9 +14,9 @@ try{
 		exit;
 	}
 	
-	$nType = isset($_GET['type'])?$_GET['type']:0;
-	$page  = isset($_GET['page'])?$_GET['page']:0;
-	$limit = isset($_GET['reqNum'])?$_GET['reqNum']:10;
+	$nType = (int)(isset($_GET['type'])?$_GET['type']:0);
+	$page  = (int)(isset($_GET['page'])?$_GET['page']:0);
+	$limit = (int)(isset($_GET['reqNum'])?$_GET['reqNum']:10);
 		
 	$skip = $page * $limit;
 	

@@ -7,12 +7,12 @@
  */
 session_start();
 	
-$nCoolType = isset($_GET['type'])?$_GET['type']:0;  //cooltype:主题、壁纸、铃声、字体等分类
+$nCoolType = (int)(isset($_GET['type'])?$_GET['type']:0);  //cooltype:主题、壁纸、铃声、字体等分类
 $strId     = isset($_GET['id'])?$_GET['id']:0;
 $nType     = isset($_GET['reqType'])?$_GET['reqType']:0;//请求的类型主要是壁纸用来区分高清图片
 $nAdType     = isset($_GET['adtype'])?$_GET['adtype']:0;//请求的类型为获取专题1:专题 
-$nWidth    = isset($_GET['width'])?$_GET['width']:0;
-$nHeight   = isset($_GET['height'])?$_GET['height']:0;
+$nWidth    = (int)(isset($_GET['width'])?$_GET['width']:0);
+$nHeight   = (int)(isset($_GET['height'])?$_GET['height']:0);
 $nSceneCode  = isset($_GET['scenecode'])?$_GET['scenecode']:0;
 $nKernelCode = isset($_GET['kernelcode'])?$_GET['kernelcode']:0;
 $nIsOrder   = isset($_GET['isorder'])?$_GET['isorder']:0; //是否命令

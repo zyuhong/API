@@ -32,8 +32,8 @@ try{
 		$limit  = 100;//$_GET['reqNum'];
 		$start 	  = $page + $limit * $page;
 	}else{
-		$page 		= isset($_POST['start'])?$_POST['start']:0;
-		$limit 		= isset($_POST['limit'])?$_POST['limit']:100;
+		$page 		= (int)(isset($_POST['start'])?$_POST['start']:0);
+		$limit 		= (int)(isset($_POST['limit'])?$_POST['limit']:100);
 		$start   	= $page;
 	}
 	$language = isset($_GET['language'])?$_GET['language']:'ch';

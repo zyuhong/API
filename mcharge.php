@@ -32,7 +32,7 @@ try{
 	
 	$nCoolType = 0;
 	$isScore   = 0;
-	$nProtocolCode = isset($_GET['protocolCode'])?$_GET['protocolCode']:0;
+	$nProtocolCode = (int)(isset($_GET['protocolCode'])?$_GET['protocolCode']:0);
 	if(isset($_GET['type']))
 	{
 		$nCoolType = $_GET['type'];
@@ -42,7 +42,7 @@ try{
 			Log::write('mcharge getExorderById() failed', 'log');
 			exit(get_rsp_result(false, 'get exorder failed'));
 		}
-		$nCoolType = isset($exorder['cooltype'])?$exorder['cooltype']:0;
+		$nCoolType = (int)(isset($exorder['cooltype'])?$exorder['cooltype']:0);
 	}
 
 	$strCyid   = isset($_GET['cyid'])?$_GET['cyid']:'';

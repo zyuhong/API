@@ -14,7 +14,7 @@ require_once 'lib/WriteLog.lib.php';
 require_once 'public/public.php';
 require_once 'configs/config.php';
 
-$nCoolType = isset($_GET['type'])?$_GET['type']:0;
+$nCoolType = (int)(isset($_GET['type'])?$_GET['type']:0);
 $strId = isset($_GET['id'])?$_GET['id']:'';
 $strCpid = isset($_GET['cpid'])?$_GET['cpid']:'';
 if(empty($strId)){
@@ -27,8 +27,8 @@ $strImei	= '';
 $strImsi	= '';
 $strCyid	= '';
 $strNet		= '';
-$kernel		= isset($_GET['kernelCode'])?$_GET['kernelCode']:0;
-$strVercode	= isset($_GET['versionCode'])?$_GET['versionCode']:0;
+$kernel		= (int)(isset($_GET['kernelCode'])?$_GET['kernelCode']:0);
+$strVercode	= (int)(isset($_GET['versionCode'])?$_GET['versionCode']:0);
 $json_param = isset($_POST['statis'])?$_POST['statis']:'';
 if(!empty($json_param)){
 	$json_param = stripslashes($json_param);

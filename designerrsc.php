@@ -8,10 +8,10 @@ try{
 	require_once 'configs/config.php';
 	require_once("tasks/CoolShow/CoolShowSearch.class.php");
 
-	$nCoolType 	= isset($_GET['type'])?$_GET['type']:0;
+	$nCoolType 	= (int)(isset($_GET['type'])?$_GET['type']:0);
 	$strCyid	= isset($_GET['cyid'])?$_GET['cyid']:10;
-	$nPage 	   	= isset($_GET['page'])?$_GET['page']:0;
-	$nNum  		= isset($_GET['num'])?$_GET['num']:10;
+	$nPage 	   	= (int)(isset($_GET['page'])?$_GET['page']:0);
+	$nNum  		= (int)(isset($_GET['num'])?$_GET['num']:10);
 	$nStart 	  	= $nPage * $nNum;
 	
 	

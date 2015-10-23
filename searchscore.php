@@ -6,12 +6,12 @@
  */
 
 
-$nCoolType 	= isset($_GET['type'])?$_GET['type']:0;  			//cooltype:主题、壁纸、铃声、字体等分类
+$nCoolType 	= (int)(isset($_GET['type'])?$_GET['type']:0);  			//cooltype:主题、壁纸、铃声、字体等分类
 //$nCommType= isset($_GET['commType'])?$_GET['commType']:0;		//评论类型：0：全部评论 1：系统bug
 $strId     	= isset($_GET['id'])?$_GET['id']:'';
 $strCpid   	= isset($_GET['cpid'])?$_GET['cpid']:'';
-$skip    	= isset($_GET['page'])?$_GET['page']:0;
-$limit 		= isset($_GET['reqNum'])?$_GET['reqNum']:10;
+$skip    	= (int)(isset($_GET['page'])?$_GET['page']:0);
+$limit 		= (int)(isset($_GET['reqNum'])?$_GET['reqNum']:10);
 
 require_once 'public/public.php';
 require_once 'tasks/Records/ScoreRecord.class.php';

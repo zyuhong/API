@@ -4,7 +4,7 @@ require_once 'lib/WriteLog.lib.php';
 require_once 'configs/config.php';
 
 try{
-	$nType = isset($_GET['type'])?$_GET['type']:0;
+	$nType = (int)(isset($_GET['type'])?$_GET['type']:0);
 	$id = isset($_GET['id'])?$_GET['id']:'';
 	$cpid = isset($_GET['cpid'])?$_GET['cpid']:'';
 	if(empty($id) && empty($cpid)){
@@ -12,9 +12,9 @@ try{
 		exit;
 	}
 	$product  = isset($_GET['product'])?$_GET['product']:'';
-	$chanel   = isset($_GET['channel'])?$_GET['channel']:0;
-	$width = isset($_GET['width'])?$_GET['width']:0;
-	$heith = isset($_GET['height'])?$_GET['height']:0;
+	$chanel   = (int)(isset($_GET['channel'])?$_GET['channel']:0);
+	$width = (int)(isset($_GET['width'])?$_GET['width']:0);
+	$heith = (int)(isset($_GET['height'])?$_GET['height']:0);
 	
 	require_once 'configs/config.php';
 	require_once("tasks/CoolShow/CoolShowSearch.class.php");

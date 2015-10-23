@@ -26,8 +26,8 @@ session_start();
 
 require_once 'public/public.php';
 try{
-	$page 	= isset($_GET['page'])?$_GET['page']:0;
-	$limit  = isset($_GET['reqNum'])?$_GET['reqNum']:10;
+	$page 	= (int)(isset($_GET['page'])?$_GET['page']:0);
+	$limit  = (int)(isset($_GET['reqNum'])?$_GET['reqNum']:10);
 	$start 	  = $limit * $page;
 	
 	if($limit == null || $page === null){

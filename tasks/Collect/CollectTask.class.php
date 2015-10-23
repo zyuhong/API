@@ -56,6 +56,17 @@ class CollectTask
 				return get_rsp_result(false, 'check collect error');
 			}
 			
+			 // valid designer info
+            $sql = Collect::getSelectDesignerSql($strAuthorId);
+            global $g_arr_db_config;
+            $dbConfig = $g_arr_db_config['designer'];
+            $designDb = new CollectDb($dbConfig);
+            $author = $designDb->getRecords($sql);
+            if (empty($author)) {
+                Log::write('CollectTask::setCollect():designValid failed, SQL:'.$sql, 'log');
+                return get_rsp_result(false, 'check collect error');
+            }
+			
 			if($nCount <= 0){
 				$sql = Collect::getInsertSql($strCyid, $strAuthorId, $strAuthorName);
 			}else{

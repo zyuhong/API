@@ -8,7 +8,7 @@ try{
 	require_once 'tasks/Collect/CollectTask.class.php';
 	
 	$collect = new CollectTask();
-	$nCollect = isset($_GET['collect'])?$_GET['collect']:0;  #0取消关注/1添加关注/2获取关注状态
+	$nCollect = (int)(isset($_GET['collect'])?$_GET['collect']:0);  #0取消关注/1添加关注/2获取关注状态
 	if($nCollect == 2){
 		$result = $collect->getCollect($nCollect);
 	}else{

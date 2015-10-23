@@ -10,7 +10,7 @@ try{
 		Log::write('wpbrowse:ID is empty', 'log');
 		exit;
 	}
-	$nChannel = isset($_GET['channel'])?$_GET['channel']:0;
+	$nChannel = (int)(isset($_GET['channel'])?$_GET['channel']:0);
 	$url   = isset($_GET['url'])?$_GET['url']:'';
 	
 	
@@ -36,7 +36,7 @@ try{
 	$reqStatis = new ReqStatis();
 	$cpid = isset($_GET['cpid'])?$_GET['cpid']:'';
 	$type = isset($_GET['type'])?$_GET['type']:0;
-	$channel = isset($_GET['channel'])?$_GET['channel']:0;
+	$channel = (int)(isset($_GET['channel'])?$_GET['channel']:0);
 	$reqStatis->recordDownloadRequest($id, COOLXIU_TYPE_WALLPAPER, 0, 0, $cpid, $url, $type, $channel);
 	
 	require_once 'tasks/Records/RecordTask.class.php';
