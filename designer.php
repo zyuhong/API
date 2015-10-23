@@ -7,6 +7,21 @@ require_once 'lib/WriteLog.lib.php';
 try{
 	require_once 'tasks/Collect/CollectTask.class.php';
 	$nType 	= (int)(isset($_GET['type'])?$_GET['type']:0);
+	
+	//将Get和Post方法简单校验
+	$strMyCyid = isset($_GET['cyid'])?$_GET['cyid']:'';
+	$strChCyid = ''; 
+	$json_param = isset($_POST['statis'])?$_POST['statis']:'';
+	if(!empty($json_param)){
+		$json_param = stripslashes($json_param);
+		$arr_param = json_decode($json_param, true);
+		$strChCyid = isset($arr_param['cyid'])?$arr_param['cyid']:'';		
+	}
+	if($strMyCyid != $strChCyid) {
+		echo get_rsp_result(false, 'designer exception');
+		exit();
+	}	
+	
 	$collect = new CollectTask();
 	if($nType == 0){
 		$result = $collect->getMyDesigner();
