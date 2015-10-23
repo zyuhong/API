@@ -289,6 +289,35 @@ function sql_check_str($str, $len = 0)
 	return $str;
 }
 
+function checkSign($signParam){
+    global $g_arr_host_config;
+    $nVersionCode = (int)(isset($signParam['versionCode'])?$signParam['versionCode']:'');
+    if($nVersionCode < $g_arr_host_config["sign_version"]){
+        Log::write("version code lower, no sign", "log");
+        return true;
+    }
+
+    $key = $g_arr_host_config["sign_key"];
+    if(empty($signParam) || !isset($signParam['sign'])) {
+        Log::write(" no sign param", "log");
+        return false;
+    }
+
+    $sign = trim($signParam['sign']);
+    unset($signParam['sign']);
+    ksort($signParam);
+
+    $signStr = http_build_query($signParam);
+
+    $calSign = hash_hmac("sha1", $signStr, $key);
+    if ($calSign == $sign) {
+        Log::write("sign pass", "log");
+        return true;
+    }
+    Log::write("sign fail", "log");
+    return false;
+}
+
 /* 
 require_once 'Zend/Mail.php';
 require_once 'Zend/Mail/Transport/Smtp.php';

@@ -1,6 +1,7 @@
 <?php
 /**
- * 系统配置文件，作为全局变量的部分可以存放此处
+ * 系统配置文件，作为全局变量的部分可以存放此处
+
  * 
  * @author: lijie1@yulong.com
  */
@@ -16,6 +17,8 @@ $g_arr_host_config = array(
 		"androidwp_host" => '',//'http://static.androidesk.com/download/',
 		"androidwp_local_host" => 'http://coolpadshow.yulong.com/',
 		"chargerecod_host" => 'http://coolpadshow.yulong.com/',
+        "sign_key" => 'bdf9ef42a4c57307e64e44b4387867f2',
+        "sign_version" => 44,
 );
 
 /**
@@ -28,7 +31,8 @@ $g_arr_xring_config = array(
 		'ss' => 'http://iring.diyring.cc/ss/457c2a926a3c3cd7?word=%s',
 );
 /**
- *数据库连接相关参数
+ *数据库连接相关参数
+
  *
  * @var unknown_type
  */
@@ -85,7 +89,8 @@ $g_arr_db_config = array(
 );
 
 /**
- *日志队列服务器
+ *日志队列服务器
+
  */
 $g_arr_queue_config = array(
 	'request'=>array(
@@ -162,7 +167,8 @@ $g_arr_queue_config = array(
 );
 
 /**
- *访问记录MongoDB数据库
+ *访问记录MongoDB数据库
+
  */
 $g_arr_mongo_db_config = array('coolshow_record'=>array(
 									'host' =>'192.168.30.57',
@@ -191,8 +197,10 @@ define("COOLXIU_TYPE_WIDGET", 7);
 define("COOLXIU_TYPE_ALBUMS", 8);
 define("COOLXIU_TYPE_BANNER", 9);
 define("COOLXIU_TYPE_SCENE_WALLPAPER", 10);	//锁屏壁纸
-define("COOLXIU_TYPE_ALL", 11);		//搜索全部资源用
-define("COOLXIU_TYPE_LIVE_WALLPAPER", 13);	//动态壁纸
+define("COOLXIU_TYPE_ALL", 11);		//搜索全部资源用
+
+define("COOLXIU_TYPE_LIVE_WALLPAPER", 13);	//动态壁纸
+
 define("COOLXIU_TYPE_ALARM", 14);			//闹钟铃声
 
 define("COOLXIU_TYPE_THEMES_CONTACT", 15);
@@ -201,10 +209,13 @@ define("COOLXIU_TYPE_THEMES_ICON", 17);
 
 define("COOLXIU_TYPE_PUSH_H5", 18);    
 
-define("COOLXIU_TYPE_X_RING", 12);		//酷秀第三方合作铃声
+define("COOLXIU_TYPE_X_RING", 12);		//酷秀第三方合作铃声
 
-define("COOLXIU_TYPE_SETTING", 21);		//酷秀设置项
-define("COOLXIU_TYPE_MY_RSC", 22);		//酷秀第三方合作铃声
+
+define("COOLXIU_TYPE_SETTING", 21);		//酷秀设置项
+
+define("COOLXIU_TYPE_MY_RSC", 22);		//酷秀第三方合作铃声
+
 
 
 define('COOLXIU_TYPE_PREV_BROWSER', 1);
@@ -257,7 +268,8 @@ defined("ADDRESS_COOLXIU")
 		or define("ADDRESS_COOLXIU","http://coolpadshow.yulong.com/wallpaper/");
 
 defined("ANDROID_WP_DB_FLAG")
-		or define("ANDROID_WP_DB_FLAG",  true); // true代表使用安卓壁纸数据库，false代表使用本地数据库
+		or define("ANDROID_WP_DB_FLAG",  true); // true代表使用安卓壁纸数据库，false代表使用本地数据库
+
 		
 
 $g_arr_tablename = array(

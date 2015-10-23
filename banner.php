@@ -8,6 +8,14 @@
 	
 require_once 'tasks/CoolShow/CoolShowSearch.class.php';
 require_once 'configs/config.php';
+require_once 'public/public.php';
+
+Log::write("GET[]=".json_encode($_GET), "log");
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, '');
+    exit();
+}
 
 $nCoolType = (int)(isset($_GET['type'])?$_GET['type']:4);  
 $bAlbum    = (int)(isset($_GET['album'])?$_GET['album']:0);
