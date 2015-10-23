@@ -26,6 +26,12 @@ session_start();
 
 require_once 'configs/config.php';
 require_once 'public/public.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, '');
+    exit();
+}
 try{
 	if(isset($_GET['page']) && isset($_GET['reqNum'])){
 		$page 	= 0;//$_GET['page'];

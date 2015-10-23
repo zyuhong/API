@@ -9,6 +9,12 @@ try {
 	require_once 'lib/WriteLog.lib.php';
 	require_once 'configs/config.php';
 	require_once 'public/public.php';
+
+    $bSign = checkSign($_GET);
+    if(!$bSign){
+        echo get_rsp_result(false, '');
+        exit();
+    }
 	
 	$id 	=  (isset($_GET['id']))?$_GET['id']:'';
 	$cpid = isset($_GET['cpid'])?$_GET['cpid']:'';

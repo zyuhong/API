@@ -14,6 +14,12 @@ require_once 'lib/WriteLog.lib.php';
 require_once 'public/public.php';
 require_once 'configs/config.php';
 
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, '');
+    exit();
+}
+
 $nCoolType = (int)(isset($_GET['type'])?$_GET['type']:0);
 $strId = isset($_GET['id'])?$_GET['id']:'';
 $strCpid = isset($_GET['cpid'])?$_GET['cpid']:'';

@@ -4,6 +4,13 @@
  */
 require_once 'lib/WriteLog.lib.php';
 require_once 'tasks/charge/ChargeDb.class.php';
+require_once 'public/public.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, '');
+    exit();
+}
 
 $jsonCharge = isset($_POST['transdata'])?$_POST['transdata']:'';
 if (empty($jsonCharge)){

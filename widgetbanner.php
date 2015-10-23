@@ -9,6 +9,13 @@ session_start();
 	
 require_once 'tasks/CoolShow/CoolShowSearch.class.php';
 require_once 'configs/config.php';
+require_once 'public/public.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, 'sign fail');
+    exit();
+}
 
 $nCoolType = (int)(isset($_GET['type'])?$_GET['type']:4);  
 

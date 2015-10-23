@@ -7,6 +7,13 @@
 
 require_once 'lib/WriteLog.lib.php';
 require_once 'configs/config.php';
+require_once 'public/public.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, '');
+    exit();
+}
 
 $nCoolType = (int)(isset($_GET['type'])?$_GET['type']:0);  //cooltype:主题、壁纸、铃声、专题等分类
 $protocolCode = (int)(isset($_GET['protocolCode'])?$_GET['protocolCode']:1); //20150506
@@ -23,7 +30,6 @@ if (empty($strId) || strlen($strId) > 32){
 $nStart = $nPage * $nNum;
 
 require_once 'configs/config.php';
-require_once 'public/public.php';
 require_once 'tasks/CoolShow/CoolShowSearch.class.php';
 
 $rsc = new CoolShowSearch();

@@ -39,6 +39,14 @@
 		or define("YL_ADROIDESK_WP_COVER_LIST", 2);
 	defined("YL_ADROIDESK_WP")
 		or define("YL_ADROIDESK_WP", 0);			//根据请求类型获取壁纸
+
+require_once 'public/public.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, '');
+    exit();
+}
 	
 		
 	//$type: 0=>壁纸请求  1=>壁纸封面列表请求  2=>封面内容（广告）请求

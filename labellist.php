@@ -37,6 +37,12 @@ require_once 'lib/WriteLog.lib.php';
 require_once 'public/public.php';
 require_once 'configs/config.php';
 require_once 'tasks/label/LabelDb.class.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, 'sign fail');
+    exit();
+}
 try{
 	
 	$moduletype	 = (int)(isset($_GET['moduletype'])?$_GET['moduletype']:3);

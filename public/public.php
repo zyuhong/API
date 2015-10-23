@@ -310,6 +310,7 @@ function checkSign($signParam){
     $signStr = http_build_query($signParam);
 
     $calSign = hash_hmac("sha1", $signStr, $key);
+    Log::write("sev_sign:".$calSign, "log");
     if ($calSign == $sign) {
         Log::write("sign pass", "log");
         return true;

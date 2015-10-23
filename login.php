@@ -3,6 +3,13 @@
 session_start();
 
 require_once ('tasks/User/UserManager.class.php');
+require_once 'public/public.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, 'sign fail');
+    exit();
+}
 
 try{
 	$userManager = new UserManager();

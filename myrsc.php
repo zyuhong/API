@@ -6,6 +6,13 @@
  * $id   : 资源ID
  */
 require_once 'lib/WriteLog.lib.php';
+require_once 'public/public.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, 'sign fail');
+    exit();
+}
 
 try{
 	$nCoolType = (int)(isset($_GET['type'])?$_GET['type']:0);  //cooltype:主题、壁纸、铃声、字体等分类

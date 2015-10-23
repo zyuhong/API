@@ -19,6 +19,13 @@
 
 require_once 'lib/WriteLog.lib.php';
 require_once 'tasks/Records/RecordTask.class.php';
+require_once 'public/public.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, 'sign fail');
+    exit();
+}
 
 $jsonSetting = isset($_POST['statis'])?$_POST['statis']:'';
 Log::write("setting :".$jsonSetting, 'debug');

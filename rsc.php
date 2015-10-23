@@ -6,6 +6,13 @@
  * $id   : 资源ID
  */
 session_start();
+require_once 'public/public.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, 'sign fail');
+    exit();
+}
 	
 $nCoolType = (int)(isset($_GET['type'])?$_GET['type']:0);  //cooltype:主题、壁纸、铃声、字体等分类
 $strId     = isset($_GET['id'])?$_GET['id']:0;

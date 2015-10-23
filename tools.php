@@ -1,7 +1,15 @@
 <?php
 	require_once 'lib/MemDb.lib.php';	
 	require_once ('public/public.php');
-	
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, 'sign fail');
+    exit();
+}
+
+
+
 	$bClear = isset($_GET['clear'])? $_GET['clear']:false;
 	$strSet = isset($_GET['set'])? $_GET['set']:'';
 	$strGet = isset($_GET['get'])? $_GET['get']:'';

@@ -3,6 +3,14 @@
 
 session_start();
 
+require_once 'public/public.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, '');
+    exit();
+}
+
 try {
 	// 连接数据库
 	if(!($usersql = new mysqli('localhost', 'webauth','webauth','auth'))){

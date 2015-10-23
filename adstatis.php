@@ -53,6 +53,12 @@ require_once 'lib/WriteLog.lib.php';
 require_once 'public/public.php';
 require_once 'tasks/Records/RecordTask.class.php';
 
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, '');
+    exit();
+}
+
 if (!isset($_GET['id'])){
 	Log::write('statis:: id is not set', 'log');
 	exit(get_rsp_result(false, 'id is empty'));

@@ -7,6 +7,13 @@
 
 require_once 'public/public.php';
 require_once 'lib/WriteLog.lib.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, 'sign fail');
+    exit();
+}
+
 try{
 	require_once 'configs/config.php';
 	

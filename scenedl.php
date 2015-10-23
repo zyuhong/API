@@ -4,6 +4,13 @@
  */
 header('content-type:text/html;charset=utf-8');
 header ("Cache-Control: no-cache, must-revalidate");
+require_once 'public/public.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, 'sign fail');
+    exit();
+}
 
 try {
 	$id 	=  (isset($_GET['id']))?$_GET['id']:'';

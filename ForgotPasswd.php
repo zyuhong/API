@@ -2,6 +2,13 @@
 //获取用户变量
 require_once 'tasks/User/UserManager.class.php';
 require_once 'lib/WriteLog.lib.php';
+require_once 'public/public.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, 'sign fail');
+    exit();
+}
 
 $user_manager = new UserManager();
 try {

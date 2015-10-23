@@ -45,6 +45,12 @@ require_once 'lib/WriteLog.lib.php';
 require_once 'public/public.php';
 require_once 'configs/config.php';
 require_once 'tasks/statis/StatisInterface.class.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, 'sign fail');
+    exit();
+}
 try{
 	if (!isset($_GET['id'])){
 		Log::write('statis:: id is  not set', 'log');

@@ -1,6 +1,13 @@
 <?php
 try {
 	require_once 'lib/WriteLog.lib.php';
+    require_once 'public/public.php';
+
+    $bSign = checkSign($_GET);
+    if(!$bSign){
+        echo get_rsp_result(false, 'sign fail');
+        exit();
+    }
 
 	$id 	=  (isset($_GET['id']))?$_GET['id']:"";
 	if(empty($id)){

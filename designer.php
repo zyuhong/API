@@ -3,6 +3,13 @@
  * 关注/取消关注
  */
 require_once 'lib/WriteLog.lib.php';
+require_once 'public/public.php';
+
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, '');
+    exit();
+}
 
 try{
 	require_once 'tasks/Collect/CollectTask.class.php';

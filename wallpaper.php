@@ -12,6 +12,12 @@ require_once ('tasks/CoolXiu/CoolXiuDb.class.php');
 require_once ('tasks/CoolXiu/CoolXiuFile.class.php');
 require_once ('lib/WriteLog.lib.php');
 
+$bSign = checkSign($_GET);
+if(!$bSign){
+    echo get_rsp_result(false, 'sign fail');
+    exit();
+}
+
 try {	
 	if (!isset($_SESSION['valid_user']) 
 		&& !isset($_POST['userName'])){
