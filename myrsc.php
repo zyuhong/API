@@ -7,12 +7,16 @@
  */
 require_once 'lib/WriteLog.lib.php';
 require_once 'public/public.php';
+require_once 'public/check.php';
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, 'sign fail');
-    exit();
+if(checkVersion($_GET)){
+    $bRet = checkTKT($_POST);
+    if(!$bRet){
+        echo get_rsp_result(false, 'check token fail');
+        exit();
+    }
 }
+
 
 try{
 	$nCoolType = (int)(isset($_GET['type'])?$_GET['type']:0);  //cooltype:主题、壁纸、铃声、字体等分类

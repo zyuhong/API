@@ -1,12 +1,7 @@
 <?php
 try{
 	require_once 'lib/WriteLog.lib.php';
-
-    $bSign = checkSign($_GET);
-    if(!$bSign){
-        echo get_rsp_result(false, 'sign fail');
-        exit();
-    }
+    require_once 'public/public.php';
 	
 	if(isset($_GET['page']) && isset($_GET['reqNum'])){
 		$req_page = (int)(isset($_GET['page'])?$_GET['page']:0);

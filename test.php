@@ -1,12 +1,6 @@
 <?php
 require_once 'public/public.php';
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, 'sign fail');
-    exit();
-}
-
 $req_page = (int)(isset($_GET['page'])?$_GET['page']:0);
 $req_num  = (int)(isset($_GET['reqNum'])?$_GET['reqNum']:10);
 $start 	  = $req_num * $req_page;

@@ -1,12 +1,6 @@
 <?php
 require_once 'public/public.php';
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, 'sign fail');
-    exit();
-}
-
  if (isset($_POST["PHPSESSID"])) {
   session_id($_POST["PHPSESSID"]);
  }

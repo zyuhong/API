@@ -12,12 +12,15 @@ require_once 'tasks/Exorder/ExorderDb.class.php';
 require_once 'tasks/Exorder/ExorderRecordDb.class.php';
 require_once 'lib/WriteLog.lib.php';
 require_once 'public/public.php';
+require_once 'public/check.php';
 require_once 'configs/config.php';
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, '');
-    exit();
+if(checkVersion($_GET)){
+    $bRet = checkTKT($_POST);
+    if(!$bRet){
+        echo get_rsp_result(false, 'check token fail');
+        exit();
+    }
 }
 
 $nCoolType = (int)(isset($_GET['type'])?$_GET['type']:0);

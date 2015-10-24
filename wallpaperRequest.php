@@ -32,12 +32,6 @@
 	 */
 //以下部分测试通过
 require_once 'public/public.php';
-
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, 'sign fail');
-    exit();
-}
 	
 	if(isset($_GET['page']) && isset($_GET['reqNum'])){
 		$req_page = (int)(isset($_GET['page'])?$_GET['page']:0);

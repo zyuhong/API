@@ -1,12 +1,7 @@
 <?php
 	require_once 'lib/WriteLog.lib.php';
-require_once 'public/public.php';
+    require_once 'public/public.php';
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, 'sign fail');
-    exit();
-}
 	session_start();
 	if(isset($_SESSION['valid_user'])){
 		$old_user = $_SESSION['valid_user'];

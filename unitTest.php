@@ -3,11 +3,6 @@
 require_once 'configs/config.php';
 require_once 'public/public.php';
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, 'sign fail');
-    exit();
-}
 function unit_memcached_test(){
 	global $g_arr_memcache;
 	$oMucache = new mucache( $g_arr_memcache['memcache'], false);

@@ -4,12 +4,6 @@ require_once 'lib/WriteLog.lib.php';
 require_once 'configs/config.php';
 require_once 'public/public.php';
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, '');
-    exit();
-}
-
 try{
 	$nType = (int)(isset($_GET['type'])?$_GET['type']:0);
 	$id = isset($_GET['id'])?$_GET['id']:'';

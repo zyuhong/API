@@ -8,12 +8,6 @@
 require_once 'public/public.php';
 require_once 'tasks/Records/ScoreRecord.class.php';
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, 'sign fail');
-    exit();
-}
-
 $scoreRecord = new ScoreRecord();
 $bResult = $scoreRecord->saveScore();
 

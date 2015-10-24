@@ -16,12 +16,6 @@ require_once ('tasks/Font/FontPreview.class.php');
 require_once ('lib/WriteLog.lib.php');
 require_once 'public/public.php';
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, 'sign fail');
-    exit();
-}
-
 try {
 	$id = isset($_POST['id'])?$_POST['id']:'';
 	if(!isset($_POST['id'])){

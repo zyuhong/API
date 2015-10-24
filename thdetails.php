@@ -2,12 +2,6 @@
 require_once 'lib/WriteLog.lib.php';
 require_once 'public/public.php';
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, 'sign fail');
-    exit();
-}
-
 try{
 	$nCoolType 	= isset($_GET['type'])?$_GET['type']:'';
 	$id 	   	= isset($_GET['id'])?$_GET['id']:'';

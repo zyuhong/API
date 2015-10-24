@@ -16,12 +16,6 @@ require_once ('tasks/Font/FontPreview.class.php');
 require_once ('lib/WriteLog.lib.php');
 require_once 'public/public.php';
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, 'sign fail');
-    exit();
-}
-
 try {
 // 	if(!isset($_POST['title'])){
 // 		$_msg =  "名字不能为空";

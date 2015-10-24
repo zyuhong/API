@@ -11,12 +11,6 @@ require_once ('lib/WriteLog.lib.php');
 require_once ('tasks/ring/RingDb.class.php');
 require_once ('tasks/ring/RingFile.class.php');
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, 'sign fail');
-    exit();
-}
-
 try {	
 	$name   = isset($_POST['ringName'])?$_POST['ringName']:"";
 	$author = isset($_POST['author'])?$_POST['author']:"";	

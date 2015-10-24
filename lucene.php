@@ -1,12 +1,6 @@
 <?php
 require_once 'public/public.php';
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, 'sign fail');
-    exit();
-}
-
 $nCoolType   = isset($_GET['type'])?$_GET['type']:-1;
 $keyWord  	 = isset($_GET['keyword'])?$_GET['keyword']:'';
 $bColor    	 = isset($_GET['iscolor'])?$_GET['iscolor']:0;

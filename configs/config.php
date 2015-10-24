@@ -21,6 +21,16 @@ $g_arr_host_config = array(
         "sign_version" => 44,
 );
 
+$g_arr_qk_yun_config = array(
+    "check_tkt" => "http://passport.coolyun.com/uac/m/check_tkt",
+    "skip_url" => 'http://192.168.30.54:8088/forward.php',
+);
+$g_arr_des_key = array(
+    0 => '76c9e532aa6abc6d40a13a2a6ccaa055',
+    1 => '8c1eecf52d7ea6e356f737dd47bfb53a',
+    2 => '0e8f54d12e6f010c68c882f7d0be57e0',
+);
+
 /**
 	讯飞铃声合作跳转地址
  */
@@ -32,7 +42,6 @@ $g_arr_xring_config = array(
 );
 /**
  *数据库连接相关参数
-
  *
  * @var unknown_type
  */
@@ -90,7 +99,6 @@ $g_arr_db_config = array(
 
 /**
  *日志队列服务器
-
  */
 $g_arr_queue_config = array(
 	'request'=>array(

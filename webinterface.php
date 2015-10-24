@@ -8,12 +8,6 @@ $start 	  = $req_num * $req_page;
 require_once 'lib/WriteLog.lib.php';
 require_once 'public/public.php';
 
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, 'sign fail');
-    exit();
-}
-
 if($req_num === null || $req_page === null){
 	$result = get_rsp_result(false, 'req_num or req_paga is null');
 	exit($result); //错误请求

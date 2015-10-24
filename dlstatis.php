@@ -1,13 +1,7 @@
 <?php
 	require_once 'tasks/statis/DownloadStatis.class.php';
 	require_once 'lib/WriteLog.lib.php';
-require_once 'public/public.php';
-
-$bSign = checkSign($_GET);
-if(!$bSign){
-    echo get_rsp_result(false, '');
-    exit();
-}
+    require_once 'public/public.php';
 	
 //	if (!isset($_GET['id'])){
 // 		exit;

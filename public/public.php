@@ -289,14 +289,29 @@ function sql_check_str($str, $len = 0)
 	return $str;
 }
 
-function checkSign($signParam){
+/*-----------------------------公共校验逻辑------------------------------------*/
+
+if(checkVersion($_GET)){
+    $bSign = checkSign($_GET);
+    if(!$bSign){
+        echo get_rsp_result(false, 'sign fail');
+        exit();
+    }
+}
+
+function checkVersion($arrParam){
     global $g_arr_host_config;
-    $nVersionCode = (int)(isset($signParam['versionCode'])?$signParam['versionCode']:'');
+    $nVersionCode = (int)(isset($arrParam['versionCode'])?$arrParam['versionCode']:'');
     if($nVersionCode < $g_arr_host_config["sign_version"]){
         Log::write("version code lower, no sign", "log");
-        return true;
+        return false;
     }
 
+    return true;
+}
+
+function checkSign($signParam){
+    global $g_arr_host_config;
     $key = $g_arr_host_config["sign_key"];
     if(empty($signParam) || !isset($signParam['sign'])) {
         Log::write(" no sign param", "log");

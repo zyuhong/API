@@ -98,7 +98,7 @@ class MongoPHP{
     public function __construct($config=array('host'=>'localhost','port'=>27017,'db'=>'db_yl_bug_report','cmd'=>'$')){
 		try{
 			$server = sprintf("mongodb://%s:%s", $config['host'], $config['port']);
-			$this->_mongo = new Mongo($server, array('connect'=>true));// 立即连接
+			$this->_mongo = new MongoClient($server, array('connect'=>true));// 立即连接
 			// 命令前缀
 			if(!isset($config['cmd'])){
 				$this->_cmd = ini_get('mongo.cmd');
@@ -132,7 +132,7 @@ class MongoPHP{
     public function insert($colName, $sets, $safe=false, $fsync=false){
         $col = $this->_getCol($colName);
         try {
-            $ret = $col->insert($sets,array('safe'=>$safe,'fsync'=>$fsync));            
+            $ret = $col->insert($sets,array('w'=>$safe,'fsync'=>$fsync));
         }catch (MongoCursorException $e){
         	Log::write("MongoPHP::insert() exception, error:".$e->getMessage(), "log");        	
             return false;
@@ -176,7 +176,7 @@ class MongoPHP{
         try{
         	$sets = $this->_parseId($sets);
         	$col = $this->_getCol($colName);
-        	$ret = $col->save($sets/*, array('safe'=>$safe,'fsync'=>$fsync)*/);
+        	$ret = $col->save($sets/*, array('w'=>$safe,'fsync'=>$fsync)*/);
         }catch (Exception $e){
         	Log::write("MongoPHP::save() exception, error:".$e->getMessage(), "log");
         	return false;
@@ -205,7 +205,7 @@ class MongoPHP{
 			// 删除选项
 			$options = array(
 					'justOne'=>!$delAll,
-					'safe'=>$safe,
+					'w'=>$safe,
 					'fsync'=>$fsync,
 			);
 			$col = $this->_getCol($colName);
@@ -313,7 +313,7 @@ class MongoPHP{
 			$options = array(
 					'upsert'=>$upsert,
 					'multiple'=>$upAll,
-					'safe'=>$safe,
+					'w'=>$safe,
 					'fsync'=>$fsync,
 			);
 			$ret = $col->update($query,$newDoc,$options);
