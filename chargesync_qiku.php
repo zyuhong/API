@@ -4,7 +4,6 @@
  */
 require_once 'lib/WriteLog.lib.php';
 require_once 'tasks/charge/ChargeDb.class.php';
-require_once 'public/public.php';
 
 $jsonCharge = isset($_POST['transdata'])?$_POST['transdata']:'';
 if (empty($jsonCharge)){

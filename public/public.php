@@ -11,6 +11,7 @@
  */
 
 require_once 'lib/WriteLog.lib.php';
+require_once 'configs/config.php';
 
 function  get_file_info($input, $key, &$f_name, &$f_size, &$f_tmp_file){
 	if ($key < 0){
