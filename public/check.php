@@ -11,11 +11,14 @@ require_once 'lib/Des.lib.php';
 require_once 'tasks/Redis/UserRedis.php';
 
 function checkTKT($arrPost){
+    Log::write("post".json_encode($arrPost), "log");
     $arrParams = isset($arrPost['statis'])?$arrPost['statis']:'';
     if(empty($arrParams)){
         Log::write("no post params", "log");
         return false;
     }
+    $arrParams = stripslashes($arrParams);
+    $arrParams = json_decode($arrParams, true);
     $userid = isset($arrParams['cyid'])?$arrParams['cyid']:'';
     $appid = isset($arrParams['appid'])?$arrParams['appid']:'';
     $tkt = isset($arrParams['tkt'])?$arrParams['tkt']:'';
