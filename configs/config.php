@@ -26,9 +26,9 @@ $g_arr_qk_yun_config = array(
     "skip_url" => 'http://192.168.30.54:8088/forward.php',
 );
 $g_arr_des_key = array(
-    0 => '76c9e532aa6abc6d40a13a2a6ccaa055',
-    1 => '8c1eecf52d7ea6e356f737dd47bfb53a',
-    2 => '0e8f54d12e6f010c68c882f7d0be57e0',
+    0 => 'cs.qi.ku',
+    1 => 'coolshow',
+    2 => 'themesqk',
 );
 
 /**

@@ -19,6 +19,7 @@ function checkTKT($arrPost){
     $userid = isset($arrParams['cyid'])?$arrParams['cyid']:'';
     $appid = isset($arrParams['appid'])?$arrParams['appid']:'';
     $tkt = isset($arrParams['tkt'])?$arrParams['tkt']:'';
+    $tkt = base64_decode($tkt);
 
     global $g_arr_des_key;
     foreach($g_arr_des_key as $key){
