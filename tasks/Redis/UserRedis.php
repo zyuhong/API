@@ -20,8 +20,8 @@ class UserRedis
 
     public function getUserToken($key){
         try {
-            $bResult = $this->_redis->getValue($key);
-        }catch (Exception $e){
+            $bResult = $this->_redis->get($key);
+        }catch (\Exception $e){
             Log::write("redis ex. error on ".$e->getMessage(), "log");
             return false;
         }

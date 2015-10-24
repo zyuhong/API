@@ -130,6 +130,11 @@ class CRedis
 	{
 		return unserialize($this->_redis->get($key));
 	}
+
+    public function get($key)
+    {
+        return $this->_redis->get($key);
+    }
 	
 	/**
 	 * 设置时长
