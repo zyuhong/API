@@ -5,7 +5,6 @@
 * 
 */
 
-require_once 'public/public.php';
 require_once 'lib/WriteLog.lib.php';
 
 try{
@@ -27,7 +26,9 @@ try{
 	
 }catch(Exception $e){
 	Log::write("ring::Exception Error:".$e->getMessage(), "log");
-	echo(getFaultResult(-1));
+    echo json_encode(array('total_number'=>-1,
+                            'rst_number'=>0)
+                );
 	exit;
 }
 ?>
