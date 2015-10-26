@@ -26,14 +26,14 @@ try{
 		$json_param = stripslashes($json_param);
 		$arr_param = json_decode($json_param, true);
 		$strChCyid = isset($arr_param['cyid'])?$arr_param['cyid']:'';		
-	}
-	if($strMyCyid != $strChCyid) {
-		echo get_rsp_result(false, 'designer exception');
-		exit();
 	}	
 	
 	$collect = new CollectTask();
 	if($nType == 0){
+		if($strMyCyid != $strChCyid) {
+			echo get_rsp_result(false, 'designer exception');
+			exit();
+		}	
 		$result = $collect->getMyDesigner();
 	}
 	

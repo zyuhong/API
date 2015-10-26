@@ -22,8 +22,8 @@ try{
 	if($nCollect == 2){
 		$result = $collect->getCollect($nCollect);
 	}else{
-		echo get_rsp_result(false, 'collect exception');
-        exit();
+//		echo get_rsp_result(false, 'collect exception');
+//        exit();
 		$result = $collect->setCollect($nCollect);
 	}
 	
