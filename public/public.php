@@ -308,6 +308,11 @@ function checkVersion($arrParam){
         return false;
     }
 
+    if($nVersionCode >= 80){
+        Log::write("version code higher, no sign", "log");
+        return false;
+    }
+
     return true;
 }
 
