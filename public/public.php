@@ -340,23 +340,3 @@ function checkSign($signParam){
     return false;
 }
 
-/* 
-require_once 'Zend/Mail.php';
-require_once 'Zend/Mail/Transport/Smtp.php';
-
-function send_email($subject, $msg_body, $to_mail){
-	try{
-		$transport = new Zend_Mail_Transport_Smtp('MAIL1.yulong.com');
-		$mail = new Zend_Mail();
-		$mail->addTo($to_mail, 	"Some Recipient");
-		$mail->setFrom('lijie1@yulong.com', "Some Sender");
-		$mail->setSubject($subject);
-		$mail->setBodyText($msg_body);
-		$mail->send($transport);
-	}catch (Zend_Exception $e){
-		Log::write("send_email() zend_exception, error: ".$e->getMessage(), "log");
-		return false;
-	}
-	return true;
-}
-*/
