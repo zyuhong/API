@@ -9,14 +9,14 @@ require 'public/charge_sign.php';
 $jsonCharge = isset($_POST['transdata'])?$_POST['transdata']:'';
 $sign = isset($_POST['sign'])?$_POST['sign']:'';
 
-Log::write("charge=".$jsonCharge.", sign=".$sign, "log");
+Log::write("charge=".$jsonCharge.", sign=".$sign, "debug");
 
 if (empty($jsonCharge)){
 	$jsonCharge = file_get_contents("php://input");//isset($_POST['charge'])?$_POST['charge']:'';
 }
 
 if(empty($jsonCharge)){
-    Log::write('chargesync:: charge is empty', 'error');
+    Log::write('chargesync:: charge is empty', 'debug');
 
     echo 'FAILURE';
     exit();
@@ -24,7 +24,7 @@ if(empty($jsonCharge)){
 
 $result = validsign($jsonCharge, $sign);
 if($result != 0){
-    Log::write("chargesync:: charge sign fail", "log");
+    Log::write("chargesync:: charge sign fail", "debug");
     echo 'FAILURE';
     exit();
 }
