@@ -40,9 +40,14 @@
 		or define("YL_ADROIDESK_WP_COVER_LIST", 2);
 	defined("YL_ADROIDESK_WP")
 		or define("YL_ADROIDESK_WP", 0);			//根据请求类型获取壁纸
+	defined("YL_ADROIDESK_WP_RANDOM")
+		or define("YL_ADROIDESK_WP_RANDOM", 3);			//获取随机两张壁纸(百变壁纸)
+	defined("TOTAL_PAGE")
+		or define("TOTAL_PAGE", 100);			//1900张最新壁纸随机
 		
-	//$type: 0=>壁纸请求  1=>壁纸封面列表请求  2=>封面内容（广告）请求
+	//$type: 0=>壁纸请求  1=>壁纸封面列表请求  2=>封面内容（广告）请求 3=>百变壁纸请求
 	$type = (int)(isset($_GET['type'])?$_GET['type']:0);
+	$num = (int)(isset($_GET['retNum'])?$_GET['retNum']:2);
 	if(isset($_GET['page']) && isset($_GET['reqNum'])){
 		$req_page = (int)(isset($_GET['page'])?$_GET['page']:0);
 		$req_num  = (int)(isset($_GET['reqNum'])?$_GET['reqNum']:10);
@@ -124,6 +129,29 @@
 			$result = getAdroidestCoverList($wp_list, $width, $height, $start, $req_num, $req_type);
 			$adid = isset($_GET['adid'])?$_GET['adid']:"";
 			$reqStatis->recordCoverListRequest($adid);
+		}break;
+		case YL_ADROIDESK_WP_RANDOM:{
+			$filterid = isset($_GET['filterid'])?$_GET['filterid']:'';
+			$filter_arr = explode(",", $filterid);
+			$arr_cpid = array();
+			$arr_return = array();
+			while(count($arr_cpid) < $num) {
+				$start 	  = $req_num * rand(0, TOTAL_PAGE);
+				$tmp_result = getAndroidesk($wp_list, $width, $height, $start, $req_num, $req_type, $sorttype, $channel);
+				$arr_result = json_decode($tmp_result, true);
+				$i = rand(1, $req_num);
+				$tmp_cpid = $arr_result['wallpapers'][$i]['cpid'];
+				//随机壁纸既不再filterid中，也不在已有数组中
+				if(empty($tmp_cpid)) {
+					continue;
+				}
+				if(!in_array($tmp_cpid, $filter_arr) && !in_array($tmp_cpid, $arr_cpid)) {
+					array_push($arr_cpid, $tmp_cpid);
+					array_push($arr_return, $arr_result['wallpapers'][$i]);
+				}				
+			}
+			 $result = json_encode(array('wallpapers'=>$arr_return));
+			
 		}break;
 		default:
 			break;
