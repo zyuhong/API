@@ -300,6 +300,14 @@ $g_arr_tablename = array(
 					"others",	  //16
 					"hdorigin",	  //17  
 					"star",		  //18
-					"font");	  //19  
+					"font");	  //19 
+					
+//按机型过滤 
+$g_arr_product_filter = array(
+	'banner'=>array(
+				'theme'=>'("2231508052")',
+		),
+
+);
 		
 ?>

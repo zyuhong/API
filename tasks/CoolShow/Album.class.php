@@ -13,7 +13,7 @@ class Album extends CoolShow
 		parent::__construct();
 	}
 	
-	public function getSelectBannerListSql($nCoolType, $bAlbum = 0, $nStart = 0, $nNum = 0, $nProtocolCode = 0)
+	public function getSelectBannerListSql($nCoolType, $bAlbum = 0, $nStart = 0, $nNum = 0, $nProtocolCode = 0, $strProduct)
 	{
 		$strCondition = '';
 		if($nProtocolCode < 3 ){
@@ -24,6 +24,15 @@ class Album extends CoolShow
 		if ($bAlbum){
 			$strCondition = sprintf(' LIMIT %d, %d ', $nStart, $nNum);
 		}
+		
+		//按机型过滤
+		$tmparray1 = explode('8681', $strProduct);
+		$tmparray2 = explode('8692', $strProduct);
+		global $g_arr_product_filter;
+	    if (count($tmparray1) > 1 || count($tmparray2) > 1) {
+	    	$strCondition .= sprintf(' AND identity not in %s ', $g_arr_product_filter['banner']['theme']);
+	    } 
+		
 		$sql = sprintf(SQL_SELECT_ALBUM_LIST, $nCoolType, $strCondition);
 		return $sql;
 	}

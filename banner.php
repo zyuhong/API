@@ -25,6 +25,7 @@ if(isset($_POST['statis'])){
 	$json_param = stripslashes($json_param);
 	$arr_param = json_decode($json_param, true);
 	$protocolCode = (int)(isset($arr_param['protocolCode'])?$arr_param['protocolCode']:0);
+	$strProduct   = isset($arr_param['product'])?$arr_param['product']:'';
 }
 /**
  * 以下函数为COOLUI5.5的banner区自运营资源和COOLUI6.0改成了专辑做了区别，
@@ -36,7 +37,7 @@ if(isset($_POST['statis'])){
 
 
 if($protocolCode >= 2){
-	$json_result = $coolshow->getBannerList($nCoolType, $bAlbum, $nStart, $nNum, $protocolCode);
+	$json_result = $coolshow->getBannerList($nCoolType, $bAlbum, $nStart, $nNum, $protocolCode, $strProduct);
 }else{
 	$json_result = $coolshow->getBanner($nCoolType);	
 }
