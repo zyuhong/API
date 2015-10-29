@@ -30,7 +30,7 @@
 	 *],
 	 *}
 	 */
-//以下部分测试通过	 
+//以下部分测试通过
 	session_start();
     require_once 'public/public.php';
 

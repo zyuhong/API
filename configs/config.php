@@ -19,6 +19,7 @@ $g_arr_host_config = array(
 		"chargerecod_host" => 'http://coolpadshow.yulong.com/',
         "sign_key" => 'bdf9ef42a4c57307e64e44b4387867f2',
         "sign_version" => 44,
+        "app_key" => 'Mzg5OEU4MDBGRDg0QzM2NkNENkRCMTY4MDJFNDA3MkEyNTQyNTg1Rk1UWTRNemc1T1RVek9UVTJNalF3TURZeE1Ua3JNalEzT1RNek5qVXpORGc1TmpJMk16azJOVGM0TURjMk1UYzVPREkwTURFMk1UZzVNekU1',
 );
 
 $g_arr_qk_yun_config = array(
