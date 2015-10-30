@@ -20,18 +20,25 @@ class Album extends CoolShow
 			$strCondition .= ' AND H5 = 0 ';
 		}
 		
-		$strCondition .= ' AND album = 0  ORDER BY update_time DESC ';
-		if ($bAlbum){
-			$strCondition = sprintf(' LIMIT %d, %d ', $nStart, $nNum);
-		}
-		
 		//按机型过滤
 		$tmparray1 = explode('8681', $strProduct);
 		$tmparray2 = explode('8692', $strProduct);
 		global $g_arr_product_filter;
+		$qvalid = 0;
 	    if (count($tmparray1) > 1 || count($tmparray2) > 1) {
-	    	$strCondition .= sprintf(' AND identity not in %s ', $g_arr_product_filter['banner']['theme']);
+			$qvalid = 1;
 	    } 
+		
+		if ($qvalid) {
+			$strCondition .= sprintf(' AND identity not in %s ', $g_arr_product_filter['banner']['theme']);
+		}
+		$strCondition .= ' AND album = 0  ORDER BY update_time DESC ';
+		if ($bAlbum){
+			if ($qvalid) {
+				$strCondition = sprintf(' AND identity not in %s ', $g_arr_product_filter['banner']['theme']);
+			}
+			$strCondition .= sprintf(' LIMIT %d, %d ', $nStart, $nNum);
+		}		
 		
 		$sql = sprintf(SQL_SELECT_ALBUM_LIST, $nCoolType, $strCondition);
 		return $sql;
