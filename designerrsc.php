@@ -4,15 +4,6 @@
  */
 require_once 'lib/WriteLog.lib.php';
 require_once 'public/public.php';
-require_once 'public/check.php';
-
-if(checkVersion($_GET)){
-    $bRet = checkTKT($_POST);
-    if(!$bRet){
-        echo get_rsp_result(false, 'check token fail');
-        exit();
-    }
-}
 
 try{
 	require_once 'configs/config.php';
