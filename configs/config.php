@@ -12,14 +12,14 @@
  * @var unknown_type
  */
 $g_arr_host_config = array(
-		"host" => 'http://coolpadshow.yulong.com',
-		"cdnhost" => 'http://coolshowdl.coolyun.com',
-		"androidwp_host" => '',//'http://static.androidesk.com/download/',
-		"androidwp_local_host" => 'http://coolpadshow.yulong.com/',
-		"chargerecod_host" => 'http://coolpadshow.yulong.com/',
-        "sign_key" => 'bdf9ef42a4c57307e64e44b4387867f2',
-        "sign_version" => 44,
-        "app_key" => 'Mzg5OEU4MDBGRDg0QzM2NkNENkRCMTY4MDJFNDA3MkEyNTQyNTg1Rk1UWTRNemc1T1RVek9UVTJNalF3TURZeE1Ua3JNalEzT1RNek5qVXpORGc1TmpJMk16azJOVGM0TURjMk1UYzVPREkwTURFMk1UZzVNekU1',
+    "host" => 'http://zt.os.qiku.com',
+    "cdnhost" => 'http://zt-files.os.qiku.com',
+    "androidwp_host" => '',//'http://static.androidesk.com/download/',
+    "androidwp_local_host" => 'http://zt.os.qiku.com/',
+    "chargerecod_host" => 'http://zt.os.qiku.com/',
+    "sign_key" => 'bdf9ef42a4c57307e64e44b4387867f2',
+    "sign_version" => 44,
+    "app_key" => 'Mzg5OEU4MDBGRDg0QzM2NkNENkRCMTY4MDJFNDA3MkEyNTQyNTg1Rk1UWTRNemc1T1RVek9UVTJNalF3TURZeE1Ua3JNalEzT1RNek5qVXpORGc1TmpJMk16azJOVGM0TURjMk1UYzVPREkwTURFMk1UZzVNekU1',
 );
 
 $g_arr_qk_yun_config = array(
@@ -47,55 +47,56 @@ $g_arr_xring_config = array(
  * @var unknown_type
  */
 $g_arr_db_config = array(
-	'coolshow'=>array("host" =>"192.168.30.62",
-					"user" => "coolshow", 
-					"pwd"  => "7ujm&UJM6yhn^YHN",
-					"type" => "commit",
-					"coding" => "utf8",
-					"db"   => "db_yl_themes"
-				),
-	'designer'=>array("host" =>"192.168.30.62",
-					"user" => "coolshow", 
-					"pwd"  => "7ujm&UJM6yhn^YHN",
-					"type" => "commit",
-					"coding" => "utf8",
-					"db"   => "db_yl_designer"
-				),
-	'androidesk'=>array("host" =>"192.168.30.62",
-				"user" => "coolshow",
-				"pwd"  => "7ujm&UJM6yhn^YHN",
-				"type" => "commit",
-				"coding" => "utf8",
-				"db" => "db_yl_androidesk"
+	'coolshow'=>array("host" =>"10.120.253.109:3562",
+                    "user" => "zhuti",
+                    "pwd"  => "Kw_s71Ls_2t",
+                    "type" => "commit",
+                    "coding" => "utf8",
+                    "db"   => "db_yl_themes"
+    ),
+	'designer'=>array("host" =>"10.120.253.109:3562",
+                    "user" => "zhuti",
+                    "pwd"  => "Kw_s71Ls_2t",
+                    "type" => "commit",
+                    "coding" => "utf8",
+                    "db"   => "db_yl_designer"
+    ),
+	'androidesk'=>array("host" =>"10.120.253.109:3562",
+                    "user" => "zhuti_web",
+                    "pwd"  => "4hHWTDccMFjK",
+                    "type" => "commit",
+                    "coding" => "utf8",
+                    "db" => "db_yl_androidesk"
 	),
-	'coolshow_record'=>array("host" =>"192.168.30.64:3308",
-					"user" => "coolshow",
-					"pwd"  => "7ujm&UJM6yhn^YHN",
-					"type" => "commit",
-					"coding" => "utf8",
-					"db"   => "db_yl_themes_records"
+	'coolshow_record'=>array("host" =>"10.120.253.109:3562",
+                        "user" => "zhuti",
+                        "pwd"  => "Kw_s71Ls_2t",
+                        "type" => "commit",
+                        "coding" => "utf8",
+                        "db"   => "db_yl_themes_records"
 				),
-	'coolshow_scene'=>array("host" =>"192.168.30.62",
-					"user" => "coolshow",
-					"pwd"  => "7ujm&UJM6yhn^YHN",
-					"type" => "commit",
-					"coding" => "utf8",
-					"db"   => "db_yl_elflockscreen"
-				),
-	'coolshow_charge_record'=>array('host' =>'192.168.30.62:3307',
-				'user' => 'coolshow',
-				'pwd'  => '7ujm&UJM6yhn^YHN',
-				'type' => 'commit',
-				'coding' => 'utf8',
-				'db'   => 'db_yl_coolshow_charge_records'
-		),
-	'recommend'=>array('host' =>'192.168.30.18:3308',
-				'user' => 'coolshow_app',
-				'pwd'  => '3edc$RFV',
-				'type' => 'commit',
-				'coding' => 'utf8',
-				'db'   => 'db_yl_recommend'
-		),
+    'coolshow_scene'=>array("host" =>"10.120.253.109:3562",
+                        "user" => "zhuti",
+                        "pwd"  => "Kw_s71Ls_2t",
+                        "type" => "commit",
+                        "coding" => "utf8",
+                        "db"   => "db_yl_elflockscreen"
+    ),
+    'coolshow_charge_record'=>array('host' =>'10.120.253.109:3562',
+                                    'user' => 'zhuti',
+                                    'pwd'  => 'Kw_s71Ls_2t',
+                                    'type' => 'commit',
+                                    'coding' => 'utf8',
+                                    'db'   => 'db_yl_coolshow_charge_records'
+    ),
+    'recommend'=>array('host' =>'10.120.253.109:3562',
+                        'user' => 'zhuti',
+                        'pwd'  => 'Kw_s71Ls_2t',
+                        'type' => 'commit',
+                        'coding' => 'utf8',
+                        'db'   => 'db_yl_recommend'
+    ),
+
 );
 
 /**
@@ -168,11 +169,35 @@ $g_arr_queue_config = array(
 				13=>'queue_livewp_albums',
 				14=>'queue_alarm_albums',
 		),
+    'adbrowse'=>array(
+        0=>'queue_theme_browse',
+        2=>'queue_wp_browse',
+        3=>'queue_wp_browse',
+        4=>'queue_ring_browse',
+        5=>'queue_font_browse',
+        6=>'queue_scene_browse',
+        13=>'queue_livewp_browse',
+        14=>'queue_alarm_browse',
+        15=>'queue_theme_browse',
+        16=>'queue_theme_browse',
+        17=>'queue_theme_browse',
+    ),
+    'adapply'=>array(
+        0=>'queue_theme_apply',
+        2=>'queue_wp_apply',
+        3=>'queue_wp_apply',
+        4=>'queue_ring_apply',
+        5=>'queue_font_apply',
+        6=>'queue_scene_apply',
+        13=>'queue_livewp_apply',
+        14=>'queue_alarm_apply',
+    ),
 
-	'server'=>array(								
-			'host' 		=> '192.168.30.107',
-			'port' 		=> 6357,
-	),
+    'server'=>array(
+        'host'          => '10.0.70.81',
+        'port'          => 6357,
+    ),
+
 );
 
 /**
@@ -180,20 +205,17 @@ $g_arr_queue_config = array(
 
  */
 $g_arr_mongo_db_config = array('coolshow_record'=>array(
-									'host' =>'192.168.30.57',
-									'port' =>27017,
-									'db'=>'db_yl_coolshow_records',
-									'cmd'=>'$'
-									));
+                            'host' =>'10.0.70.81',
+                            'port' =>27017,
+                            'db'=>'db_yl_coolshow_records',
+                            'cmd'=>'$'
+));
 
 //Memcache,支持多个分布式(地址,端口,权重)
-$g_arr_memcache_config= array(array('host'=>'192.168.30.61', 'port'=>'11211', 'persistent'=>true,'weight'=>2),
-							  array('host'=>'192.168.30.63', 'port'=>'11211', 'persistent'=>true,'weight'=>2)
-							 );
+$g_arr_memcache_config= array(array('host'=>'127.0.0.1', 'port'=>'11222', 'persistent'=>true,'weight'=>2)
+);
 
-
-define('YL_SEARCH_LUCENE_URL', 'http://192.168.30.57:8080');
-
+define('YL_SEARCH_LUCENE_URL', 'http://10.0.70.81:8080');
 
 define("COOLXIU_TYPE_THEMES", 0);
 define("COOLXIU_TYPE_PREV", 1);
@@ -207,9 +229,7 @@ define("COOLXIU_TYPE_ALBUMS", 8);
 define("COOLXIU_TYPE_BANNER", 9);
 define("COOLXIU_TYPE_SCENE_WALLPAPER", 10);	//锁屏壁纸
 define("COOLXIU_TYPE_ALL", 11);		//搜索全部资源用
-
 define("COOLXIU_TYPE_LIVE_WALLPAPER", 13);	//动态壁纸
-
 define("COOLXIU_TYPE_ALARM", 14);			//闹钟铃声
 
 define("COOLXIU_TYPE_THEMES_CONTACT", 15);
@@ -301,14 +321,6 @@ $g_arr_tablename = array(
 					"others",	  //16
 					"hdorigin",	  //17  
 					"star",		  //18
-					"font");	  //19 
-					
-//按机型过滤 
-$g_arr_product_filter = array(
-	'banner'=>array(
-				'theme'=>'("2231508052")',
-		),
-
-);
+					"font");	  //19  
 		
 ?>
