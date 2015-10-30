@@ -58,8 +58,7 @@ function checkUserToken($strUserId, $strCyAppId, $strToken){
 
     $urlData = 'uid='.$strUserId.'&tkt='.$strToken.'&appid='.$strCyAppId;
 
-    $jsonResult = skip_curl($arrData, $strUrl, '', $nMethod);
-    //$jsonResult = curl_data($strUrl, $urlData, '', $nMethod);
+    $jsonResult = curl_data($strUrl, $urlData, '', $nMethod);
     if ($jsonResult === false){
         Log::write("curl fail", "log");
         return false;
