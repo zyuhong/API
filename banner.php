@@ -34,8 +34,6 @@ if(isset($_POST['statis'])){
  * 
  */
 
-
-
 if($protocolCode >= 2){
 	$json_result = $coolshow->getBannerList($nCoolType, $bAlbum, $nStart, $nNum, $protocolCode, $strProduct);
 }else{

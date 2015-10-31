@@ -387,24 +387,6 @@ class RecordTask
 		return $result;
 	}
 	
-	public function saveSetting()
-	{
-		$record = new SettingRecord();
-		
-		$set = new Setting();
-		$set->setRecord();
-		$set->setCoolType($nCoolType);
-		
-		$result = $record->saveRecord(0, $set);
-		if(!$result){
-			Log::write('RecordTask::saveSetting():saveRecord() failed', 'log');
-			// 			return false;
-		}
-		
-		$record->close();
-		return true;
-	}
-	
 	public function saveLucene($nCoolType)
 	{
 		$record = new LuceneRecord();
