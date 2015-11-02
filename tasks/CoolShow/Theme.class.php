@@ -181,7 +181,7 @@ class Theme extends CoolShow
 	private function _getSort()
 	{
 		$strOrderBy = ' ORDER BY t.asort DESC, t.id DESC';
-		if($this->_nProtocolCode >= 3 )$strOrderBy = ' ORDER BY t.tdate DESC ';
+		if($this->_nProtocolCode >= 3 )$strOrderBy = ' ORDER BY t.insert_time DESC ';
 		switch ($this->_nSort){
 			case  COOLXIU_SEARCH_HOT:
 				$strOrderBy   = ' ORDER BY mdl DESC ';
