@@ -36,8 +36,11 @@ class Album extends CoolShow
 		if ($bAlbum){
 			if ($qvalid) {
 				$strCondition = sprintf(' AND identity not in %s ', $g_arr_product_filter['banner']['theme']);
-			}
-			$strCondition .= sprintf(' LIMIT %d, %d ', $nStart, $nNum);
+                $strCondition .= sprintf(' ORDER BY update_time DESC LIMIT %d, %d ', $nStart, $nNum);
+			} else {
+                $strCondition = sprintf(' ORDER BY update_time DESC LIMIT %d, %d ', $nStart, $nNum);
+            }
+
 		}		
 		
 		$sql = sprintf(SQL_SELECT_ALBUM_LIST, $nCoolType, $strCondition);
