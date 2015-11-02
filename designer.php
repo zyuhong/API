@@ -6,17 +6,18 @@ require_once 'lib/WriteLog.lib.php';
 require_once 'public/public.php';
 require_once 'public/check.php';
 
-if(checkVersion($_GET)){
-    $bRet = checkTKT($_POST);
-    if(!$bRet){
-        echo get_rsp_result(false, 'check token fail');
-        exit();
-    }
-}
-
 try{
 	require_once 'tasks/Collect/CollectTask.class.php';
 	$nType 	= (int)(isset($_GET['type'])?$_GET['type']:0);
+    if($nType == 0){
+        if(checkVersion($_GET)){
+            $bRet = checkTKT($_POST);
+            if(!$bRet){
+                echo get_rsp_result(false, 'check token fail');
+                exit();
+            }
+        }
+    }
 	
 	//将Get和Post方法简单校验
 	$strMyCyid = isset($_GET['cyid'])?$_GET['cyid']:'';

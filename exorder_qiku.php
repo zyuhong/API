@@ -15,14 +15,16 @@ require_once 'public/public.php';
 require_once 'public/check.php';
 require_once 'configs/config.php';
 
-if(checkVersion($_GET)){
-    $bRet = checkTKT($_POST);
-    if(!$bRet){
-        echo get_rsp_result(false, 'check token fail');
-        exit();
+$lookup		= (int)(isset($_GET['lookup'])?$_GET['lookup']:0);#0表示拉取订单号和收费信息，1表示查询收费信息
+if($lookup == 0){
+    if(checkVersion($_GET)){
+        $bRet = checkTKT($_POST);
+        if(!$bRet){
+            echo get_rsp_result(false, 'check token fail');
+            exit();
+        }
     }
 }
-
 
 $nCoolType = (int)(isset($_GET['type'])?$_GET['type']:0);
 $strId = isset($_GET['id'])?$_GET['id']:'';
@@ -75,7 +77,6 @@ $reuslt = array('result'=>true,
 echo json_encode($reuslt);
 
 
-$lookup		= isset($_GET['lookup'])?$_GET['lookup']:0;#0表示拉取订单号和收费信息，1表示查询收费信息
 if($lookup){
 	exit();
 }
