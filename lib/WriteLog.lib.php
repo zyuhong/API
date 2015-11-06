@@ -34,8 +34,7 @@
 	    public static function write($s_message, $s_type = 'log')   
 	    {   
 	         // 检查日志目录是否可写   
-			if( !file_exists(self::$s_log_path) ) {   
-	         	//echo("logs not exists");
+			if( !file_exists(self::$s_log_path) ) {
 	            @mkdir(self::$s_log_path);        
 	        } 
 	       	$s_now_time = date('[Y-m-d H:i:s]');   

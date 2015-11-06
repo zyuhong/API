@@ -43,7 +43,7 @@ abstract class MongoRecord
 			$this->_mongo	   = new MongoPHP($arrMongoServer);
 			
 		}catch (Exception $e){
-			Logs::write('MongoRecord::connect() exception, err:'
+			Log::write('MongoRecord::connect() exception, err:'
 					.' file:'.$e->getFile()
 					.' line:'.$e->getLine()
 					.' message:'.$e->getMessage()
@@ -239,13 +239,13 @@ abstract class MongoRecord
 				}
 				$bResult = $this->_mongo->ensureIndex($this->_collection, $index);
 				if(!$bResult){
-					Logs::write('MongoRecord::addIndex():ensureIndex() failed, collection:'.$this->_collection, 'log');
+					Log::write('MongoRecord::addIndex():ensureIndex() failed, collection:'.$this->_collection, 'log');
 					return false;
 				}
 			}
 			return true;
 		}catch (Exception $e){
-			Logs::write('MongoRecord::addIndex() exception, mongErr:'.$this->_mongo->getError()
+			Log::write('MongoRecord::addIndex() exception, mongErr:'.$this->_mongo->getError()
 					.' err:'
 					.' file:'.$e->getFile()
 					.' line:'.$e->getLine()

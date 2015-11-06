@@ -69,7 +69,7 @@ class ExorderDb extends DBManager
 			$sql = Exorder::getSelectExorderSql($nType);
 			$rows = $this->executeQuery($sql);
 			if($rows === false){
-				Logs::write('ExorderDb::getExorder():executeQuery() failed, SQL:'.$sql, 'log');
+				Log::write('ExorderDb::getExorder():executeQuery() failed, SQL:'.$sql, 'log');
 				return false;
 			}
 			
@@ -82,7 +82,7 @@ class ExorderDb extends DBManager
 			
 			return $exorder;
 		}catch(Exception $e){
-			Logs::write('ExorderDb::getExorder() error:'.$e->getMessage(), 'log');
+			Log::write('ExorderDb::getExorder() error:'.$e->getMessage(), 'log');
 			return false;
 		}
 		return $rows;
@@ -93,12 +93,12 @@ class ExorderDb extends DBManager
 			$sql = Exorder::getUpdateExorderSql($strDate, $nType, $nExorder);
 			$bResult = $this->executeSql($sql);
 			if(!$bResult){
-				Logs::write('ExorderDb::updateExorder():executeSql() failed', 'log');
+				Log::write('ExorderDb::updateExorder():executeSql() failed', 'log');
 				return false;
 			}
 			return true;	
 		}catch(Exception $e){
-			Logs::write('ExorderDb::updateExorder() exception, err:'.$e->getMessage(), 'log');
+			Log::write('ExorderDb::updateExorder() exception, err:'.$e->getMessage(), 'log');
 			return false;
 		}
 		return true;
@@ -109,12 +109,12 @@ class ExorderDb extends DBManager
 			$sql = Exorder::getInsertExorderSql($strDate, $nType, $nExorder);
 			$bResult = $this->executeSql($sql);
 			if(!$bResult){
-				Logs::write('ExorderDb::saveExorder():executeSql() failed', 'log');
+				Log::write('ExorderDb::saveExorder():executeSql() failed', 'log');
 				return false;
 			}
 			return true;
 		}catch(Exception $e){
-			Logs::write('ExorderDb::saveExorder() exception, err:'.$e->getMessage(), 'log');
+			Log::write('ExorderDb::saveExorder() exception, err:'.$e->getMessage(), 'log');
 			return false;
 		}
 		return true;

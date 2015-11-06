@@ -152,7 +152,7 @@ class MongoPHP{
     	try {
     		$ret = $col->ensureIndex($index);
     	}catch (MongoCursorException $e){
-    		Logs::write("MongoPHP::ensureIndex() exception, error:".$e->getMessage(), "log");
+    		Log::write("MongoPHP::ensureIndex() exception, error:".$e->getMessage(), "log");
     		return false;
     	}
     	return $ret;
