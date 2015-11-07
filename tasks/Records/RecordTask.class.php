@@ -370,7 +370,7 @@ class RecordTask
 		$nOpType  	 = isset($_GET['optype'])?$_GET['optype']:-1;
 		
 		
-		$nCoolType = 23+$nCoolType;
+		$nCoolType = 23 + $nCoolType;
 		
 		$result = false;
 		switch ($nOpType){

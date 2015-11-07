@@ -245,7 +245,8 @@ define("COOLXIU_TYPE_SETTING", 21);		//酷秀设置项
 
 define("COOLXIU_TYPE_MY_RSC", 22);		//酷秀第三方合作铃声
 
-
+define("COOLXIU_TYPE_AD_BANNER", 23);   //广告Banner
+define("COOLXIU_TYPE_AD_ADVER", 24);    //主题详情广告
 
 define('COOLXIU_TYPE_PREV_BROWSER', 1);
 define('COOLXIU_TYPE_PREV_COMMON', 0);
