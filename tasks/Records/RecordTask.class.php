@@ -386,6 +386,25 @@ class RecordTask
 		}
 		return $result;
 	}
+
+    public function saveSetting()
+    {
+        $record = new SettingRecord();
+
+        $set = new Setting();
+        $set->setRecord();
+        //$set->setCoolType($nCoolType);
+        $set->setCoolType(0);   //更新：2015-11-07
+
+        $result = $record->saveRecord(0, $set);
+        if(!$result){
+            Log::write('RecordTask::saveSetting():saveRecord() failed', 'log');
+            // 			return false;
+        }
+
+        $record->close();
+        return true;
+    }
 	
 	public function saveLucene($nCoolType)
 	{
