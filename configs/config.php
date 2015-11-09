@@ -12,11 +12,11 @@
  * @var unknown_type
  */
 $g_arr_host_config = array(
-    "host" => 'http://zt.os.qiku.com',
-    "cdnhost" => 'http://zt-files.os.qiku.com',
+    "host" => 'http://api.zhuti.qiku.com',
+    "cdnhost" => 'http://d.res.zhuti.qiku.com',
     "androidwp_host" => '',//'http://static.androidesk.com/download/',
-    "androidwp_local_host" => 'http://zt.os.qiku.com/',
-    "chargerecod_host" => 'http://zt.os.qiku.com/',
+    "androidwp_local_host" => 'http://api.zhuti.qiku.com/',
+    "chargerecod_host" => 'http://api.zhuti.qiku.com/',
     "sign_key" => 'bdf9ef42a4c57307e64e44b4387867f2',
     "sign_version" => 44,
     "app_key" => 'Mzg5OEU4MDBGRDg0QzM2NkNENkRCMTY4MDJFNDA3MkEyNTQyNTg1Rk1UWTRNemc1T1RVek9UVTJNalF3TURZeE1Ua3JNalEzT1RNek5qVXpORGc1TmpJMk16azJOVGM0TURjMk1UYzVPREkwTURFMk1UZzVNekU1',
