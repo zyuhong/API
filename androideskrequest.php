@@ -43,7 +43,7 @@
 	defined("YL_ADROIDESK_WP_RANDOM")
 		or define("YL_ADROIDESK_WP_RANDOM", 3);			//获取随机两张壁纸(百变壁纸)
 	defined("TOTAL_PAGE")
-		or define("TOTAL_PAGE", 100);			//1900张最新壁纸随机
+		or define("TOTAL_PAGE", 50);			//1900张最新壁纸随机
 		
 	//$type: 0=>壁纸请求  1=>壁纸封面列表请求  2=>封面内容（广告）请求 3=>百变壁纸请求
 	$type = (int)(isset($_GET['type'])?$_GET['type']:0);
@@ -131,6 +131,7 @@
 			$reqStatis->recordCoverListRequest($adid);
 		}break;
 		case YL_ADROIDESK_WP_RANDOM:{
+            $req_num = 12;    //修正客户端请求 req_num = 8的旧版本，新版本统一 req_num = 12
 			$filterid = isset($_GET['filterid'])?$_GET['filterid']:'';
 			$filter_arr = explode(",", $filterid);
 			$arr_cpid = array();
