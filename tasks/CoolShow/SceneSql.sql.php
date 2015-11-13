@@ -22,7 +22,7 @@ defined("SQL_SELECT_SCENE_APK")
 								." LEFT JOIN tb_yl_scene_download dl ON dl.cpid = scene.sceneCode"
 								." LEFT JOIN tb_yl_score_rule rule ON rule.ruleid = scene.ruleid "
 								." LEFT JOIN tb_yl_score_incrule incrule ON incrule.ruleid = scene.incruleid " 	
-								." LEFT JOIN (SELECT * FROM tb_yl_theme_info WHERE kernel = 3 AND valid = 1 AND width = %d AND height=%d) "
+								." LEFT JOIN (SELECT * FROM tb_yl_theme_info WHERE kernel >= 3 AND valid = 1 AND width = %d AND height=%d) "
 								."      tinfo ON tinfo.cpid = scene.sceneCode"
 								." WHERE scene.valid = 1 %s "
 								." %s  "
@@ -64,6 +64,20 @@ defined("SQL_SELECT_SCENE_BY_ID")
 	or define("SQL_SELECT_SCENE_BY_ID", "SELECT ischarge, sceneCode, fname, totalSize, md5, zhName, enName, url"
 			." FROM tb_yl_scene"
 			." WHERE sceneCode = '%s'");
+
+
+/**
+ * 查询下载md5
+ */
+defined("SQL_SELECT_SCENE_DL_MD5")
+    or define("SQL_SELECT_SCENE_DL_MD5", "SELECT dl_md5 FROM tb_yl_scene "
+                                             ." WHERE sceneCode = '%s' and valid=1 and kernel=%d ");
+
+defined("SQL_SELECT_SCENE_THEME_DL_MD5")
+    or define("SQL_SELECT_SCENE_THEME_DL_MD5", " SELECT theme.dl_md5 FROM `tb_yl_scene` scene "
+                                            ." LEFT JOIN `tb_yl_theme_info` theme ON scene.`sceneCode` = theme.`cpid` "
+                                            ." WHERE sceneCode=%d AND scene.kernel=%d AND theme.`width` = %d AND theme.`height` = %d "
+                                            ." AND theme.`valid`=1 AND scene.`valid`=1 AND theme.kernel >=3;");
 /**
  * 获取锁屏网站资源
  */	

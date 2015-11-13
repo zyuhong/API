@@ -27,7 +27,6 @@ function checkTKT($arrPost){
     foreach($g_arr_des_key as $key){
         $tkt = Des::decrypt($tkt, $key);
     }
-    Log::write("tkt is :".$tkt, "log");
 
     return checkUserToken($userid, $appid, $tkt);
 }

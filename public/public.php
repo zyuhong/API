@@ -194,6 +194,17 @@ function get_rsp_result($value, $error = ''){
 	return json_encode($result);
 }
 
+function out_json($value, $encode=true){
+    header('Content-Type: application/json; charset=utf-8');
+    if($encode){
+        echo json_encode($value);
+    }else{
+        echo $value;
+    }
+
+    exit();
+}
+
 //对象转数组
 function object_to_array($obj){
 	
@@ -331,7 +342,6 @@ function checkSign($signParam){
     $signStr = http_build_query($signParam);
 
     $calSign = hash_hmac("sha1", $signStr, $key);
-    Log::write("sev_sign:".$calSign, "log");
     if ($calSign == $sign) {
         Log::write("sign pass", "log");
         return true;
