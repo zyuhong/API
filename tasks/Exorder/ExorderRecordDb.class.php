@@ -35,6 +35,28 @@ class ExorderRecordDb extends DBManager
 			return false;
 		}
 	}
+
+    public function checkFreeRecord($nCoolType, $strId, $strCpid, $strCyid)
+    {
+        try{
+            $sql = ExorderRecord::getCheckFreeRecordSql($strId, $strCpid, $nCoolType, $strCyid);
+            if(!$sql){
+                Log::write('ExorderDb::checkFreeRecord() SQL is empty', 'log');
+                return false;
+            }
+            $nCount = $this->executeScan($sql);
+            if($nCount === false){
+                Log::write('ExorderDb::checkFreeRecord():executeScan() failed, SQL:'.$sql, 'log');
+                return false;
+            }
+            if($nCount > 0)	return true;
+
+            return false;
+        }catch(Exception $e){
+            Log::write('ExorderDb::checkFreeRecord():exception, error:'.$e->getMessage(), 'log');
+            return false;
+        }
+    }
 	
 	public function updateMobileExorder($strExorder, $isScore)
 	{

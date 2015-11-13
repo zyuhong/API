@@ -100,6 +100,7 @@ class StatisInterface
 		$height = 0;
 		$width  = 0;
 		$this->setStatisParam();
+
 		switch ($this->nOpType){
 			case self::COOLSHOW_OPTYPE_PREV:{
 				if($this->nModuleType == COOLXIU_TYPE_WIDGET && $this->nType == 1){
@@ -109,6 +110,9 @@ class StatisInterface
 // 				$this->_statis->recordBrowseRequest($this->strId, $this->nType, $this->nModuleType, $height, $width, $this->strCpid, '', $this->nChannel);
 			}break;
 			case self::COOLSHOW_OPTYPE_DOWNLOAD:{
+                //添加下载记录到已购记录表中
+                $this->saveUserDLRecord();
+
 				$this->_statis->recordDownloadRequest($this->strId, $this->nModuleType, $height, $width, $this->strCpid, '', $this->nMSubType, $this->nChannel);
 			}break;
 			case self::COOLSHOW_OPTYPE_APPLY:{
@@ -117,5 +121,23 @@ class StatisInterface
 		}
 		return true;
 	}
+
+//查询是否已记录该用户该记录，如果未记录则保存
+    private function saveUserDLRecord(){
+        require_once 'tasks/Exorder/ExorderRecordDb.class.php';
+
+        $strCyid   = isset($_GET['cyid'])?$_GET['cyid']:'';
+        $erDb = new ExorderRecordDb();
+        $bRet = $erDb->checkFreeRecord($this->nModuleType, $this->strId, $this->strCpid, $strCyid);
+        if($bRet === true){
+            return true;
+        }
+
+        if (!empty($strCyid)){
+            $erDb->saveChargeRecord('', $strCyid, $this->nModuleType, $this->strId, $this->strCpid);
+        }else{
+            Log::write("cyid is null", "debug");
+        }
+    }
 	
 }

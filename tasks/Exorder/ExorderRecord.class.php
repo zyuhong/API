@@ -25,12 +25,15 @@ defined("SQL_SELECT_EXORDER_BY_ID")
 	or define("SQL_SELECT_EXORDER_BY_ID", "SELECT * FROM tb_yl_exorder_record WHERE exorder = '%s' ");	
 	
 defined("SQL_INSERT_CHARGE_RECORD")
-	or define("SQL_INSERT_CHARGE_RECORD", "INSERT INTO tb_yl_charge_record "
-										." (exorder, cooltype, identity, cpid, cyid, insert_time)"
-										." VALUES ('%s', %d, '%s',  '%s', '%s', '%s')");
+or define("SQL_INSERT_CHARGE_RECORD", "INSERT INTO tb_yl_charge_record "
+    ." (exorder, cooltype, identity, cpid, cyid, insert_time)"
+    ." VALUES ('%s', %d, '%s',  '%s', '%s', '%s')");
 
 defined("SQL_SELECT_CHARGE_BY_CYID")
 	or define("SQL_SELECT_CHARGE_BY_CYID", "SELECT cpid, insert_time FROM tb_yl_charge_record WHERE cyid = '%s' AND cooltype = %d GROUP BY cpid limit %d, %d ");
+
+defined("SQL_SELECT_FREE_RECORD")
+    or define("SQL_SELECT_FREE_RECORD", "SELECT count(1) FROM tb_yl_charge_record WHERE cyid = '%s' AND cooltype = %d AND id='%s' AND cpid='%d' ");
 	
 class ExorderRecord
 {	
@@ -123,6 +126,12 @@ class ExorderRecord
 		$sql = sprintf(SQL_INSERT_CHARGE_RECORD, $strExorder, $nCoolType, $strId, $strCpid, $strCyid, date('Y-m-d H:i:s'));
 		return $sql;
 	}
+
+    static public function getCheckFreeRecordSql($strId, $strCpid, $nCoolType, $strCyid)
+    {
+        $sql = sprintf(SQL_SELECT_FREE_RECORD, $strCyid, $nCoolType, $strId, $strCpid);
+        return $sql;
+    }
 
 	static public function getSelectChargeByCyidSql($strCyid, $nCoolType, $start, $limit)
 	{
