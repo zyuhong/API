@@ -126,7 +126,15 @@ class StatisInterface
     private function saveUserDLRecord(){
         require_once 'tasks/Exorder/ExorderRecordDb.class.php';
 
-        $strCyid   = isset($_GET['cyid'])?$_GET['cyid']:'';
+        $strCyid = '';
+        if(isset($_POST['statis'])){
+            $json_param = $_POST['statis'];
+
+            $json_param = stripslashes($json_param);
+            $arr_param = json_decode($json_param, true);
+            $strCyid   = isset($arr_param['cyid'])?$arr_param['cyid']:'';
+        }
+
         $erDb = new ExorderRecordDb();
         $bRet = $erDb->checkFreeRecord($this->nModuleType, $this->strId, $this->strCpid, $strCyid);
         if($bRet === true){
