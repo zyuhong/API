@@ -68,7 +68,8 @@ class CoolShowSearch
 			$arr_param = json_decode($json_param, true);
 	
 			$strProduct = isset($arr_param['product'])?$arr_param['product']:'';
-			$nProtocolCode = (int)(isset($arr_param['protocolCode'])?$arr_param['protocolCode']:0);#新增的版本判断依据
+			$nProtocolCode = (int)(isset($arr_param['protocolCode'])?$arr_param['protocolCode']:0);#新增的版本判断依据
+
 		}
 		$nProtocolCode  = (int)(isset($_GET['protocolCode'])?$_GET['protocolCode']:$nProtocolCode);#新版本在主GET参数中追加20150522
 		
@@ -1481,4 +1482,73 @@ class CoolShowSearch
 			return $result;
 		}
 	}
+
+    public function getSrcSign($nCoolType, $strId, $kernel, $moduletype)
+    {
+        try {
+            $memKey = 'srcsign_'.$nCoolType.$strId.$kernel.$moduletype;
+
+            $result = $this->_memcached->getSearchResult($memKey);
+            if($result){
+                return $result;
+            }
+
+            $arrProtocol = $this->_getSrcSign($nCoolType, $strId);
+            if($arrProtocol === false){
+                Log::write('CoolShowSearch::_getSrcSign():getProtocol() failed', 'log');
+                $result = array('result'=>false, 'error'=>'get getSrcSign protocol failed');
+                out_json($result);
+            }
+
+            if(count($arrProtocol) == 0){
+                Log::write("CoolShowSearch::_getSrcSign() no find", 'log');
+                $result = array('result'=>false, 'error'=>'no find');
+                out_json($result);
+            }
+
+            $result = array('result'=>true,
+                            'md5'=>$arrProtocol[0]['dl_md5']);
+            $json_result = json_encode($result);
+
+            $this->_memcached->setSearchResult($memKey, $json_result, 24*60*60);
+
+        }catch(Exception $e){
+            Log::write("CoolShowSearch::getSrcSign(): excepton error:".$e->getMessage(), "log");
+            $result = array('result'=>false, 'error'=>'get getSrcSign exception');
+            out_json($result);
+        }
+
+        return $json_result;
+    }
+
+    private function _getSrcSign($nCoolType, $strId)
+    {
+        try {
+            $coolshow = CoolShowFactory::getCoolShow($nCoolType);
+            if(!$coolshow){
+                Log::write('CoolShowSearch::getSrcSign() coolshow  is null', 'log');
+                return false;
+            }
+
+            $this->_setCoolShowParam($coolshow);
+
+            $strSql = $coolshow->getSelectMd5Sql($strId);
+            if(!$strSql){
+                Log::write('CoolShowSearch::_getSrcSign()failed, Sql is empty', 'log');
+                return false;
+            }
+
+            $rows = $this->_getDb()->getCoolShow($strSql);
+            if($rows === false){
+                Log::write('CoolShowSearch::_getSrcSign():getCoolShow() failed, SQL:'.$strSql, 'log');
+                return false;
+            }
+
+            return $rows;
+        }catch(Exception $e){
+            Log::write('CoolShowSearch::_getSrcSign() excepton error:'.$e->getMessage(), 'log');
+            $result = array('result'=>false, 'error'=>'get rscsign res exception');
+            out_json($result);
+        }
+    }
 }

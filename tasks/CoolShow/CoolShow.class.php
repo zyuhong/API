@@ -237,6 +237,7 @@ abstract class CoolShow
 	abstract function getSelectAlbumsSql($strId, $nStart = 0, $nNum = 100);
 	abstract function getSelectBannerSql();
 	abstract function getSelectRscSql($id);
+//    abstract function getSelectMd5Sql($id);
 	abstract function getSelectInfoByIdSql($id, $nChannel = 0);
 	
 // 	abstract function getCoolShowDetailSql($strId);

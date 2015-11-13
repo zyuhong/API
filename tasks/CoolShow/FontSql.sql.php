@@ -41,7 +41,13 @@ defined("SQL_COUNT_FONT_")
  */
 defined("SQL_SELECT_FONT_DL_URL")
 	or define("SQL_SELECT_FONT_DL_URL", "SELECT ischarge,  url FROM tb_yl_font font WHERE identity='%s'");
-	
+
+/**
+ * 查询下载md5
+ */
+defined("SQL_SELECT_FONT_DL_MD5")
+    or define("SQL_SELECT_FONT_DL_MD5", "SELECT dl_md5 FROM tb_yl_font  WHERE identity = '%s' and valid=1");
+
 /**
  * 根据ID获取字体资源
  */	

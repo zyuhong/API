@@ -132,6 +132,13 @@ class Theme extends CoolShow
 		$sql = 	sprintf(SQL_SELECT_THEME_ALBUMS, $strId, $this->_nWidth, $this->_nHeight, $strCondition, $nStart, $nNum);
 		return $sql;
 	}
+
+    public function getSelectMd5Sql($strId)
+    {
+        $strId = sql_check_str($strId, 64);
+        $sql = 	sprintf(SQL_SELECT_THEMES_DL_MD5, $strId);
+        return $sql;
+    }
 	
 	public function getSelectRscSql($id)
 	{

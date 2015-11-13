@@ -94,6 +94,13 @@ class Font extends CoolShow
 		$sql = sprintf(SQL_SELECT_FONT_ALBUM, $strId, $nStart, $nNum);
 		return $sql;
 	}
+
+    public function getSelectMd5Sql($strId)
+    {
+        $strId = sql_check_str($strId, 64);
+        $sql = 	sprintf(SQL_SELECT_FONT_DL_MD5, $strId);
+        return $sql;
+    }
 	
 	public function getSelectBannerSql(){
 		$strCondition = '';

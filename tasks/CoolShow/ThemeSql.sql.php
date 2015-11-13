@@ -213,8 +213,11 @@ defined("SQL_CHECK_THEME_ISCHARGE")
 										 ." FROM tb_yl_theme_info tinfo "
 										 ." LEFT JOIN tb_yl_theme t ON t.cpid = tinfo.cpid "
 										 ." WHERE tinfo.identity = '%s' ");
-	
-	
+/**
+ * 查询下载md5
+ */
+defined("SQL_SELECT_THEMES_DL_MD5")
+    or define("SQL_SELECT_THEMES_DL_MD5", "SELECT dl_md5 FROM tb_yl_theme_info WHERE identity = '%s' and valid=1 ");
 	
 /**
  * 网站访问资源

@@ -127,12 +127,24 @@ class StatisInterface
         require_once 'tasks/Exorder/ExorderRecordDb.class.php';
 
         $strCyid = '';
+        $nVerCode = 0;
         if(isset($_POST['statis'])){
             $json_param = $_POST['statis'];
 
             $json_param = stripslashes($json_param);
             $arr_param = json_decode($json_param, true);
             $strCyid   = isset($arr_param['cyid'])?$arr_param['cyid']:'';
+            $nVerCode   = (int)(isset($arr_param['versionCode'])?$arr_param['versionCode']:0);
+        }
+
+        //过滤旧版本
+        if($nVerCode < 43){
+            return true;
+        }
+
+        //过滤壁纸
+        if($this->nModuleType == 3 || $this->nModuleType == 2){
+            return true;
         }
 
         $erDb = new ExorderRecordDb();

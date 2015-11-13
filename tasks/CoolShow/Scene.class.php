@@ -101,6 +101,12 @@ class Scene extends CoolShow
 		
 		return $strIsCharge.$this->strPayCondition.$strKernel.$strPackage.$strCharge;
 	}
+
+    private function _getMd5Condition(){
+        if(strcmp($this->strType, 'livewallpapers') == 0 ){
+            $strPackage = " AND package = 'com.vlife.coolpad.wallpaper' " ;
+        }
+    }
 	
 	private function _getAlbumCondition()
 	{
@@ -133,6 +139,19 @@ class Scene extends CoolShow
 		$sql = sprintf(SQL_SELECT_SCENE_ALBUM, $strId, $this->_nWidth, $this->_nHeight, $strCondition, $nStart, $nNum);
 		return $sql;
 	}
+
+    public function getSelectMd5Sql($strId)
+    {
+        $strId = sql_check_str($strId, 64);
+
+        if ($this->_nKernel == 1 || $this->_nKernel == 10) {
+            $sql = 	sprintf(SQL_SELECT_SCENE_DL_MD5, $strId, $this->_nKernel);
+        } else {
+            $sql = 	sprintf(SQL_SELECT_SCENE_THEME_DL_MD5, $strId, $this->_nKernel, $this->_nWidth, $this->_nHeight);
+        }
+
+        return $sql;
+    }
 
 	public function getSelectBannerSql()
 	{
