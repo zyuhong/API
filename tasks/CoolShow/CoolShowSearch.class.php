@@ -291,7 +291,6 @@ class CoolShowSearch
 				return $result;
 			}
 			
-			
 			$result =  array(
 					'total_number'=> $count,
 					'ret_number'  => count($arrProtocol),
@@ -853,7 +852,7 @@ class CoolShowSearch
 							 'ret_number'  => count($arrProtocol),
 							 $coolshow->strType     => $arrProtocol
 						);
-			$this->_memcached->setSearchResult($data, $result, 12*60*60);
+			$this->_memcached->setSearchResult($data.$nCoolType, $result, 12*60*60);
 		}catch(Exception $e){
 			Log::write("CoolShowSearch::searchLucene(): excepton error:".$e->getMessage(), "log");
 			$result = get_rsp_result(false, 'get lucene exception');
@@ -1463,7 +1462,7 @@ class CoolShowSearch
 			$sql = $coolshow->getCountDesignerCoolShowSql($strCyid);
 			$count = $this->_getDb()->getCoolShowCount($sql);
 			if($count === false){
-				Log::write('CoolShowSearch::getDesignerCoolShow():getCoolShowCount() failed, SQL:'.$strSql, 'log');
+				Log::write('CoolShowSearch::getDesignerCoolShow():getCoolShowCount() failed, SQL:'.$sql, 'log');
 				return false;
 			}
 			

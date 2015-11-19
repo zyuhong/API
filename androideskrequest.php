@@ -95,9 +95,8 @@
 	require_once 'tasks/CoolShow/CoolShowSearch.class.php';
 	require_once 'tasks/statis/ReqStatis.class.php';
 	require_once 'tasks/Records/RecordTask.class.php';
-	$reqStatis = new ReqStatis();
+
 	$rt = new RecordTask();
-	
 	$wp_list = new AndroidWallpaperDb();	
 	$wp_list->setProduct($product);	
 	
@@ -128,6 +127,8 @@
 		case YL_ADROIDESK_WP_COVER_LIST:{
 			$result = getAdroidestCoverList($wp_list, $width, $height, $start, $req_num, $req_type);
 			$adid = isset($_GET['adid'])?$_GET['adid']:"";
+
+            $reqStatis = new ReqStatis();
 			$reqStatis->recordCoverListRequest($adid);
 		}break;
 		case YL_ADROIDESK_WP_RANDOM:{

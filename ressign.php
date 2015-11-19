@@ -23,6 +23,7 @@ if(empty($id) ){
 }
 
 $res = new CoolShowSearch();
+
 $bRet = $res->getSrcSign($nType, $id, $kernel, $moduletype);
 
 out_json($bRet, false);
