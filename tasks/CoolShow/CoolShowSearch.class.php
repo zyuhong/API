@@ -1141,7 +1141,7 @@ class CoolShowSearch
 		$strSql = $coolshow->getRecommendCpidSql($strCpid);
 		$rows = $this->_getRecommendDb()->getCoolShow($strSql);
 		if($rows === false || count($rows) < 3 ){
-			Log::write('CoolShowSearch::_getRecommend():getCoolShow() failed, SQL:'.$strSql, 'log');
+			Log::write('CoolShowSearch::_getRecommend():_getRecommendDB():getCoolShow() failed, SQL:'.$strSql, 'log');
 			return false;
 		}
 		
@@ -1151,7 +1151,7 @@ class CoolShowSearch
 			$strSql = $coolshow->getSelectThemeByCpidSql($row['recommend']);
 			$rows = $this->_getDb()->getCoolShow($strSql);
 			if($rows === false || count($rows) <= 0){
-				Log::write('CoolShowSearch::_getRecommend():getCoolShow() failed, SQL:'.$strSql, 'log');
+				Log::write('CoolShowSearch::_getRecommend():_getDb():getCoolShow() failed, SQL:'.$strSql, 'log');
 				return false;
 			}
 			
@@ -1353,10 +1353,10 @@ class CoolShowSearch
 				return false;
 			}
 		
-			$strSql = $coolshow->getCountChoiceWallpaperSql($bChoice, $req_type);
-			$count = $this->_getDb()->getCoolShowCount($strSql);
+			$strCountSql = $coolshow->getCountChoiceWallpaperSql($bChoice, $req_type);
+			$count = $this->_getDb()->getCoolShowCount($strCountSql);
 			if($count === false){
-				Log::write('CoolShowSearch::getWallpaper():getCoolShowCount() failed, SQL:'.$strSql, 'log');
+				Log::write('CoolShowSearch::getWallpaper():getCoolShowCount() failed, SQL:'.$strCountSql, 'log');
 				return  false;
 			}
 				
