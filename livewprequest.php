@@ -27,7 +27,7 @@ require_once 'public/public.php';
 	require_once("tasks/CoolShow/CoolShowSearch.class.php");
 	
 	$coolshow = new CoolShowSearch();
-	$json_result = $coolshow->getCoolShow(COOLXIU_TYPE_LIVE_WALLPAPER, $req_page, $req_num);
+	$json_result = $coolshow->getCoolShow(COOLXIU_TYPE_LIVE_WALLPAPER, $start, $req_num);
 	
 	echo $json_result;
 // 	require_once 'tasks/statis/ReqStatis.class.php';
