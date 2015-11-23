@@ -45,11 +45,13 @@ class ExorderRecordDb extends DBManager
                 return false;
             }
             $nCount = $this->executeScan($sql);
-            if($nCount === false){
+            if ($nCount === false) {
                 Log::write('ExorderDb::checkFreeRecord():executeScan() failed, SQL:'.$sql, 'log');
                 return false;
             }
-            if($nCount > 0)	return true;
+            if ($nCount > 0) {
+                return true;
+            }
 
             return false;
         }catch(Exception $e){
@@ -137,15 +139,15 @@ class ExorderRecordDb extends DBManager
 	
 	public function saveChargeRecord($strExorder, $strCyid, $nCoolType, $strId, $strCpid)
 	{
-		try{
+		try {
 			$sql = ExorderRecord::getInsertChargeSql($strExorder, $strCyid, $nCoolType, $strId, $strCpid);
 			$bResult = $this->executeSql($sql);
-			if(!$bResult){
+			if (! $bResult) {
 				Log::write('ExorderDb::saveChargeRecord():executeSql() failed, SQL:'.$sql, 'log');
 				return false;
 			}
 			return true;
-		}catch(Exception $e){
+		} catch (Exception $e) {
 			Log::write('ExorderDb::saveChargeRecord():exception, error:'.$e->getMessage(), 'log');
 			return false;
 		}

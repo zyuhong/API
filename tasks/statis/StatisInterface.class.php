@@ -30,9 +30,9 @@ class StatisInterface
 		$this->nModuleType	= 0;
 		$this->nMSubType 	= 0;
 		$this->nType 		= 0;
-		$this->nOpType 		= 0;
+		$this->nOpType 	= 0;
 		$this->nOpSubType	= 0;
-		$this->nChannel		= 0;
+		$this->nChannel	= 0;
 	}
 	
 	public function setStatisParam()
@@ -47,12 +47,12 @@ class StatisInterface
 		$this->nChannel 	 = (int)(isset($_GET['channel'])?$_GET['channel']:0);
 		
 		#ICON图标、通讯录都是主题模块的别名
-		if($this->nModuleType == COOLXIU_TYPE_THEMES_CONTACT 
-				|| $this->nModuleType == COOLXIU_TYPE_THEMES_ICON){
+		if ($this->nModuleType == COOLXIU_TYPE_THEMES_CONTACT
+				|| $this->nModuleType == COOLXIU_TYPE_THEMES_ICON) {
 			$this->nType	 = 	$this->nModuleType;
 			$this->nModuleType 	= COOLXIU_TYPE_THEMES;
 		}
-		if($this->nModuleType == COOLXIU_TYPE_LIVE_WALLPAPER){
+		if ($this->nModuleType == COOLXIU_TYPE_LIVE_WALLPAPER) {
 			$this->nType	 = 	$this->nModuleType;
 			$this->nModuleType 	= COOLXIU_TYPE_SCENE;
 		}
@@ -67,13 +67,13 @@ class StatisInterface
 		
 		$rt = new RecordTask();
 		
-		switch ($this->nOpType){
+		switch ($this->nOpType) {
 			case self::COOLSHOW_OPTYPE_REQ:{
 // 				$this->_statis->recordRequest($this->nMSubType, $this->nModuleType, $height, $width);
 			}break;
 			case self::COOLSHOW_OPTYPE_PREV:{
-				if($this->nModuleType == COOLXIU_TYPE_WIDGET 
-					&& $this->nMSubType == 1){
+				if ($this->nModuleType == COOLXIU_TYPE_WIDGET
+					&& $this->nMSubType == 1) {
 					$this->_statis->recordBrowseRequest($this->strId, COOLXIU_TYPE_WIDGET, COOLXIU_TYPE_THEMES, $height, $width, $this->strCpid, '', $this->nChannel);
 					return true;
 				}
@@ -101,9 +101,9 @@ class StatisInterface
 		$width  = 0;
 		$this->setStatisParam();
 
-		switch ($this->nOpType){
+		switch ($this->nOpType) {
 			case self::COOLSHOW_OPTYPE_PREV:{
-				if($this->nModuleType == COOLXIU_TYPE_WIDGET && $this->nType == 1){
+				if ($this->nModuleType == COOLXIU_TYPE_WIDGET && $this->nType == 1) {
 					$this->_statis->recordBrowseRequest($this->strId, COOLXIU_TYPE_WIDGET, COOLXIU_TYPE_THEMES, $height, $width, $this->strCpid, '', $this->nChannel);
 					return true;
 				}
@@ -123,12 +123,13 @@ class StatisInterface
 	}
 
 //查询是否已记录该用户该记录，如果未记录则保存
-    private function saveUserDLRecord(){
+    private function saveUserDLRecord()
+    {
         require_once 'tasks/Exorder/ExorderRecordDb.class.php';
 
         $strCyid = '';
         $nVerCode = 0;
-        if(isset($_POST['statis'])){
+        if (isset($_POST['statis'])) {
             $json_param = $_POST['statis'];
 
             $json_param = stripslashes($json_param);
@@ -138,25 +139,25 @@ class StatisInterface
         }
 
         //过滤旧版本
-        if($nVerCode < 43){
+        if ($nVerCode < 44 || $nVerCode >= 80) {
             return true;
         }
 
         //过滤壁纸
-        if($this->nModuleType == 3 || $this->nModuleType == 2){
+        if ($this->nModuleType == 3 || $this->nModuleType == 2) {
             return true;
         }
 
         $erDb = new ExorderRecordDb();
         $bRet = $erDb->checkFreeRecord($this->nModuleType, $this->strId, $this->strCpid, $strCyid);
-        if($bRet === true){
+        if ($bRet === true) {
             return true;
         }
 
-        if (!empty($strCyid)){
+        if (! empty($strCyid)) {
             $erDb->saveChargeRecord('', $strCyid, $this->nModuleType, $this->strId, $this->strCpid);
-        }else{
-            Log::write("cyid is null", "debug");
+        } else {
+            Log::write("cyid is null, no record download", "debug");
         }
     }
 	
