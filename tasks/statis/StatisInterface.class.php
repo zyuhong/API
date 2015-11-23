@@ -143,8 +143,8 @@ class StatisInterface
             return true;
         }
 
-        //过滤壁纸
-        if ($this->nModuleType == 3 || $this->nModuleType == 2) {
+        //只记录类型 0 5 6 13
+        if ($this->nModuleType != 0 && $this->nModuleType != 5 && $this->nModuleType != 6 && $this->nModuleType != 13) {
             return true;
         }
 
