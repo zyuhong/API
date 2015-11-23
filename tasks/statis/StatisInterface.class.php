@@ -143,8 +143,11 @@ class StatisInterface
             return true;
         }
 
-        //只记录类型 0 5 6 13
-        if ($this->nModuleType != 0 && $this->nModuleType != 5 && $this->nModuleType != 6 && $this->nModuleType != 13) {
+        //过滤记录类型
+        if ($this->nModuleType != COOLXIU_TYPE_THEMES
+            && $this->nModuleType != COOLXIU_TYPE_FONT
+            && $this->nModuleType != COOLXIU_TYPE_SCENE
+            && $this->nModuleType != COOLXIU_TYPE_LIVE_WALLPAPER) {
             return true;
         }
 
