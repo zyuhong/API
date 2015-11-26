@@ -122,7 +122,7 @@ class StatisInterface
 		return true;
 	}
 
-//查询是否已记录该用户该记录，如果未记录则保存
+    //查询是否已记录该用户该记录，如果未记录则保存
     private function saveUserDLRecord()
     {
         require_once 'tasks/Exorder/ExorderRecordDb.class.php';
@@ -158,6 +158,10 @@ class StatisInterface
         }
 
         if (! empty($strCyid)) {
+        	//cpid和identity为空或为0时，不上报
+        	if ($this->strId == '' || (int)$this->strId == 0 || $this->strCpid == '' || (int)$this->strCpid == 0) {
+        		return true;
+        	}
             $erDb->saveChargeRecord('', $strCyid, $this->nModuleType, $this->strId, $this->strCpid);
         } else {
             Log::write("cyid is null, no record download", "debug");

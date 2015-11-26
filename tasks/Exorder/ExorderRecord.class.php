@@ -33,7 +33,7 @@ defined("SQL_SELECT_CHARGE_BY_CYID")
 	or define("SQL_SELECT_CHARGE_BY_CYID", "SELECT cpid, insert_time FROM tb_yl_charge_record WHERE cyid = '%s' AND cooltype = %d AND cpid != 0 GROUP BY cpid limit %d, %d ");
 
 defined("SQL_SELECT_FREE_RECORD")
-    or define("SQL_SELECT_FREE_RECORD", "SELECT count(1) FROM tb_yl_charge_record WHERE cyid = '%s' AND cooltype = %d AND id='%s' AND cpid='%d' ");
+    or define("SQL_SELECT_FREE_RECORD", "SELECT count(1) FROM tb_yl_charge_record WHERE cyid = '%s' AND cooltype = %d AND identity = '%s' AND cpid='%d' ");
 	
 class ExorderRecord
 {	
