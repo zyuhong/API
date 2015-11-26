@@ -159,7 +159,7 @@ class StatisInterface
 
         if (! empty($strCyid)) {
         	//cpid和identity为空或为0时，不上报
-        	if ($this->strId == '' || (int)$this->strId == 0 || $this->strCpid == '' || (int)$this->strCpid == 0) {
+        	if (empty($this->strId) || empty($this->strCpid)) {
         		return true;
         	}
             $erDb->saveChargeRecord('', $strCyid, $this->nModuleType, $this->strId, $this->strCpid);
