@@ -111,7 +111,7 @@ class StatisInterface
 			}break;
 			case self::COOLSHOW_OPTYPE_DOWNLOAD:{
                 //添加下载记录到已购记录表中
-                $this->saveUserDLRecord();
+                //$this->saveUserDLRecord();
 
 				$this->_statis->recordDownloadRequest($this->strId, $this->nModuleType, $height, $width, $this->strCpid, '', $this->nMSubType, $this->nChannel);
 			}break;

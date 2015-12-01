@@ -30,7 +30,7 @@ or define("SQL_INSERT_CHARGE_RECORD", "INSERT INTO tb_yl_charge_record "
     ." VALUES ('%s', %d, '%s',  '%s', '%s', '%s')");
 
 defined("SQL_SELECT_CHARGE_BY_CYID")
-	or define("SQL_SELECT_CHARGE_BY_CYID", "SELECT cpid, insert_time FROM tb_yl_charge_record WHERE cyid = '%s' AND cooltype = %d AND cpid != 0 GROUP BY cpid limit %d, %d ");
+	or define("SQL_SELECT_CHARGE_BY_CYID", "SELECT cpid, insert_time FROM tb_yl_charge_record WHERE cyid = '%s' AND cooltype = %d AND cpid != 0 AND exorder != '' GROUP BY cpid limit %d, %d ");
 
 defined("SQL_SELECT_FREE_RECORD")
     or define("SQL_SELECT_FREE_RECORD", "SELECT count(1) FROM tb_yl_charge_record WHERE cyid = '%s' AND cooltype = %d AND identity = '%s' AND cpid='%d' ");
