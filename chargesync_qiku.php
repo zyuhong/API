@@ -7,6 +7,7 @@ require_once 'tasks/charge/ChargeDb.class.php';
 require 'public/charge_sign.php';
 
 $jsonCharge = isset($_POST['transdata'])?$_POST['transdata']:'';
+$jsonCharge = str_replace('\\', '', $jsonCharge);
 $sign = isset($_POST['sign'])?$_POST['sign']:'';
 
 Log::write("charge=".$jsonCharge.", sign=".$sign, "debug");
