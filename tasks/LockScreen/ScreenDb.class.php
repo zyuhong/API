@@ -22,17 +22,15 @@ class ScreenDb extends DBManager
 	
 	public function searchScreen($kernelcode, $nStart, $nNum, $vercode = 0, $newver = false)
 	{
-		try{
-			
+		try {
 			$sql = $this->_screen->getSelectScreenSql($kernelcode, $nStart, $nNum, $vercode, $newver);
-			
 			$result = $this->_memcached->getSearchResult($sql);
-			if($result){
+			if ($result) {
 				return json_encode($result);
 			}
 			
 			$rows = $this->executeQuery($sql);
-			if($rows === false){
+			if ($rows === false) {
 				Log::write('ScreenDb::searchScreen() SQL:'.$sql.' failed', 'log');
 				return false;
 			}
@@ -40,14 +38,14 @@ class ScreenDb extends DBManager
 			$nRspNum = $this->getQueryCount();
 			
 			$arrSceen = array();
-			foreach ($rows as $row){
+			foreach ($rows as $row) {
 				$screenProtocol = new ScreenProtocol();
 				$screenProtocol->setProtocol($row, 0, $newver);
 				array_push($arrSceen, $screenProtocol);
 			}
 			
 			$nCount = $this->_getScreenCount($kernelcode, $vercode, $newver);
-			if(false === $nCount){
+			if (false === $nCount) {
 				Log::write("ScreenDb::searchScreen():_getScreenCount() failed", "log");
 				return false;
 			}
@@ -57,10 +55,10 @@ class ScreenDb extends DBManager
 								'lockscreens'=>$arrSceen);
 			
 			$result = $this->_memcached->setSearchResult($sql, $strJsonRsp, 12*60*60);
-			if(!$result){
+			if (! $result) {
 				Log::write("ScreenDb::searchScreen():setSearchResult() failed", "log");
 			}
-		}catch(Exception $e){
+		} catch (Exception $e) {
 			Log::write("ScreenDb::searchScreen() Exception, error:".$e->getMessage(), "log");
 			return true;
 		}
@@ -134,26 +132,26 @@ class ScreenDb extends DBManager
 		return $count;
 	}
 	
-	public function getSceneById($strId){
+	public function getSceneById($strId)
+    {
 		$sql = $this->_screen->getSelectSceneByIDSql($strId);
-		
 		$result = $this->_memcached->getSearchResult($sql);
-		if($result){
+		if ($result) {
 			return $result;
 		}
 		
 		$rows = $this->executeQuery($sql);
-		if($rows === false){
-			Log::write("ScreenDb::getScreenById():executeQuery() sql: ".$e->getMessage(), "log");
+		if ($rows === false) {
+			Log::write("ScreenDb::getScreenById():executeQuery() sql: ".$sql, "log");
 			return false;
 		}
 		
 		global $g_arr_host;
-		foreach ($rows as $row){
+		foreach ($rows as $row) {
 			$url = $g_arr_host['cdnhost'].$row['url'];
 		}
 		$result = $this->_memcached->setSearchResult($sql, $url);
-		if(!$result){
+		if (! $result) {
 			Log::write("ScreenDb::getScreenById():setSearchResult() failed", "log");
 		}
 		return $url;

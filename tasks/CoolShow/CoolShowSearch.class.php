@@ -63,13 +63,12 @@ class CoolShowSearch
 		$strProduct= '';
 		$nProtocolCode = 0;
 		$json_param = isset($_POST['statis'])?$_POST['statis']:'';
-		if(!empty($json_param)){
+		if (! empty($json_param)) {
 			$json_param = stripslashes($json_param);
 			$arr_param = json_decode($json_param, true);
 	
 			$strProduct = isset($arr_param['product'])?$arr_param['product']:'';
 			$nProtocolCode = (int)(isset($arr_param['protocolCode'])?$arr_param['protocolCode']:0);#新增的版本判断依据
-
 		}
 		$nProtocolCode  = (int)(isset($_GET['protocolCode'])?$_GET['protocolCode']:$nProtocolCode);#新版本在主GET参数中追加20150522
 		

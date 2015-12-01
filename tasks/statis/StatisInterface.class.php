@@ -144,6 +144,7 @@ class StatisInterface
         }
 
         //过滤记录类型
+        $this->nModuleType	 = (int)(isset($_GET['moduletype'])?$_GET['moduletype']:0);
         if ($this->nModuleType != COOLXIU_TYPE_THEMES
             && $this->nModuleType != COOLXIU_TYPE_FONT
             && $this->nModuleType != COOLXIU_TYPE_SCENE
