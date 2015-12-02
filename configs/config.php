@@ -203,7 +203,7 @@ $g_arr_queue_config = array(
 $g_arr_redis_config = array(
     'server'=>array(
         'host'          => '10.0.70.81',
-        'port'          => 6379,
+        'port'          => 6452,
     )
 );
 
