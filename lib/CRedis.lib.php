@@ -10,7 +10,7 @@ class CRedis
 		$this->_redis->connect($configOpt['host'], $configOpt['port']);
 	}
 	
-	public function reconnect($host, $port)
+	public function reconnect($configOpt)
 	{
 		$this->_redis = new Redis();
 		$this->_redis->connect($configOpt['host'], $configOpt['port']);
@@ -77,7 +77,7 @@ class CRedis
 	 * @param unknown_type $port
 	 */
 	public function slaveOf($host, $port){
-		$redis->slaveof($host, $port);
+        $this->_redis->slaveof($host, $port);
 	} 
 	/**
 	 * 清除所有数据库

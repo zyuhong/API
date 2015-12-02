@@ -14,23 +14,37 @@ class UserRedis
     private $_redis;
     public function __construct()
     {
-        global $g_arr_queue_config;
-        $this->_redis = new CRedis($g_arr_queue_config['server']);
+        global $g_arr_redis_config;
+        $this->_redis = new CRedis($g_arr_redis_config['server']);
     }
 
-    public function getUserToken($key){
+    public function getUserToken($key)
+    {
         try {
             $bResult = $this->_redis->get($key);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             Log::write("redis ex. error on ".$e->getMessage(), "log");
             return false;
         }
         return $bResult;
     }
 
-    public function createUserToken($key, $value){
+    public function createUserToken($key, $value)
+    {
         $expire = 1 * 24 * 60 * 60;
         $bResult = $this->_redis->setex($key, $value, $expire);
+        return $bResult;
+    }
+
+    public function getKey($key)
+    {
+        $bResult = $this->_redis->getValue($key);
+        return $bResult;
+    }
+
+    public function setKey($key, $value)
+    {
+        $bResult = $this->_redis->setValue($key, $value);
         return $bResult;
     }
 }

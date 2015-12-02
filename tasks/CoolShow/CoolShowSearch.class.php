@@ -1373,6 +1373,38 @@ class CoolShowSearch
 		
 		return $result;
 	}
+
+    public function getAmazeWallpaper($reqType = 0, $start = 0, $limit = 10)
+    {
+        try {
+            $coolshow = new Wallpaper();
+            $this->_setCoolShowParam($coolshow);
+            $strSql = $coolshow->getAmazeWallpaperSql($start, $limit);
+            if(!$strSql){
+                Log::write('CoolShowSearch::getAmazeWallpaper():getChoiceWallpaperSql() failed, Sql is empty', 'log');
+                return false;
+            }
+
+            $result = $this->_memcached->getSearchResult($strSql);
+            if($result){
+                return $result;
+            }
+
+            $arrProtocol = $this->_getProtocol($coolshow, $strSql);
+            if($arrProtocol === false){
+                Log::write('CoolShowSearch::getAmazeWallpaper():_getProtocol() failed', 'log');
+                return false;
+            }
+
+           $this->_memcached->setSearchResult($strSql, $arrProtocol, 12*60*60);
+
+        }catch(Exception $e){
+            Log::write('CoolShowSearch::getAmazeWallpaper() excepton error:'.$e->getMessage(), 'log');
+            return false;
+        }
+
+        return $arrProtocol;
+    }
 	
 	public function getChoiceWallpaer($req_type = 0, $start = 0, $limit = 10)
 	{

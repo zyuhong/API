@@ -97,8 +97,8 @@
 	require_once 'tasks/Records/RecordTask.class.php';
 
 	$rt = new RecordTask();
-	$wp_list = new AndroidWallpaperDb();	
-	$wp_list->setProduct($product);	
+	$wp_list = new AndroidWallpaperDb();
+	$wp_list->setProduct($product);
 	
 	switch($type){
 		case YL_ADROIDESK_WP:{
@@ -131,30 +131,9 @@
             $reqStatis = new ReqStatis();
 			$reqStatis->recordCoverListRequest($adid);
 		}break;
-		case YL_ADROIDESK_WP_RANDOM:{
-            $req_num = 12;    //修正客户端请求 req_num = 8的旧版本，新版本统一 req_num = 12
-			$filterid = isset($_GET['filterid'])?$_GET['filterid']:'';
-			$filter_arr = explode(",", $filterid);
-			$arr_cpid = array();
-			$arr_return = array();
-			while(count($arr_cpid) < $num) {
-				$start 	  = $req_num * rand(0, TOTAL_PAGE);
-				$tmp_result = getAndroidesk($wp_list, $width, $height, $start, $req_num, $req_type, $sorttype, $channel);
-				$arr_result = json_decode($tmp_result, true);
-				$i = rand(1, $req_num);
-				$tmp_cpid = $arr_result['wallpapers'][$i]['cpid'];
-				//随机壁纸既不再filterid中，也不在已有数组中
-				if(empty($tmp_cpid)) {
-					continue;
-				}
-				if(!in_array($tmp_cpid, $filter_arr) && !in_array($tmp_cpid, $arr_cpid)) {
-					array_push($arr_cpid, $tmp_cpid);
-					array_push($arr_return, $arr_result['wallpapers'][$i]);
-				}				
-			}
-			 $result = json_encode(array('wallpapers'=>$arr_return));
-			
-		}break;
+		case YL_ADROIDESK_WP_RANDOM:
+            $result = getAmazeWallpaper($num, $req_type);
+            break;
 		default:
 			break;
 	}
@@ -255,5 +234,35 @@
 		}
 		return  $json_result;
 	}
+
+    /**
+     * 百变壁纸
+     * @param $width
+     * @param $height
+     * @param $retNum
+     * @param $reqType
+     */
+    function getAmazeWallpaper($retNum, $reqType){
+        require_once 'tasks/Redis/UserRedis.php';
+
+        $redis = new UserRedis();
+        $key = 'amaze_wp_id';
+        $start = $redis->getKey($key);
+        if(! $start){
+            $start = 0;
+        }
+
+        $coolshow = new CoolShowSearch();
+        $arrList = $coolshow->getAmazeWallpaper($reqType, $start, $retNum);
+        $result = json_encode(array('wallpapers'=>$arrList));
+
+        $nextStart = $start + $retNum;
+        if (count($arrList) < $retNum) {
+            $nextStart = 0;
+        }
+        $redis->setKey($key, $nextStart);
+
+        return $result;
+    }
 	
 ?>

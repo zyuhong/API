@@ -315,12 +315,12 @@ function checkVersion($arrParam){
     global $g_arr_host_config;
     $nVersionCode = (int)(isset($arrParam['versionCode'])?$arrParam['versionCode']:'');
     if($nVersionCode < $g_arr_host_config["sign_version"]){
-        Log::write("version code lower, no sign", "log");
+        //Log::write("version code lower, no sign", "log");
         return false;
     }
 
     if($nVersionCode >= 80){
-        Log::write("version code higher, no sign", "log");
+        //Log::write("version code higher, no sign", "log");
         return false;
     }
 
