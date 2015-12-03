@@ -122,7 +122,7 @@ class WallpaperProtocol{
         $this->size 			= (int)$row['size'];
 
         $this->wp_url 			= $g_arr_host_config['cdnhost'].$row['url'];
-        $this->wp_mid_url 		= $g_arr_host_config['cdnhost'].$row['mid_url'];
+        $this->wp_mid_url 		= '';
         $this->wp_small_url 	= $g_arr_host_config['cdnhost'].$row['small_url'];
 
         $this->width			=   $row['width'];
@@ -130,6 +130,8 @@ class WallpaperProtocol{
         $this->download_times	= (int)isset($row['download_times'])?$row['download_times']:1001;
         $this->download_times	+= rand(1000, 10000);
         $this->author			=   isset($row['author'])?$row['author']:'';
+
+        $this->type             = '';
     }
 	
 	public function setProtocol($row, $channel = 0)
