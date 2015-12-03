@@ -179,6 +179,17 @@ class Wallpaper extends CoolShow
 		}		
 		return $arrProtocol;
 	}
+
+    public function getAmazeWPProtocol($rows, $nType = 0)
+    {
+        $arrProtocol = array();
+        foreach ($rows as $row) {
+            $wallpaper = new WallpaperProtocol();
+            $wallpaper->setAmazeWallpaper($row);
+            array_push($arrProtocol, $wallpaper);
+        }
+        return $arrProtocol;
+    }
 	
 	public function getBannerProtocol($rows, $nType = 0)
 	{

@@ -1380,25 +1380,30 @@ class CoolShowSearch
             $coolshow = new Wallpaper();
             $this->_setCoolShowParam($coolshow);
             $strSql = $coolshow->getAmazeWallpaperSql($start, $limit);
-            if(!$strSql){
+            if (! $strSql) {
                 Log::write('CoolShowSearch::getAmazeWallpaper():getChoiceWallpaperSql() failed, Sql is empty', 'log');
                 return false;
             }
 
             $result = $this->_memcached->getSearchResult($strSql);
-            if($result){
+            if ($result) {
                 return $result;
             }
 
-            $arrProtocol = $this->_getProtocol($coolshow, $strSql);
-            if($arrProtocol === false){
-                Log::write('CoolShowSearch::getAmazeWallpaper():_getProtocol() failed', 'log');
+            $rows = $this->_getDb()->getCoolShow($strSql);
+            if ($rows === false) {
+                Log::write('CoolShowSearch::getAmazeWallpaper():getCoolShow() failed, SQL:'.$strSql, 'log');
+                return false;
+            }
+
+            $arrProtocol = $coolshow->getAmazeWPProtocol($rows);
+            if ($arrProtocol === false) {
+                Log::write('CoolShowSearch::_getProtocol():getAmazeWPProtocol() failed', 'log');
                 return false;
             }
 
            $this->_memcached->setSearchResult($strSql, $arrProtocol, 12*60*60);
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             Log::write('CoolShowSearch::getAmazeWallpaper() excepton error:'.$e->getMessage(), 'log');
             return false;
         }

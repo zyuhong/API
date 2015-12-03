@@ -113,6 +113,24 @@ class WallpaperProtocol{
 		
 		$this->channel			= $channel;			//下载渠道
 	}
+
+    public function setAmazeWallpaper($row)
+    {
+        global $g_arr_host_config;
+        $this->id 				= $row['id'];
+        $this->cpid 			= isset($row['cpid'])?$row['cpid']:'';
+        $this->size 			= (int)$row['size'];
+
+        $this->wp_url 			= $g_arr_host_config['cdnhost'].$row['url'];
+        $this->wp_mid_url 		= $g_arr_host_config['cdnhost'].$row['mid_url'];
+        $this->wp_small_url 	= $g_arr_host_config['cdnhost'].$row['small_url'];
+
+        $this->width			=   $row['width'];
+        $this->height			= 	$row['height'];
+        $this->download_times	= (int)isset($row['download_times'])?$row['download_times']:1001;
+        $this->download_times	+= rand(1000, 10000);
+        $this->author			=   isset($row['author'])?$row['author']:'';
+    }
 	
 	public function setProtocol($row, $channel = 0)
 	{
