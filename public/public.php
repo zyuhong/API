@@ -339,7 +339,7 @@ function checkSign($signParam){
     unset($signParam['sign']);
     ksort($signParam);
     //处理型号空格问题
-    $signParam['product'] = str_replace(" ", "%20", $signParam['product']);
+    //$signParam['product'] = str_replace(" ", "%20", $signParam['product']);
 
     $signStr = http_build_query($signParam);
 
