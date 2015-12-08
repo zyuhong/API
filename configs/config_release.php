@@ -218,7 +218,9 @@ $g_arr_mongo_db_config = array('coolshow_record'=>array(
 ));
 
 //Memcache,支持多个分布式(地址,端口,权重)
-$g_arr_memcache_config= array(array('host'=>'127.0.0.1', 'port'=>'11222', 'persistent'=>true,'weight'=>2)
+$g_arr_memcache_config= array(
+    array('host'=>'10.0.70.33', 'port'=>'11222', 'persistent'=>true,'weight'=>2),
+    array('host'=>'10.0.70.82', 'port'=>'11222', 'persistent'=>true,'weight'=>2)
 );
 
 define('YL_SEARCH_LUCENE_URL', 'http://10.0.70.81:8080');
