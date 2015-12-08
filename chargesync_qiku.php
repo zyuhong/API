@@ -41,8 +41,8 @@ if (! $bResult) {
 }
 
 require_once 'tasks/Exorder/ExorderRecordDb.class.php';
-$exorder = isset($arrChargeRecord['exorderno'])?$arrChargeRecord['exorderno']:'';
-$resultCode = (int)(isset($arrChargeRecord['result'])?$arrChargeRecord['result']:1);
+$exorder = isset($arrChargeRecord['exorderno']) ? $arrChargeRecord['exorderno'] : '';
+$resultCode = (int)(isset($arrChargeRecord['result']) ? $arrChargeRecord['result'] : 1);
 if (! empty($exorder) && $resultCode == 0) {
     $erDb = new ExorderRecordDb();
     $bResult = $erDb->updateMobileExorder($exorder, 0);
