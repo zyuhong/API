@@ -7,6 +7,7 @@ class BannerProtocol
 	public $bannerName;			//Name
 	public $bannerRes;
     public $bannerType;         //banner类型 1 单个 2 列表 3 混合 4 网页
+    public $recText;            //推荐理由
 	//新版banner 20141107
 	//修改为拉取banner图片列表与绑定的bannerid，二次获取bannerid关联的资源
 	public $id;
@@ -21,6 +22,7 @@ class BannerProtocol
 		$this->bannerName	= '';
 		$this->bannerRes	= array();
         $this->bannerType = 0;
+        $this->recText     = '';
 		
 		$this->id			= '';
 		$this->type			= 0;	#模块类型
@@ -71,6 +73,7 @@ class BannerProtocol
 		$this->type			= (int)(isset($row['cooltype'])?$row['cooltype']:0);
 		$this->msubtype		= (int)(isset($row['msubtype'])?$row['msubtype']:0);
         $this->bannerType = (int)(isset($row['bannertype'])?$row['bannertype']:0);
+        $this->recText     = isset($row['rectext']) ? $row['rectext'] : '';
 		
 		$nH5				= isset($row['H5'])?$row['H5']:0;
 		$this->isH5			= $nH5?true:false;

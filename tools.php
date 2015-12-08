@@ -7,6 +7,7 @@
 	$strGet = isset($_GET['get'])? $_GET['get']:'';
 	$bGetIp = isset($_GET['getip'])? $_GET['getip']:0;
 	$strGetIp = isset($_GET['getips'])? $_GET['getips']:'';
+    $strUpdateMark = (int)(isset($_GET['mark'])?$_GET['mark']:0);
 	
 	$memcached = new MemDb();
 	if(!$memcached){
@@ -76,6 +77,19 @@
 		}
 		echo get_rsp_result(1).'get mem:'.$bResult;
 	}
+
+    if ($strUpdateMark) {
+        require_once 'tasks/CoolShow/MarkDb.class.php';
+
+        $mark = new MarkDb();
+        $bResult = $mark->updateMarkList();
+        if (! $bResult) {
+            Log::write("update fail", "log");
+            exit("Fail");
+        }
+
+        exit("SUCCESS");
+    }
 	
 	
 ?>
