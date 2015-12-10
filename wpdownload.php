@@ -12,8 +12,7 @@ try{
 	}
 	$nChannel = (int)(isset($_GET['channel'])?$_GET['channel']:0);
 	$url   = isset($_GET['url'])?$_GET['url']:'';
-	
-	
+
 	if (empty($strUrl)){
 		require_once("tasks/CoolShow/CoolShowSearch.class.php");
 		$coolshow = new CoolShowSearch();
@@ -23,7 +22,7 @@ try{
 			exit;
 		}	
 	}
-	
+
 	url_skip_download($url);
 	
 // 	$vercode = (int)(isset($_GET['vercode'])?$_GET['vercode']:0);

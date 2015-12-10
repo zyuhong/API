@@ -318,9 +318,9 @@ class RingDb extends DBManager{
 			Log::write("RingDb::getRingByID():executeQuery() sql: ".$e->getMessage(), "log");
 			return false;
 		}
-		global $g_arr_host;
+		global $g_arr_host_config;
 		foreach ($rows as $row){
-			$url = $g_arr_host['cdnhost'].$row['url'];
+			$url = $g_arr_host_config['cdnhost'].$row['url'];
 			//$this->_ring->setRingFromDB($row);
 		}
 		

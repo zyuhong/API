@@ -87,7 +87,8 @@ class ChargeDb extends DBManager
 	
 	public function getChargeRecode($strCpid, $strExorderNo, $strSign)
 	{
-		$strChargeRecordHost = $g_arr_host['chargerecod_host'];
+        global $g_arr_host_config;
+		$strChargeRecordHost = $g_arr_host_config['chargerecod_host'];
 		$strData = 'cpid='.$strCpid.'&exorderno='.$strExorderNo.'&sign='.$strSign;
 		$result = get_respond_by_url($strChargeRecordHost, $strData);
 		

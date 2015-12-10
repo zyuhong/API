@@ -289,6 +289,23 @@ class CoolShowSearch
 				$result = get_rsp_result(false, 'get protocol failed');
 				return $result;
 			}
+
+            if ($nCoolType == COOLXIU_TYPE_THEMES) {
+                require_once 'tasks/Redis/UserRedis.php';
+                $redis = new UserRedis();
+                $key = $redis->markKey;
+                $arrMark = $redis->getKey($key);
+                if ( $arrMark != false ){
+                    $arrMark = json_decode($arrMark, true);
+                    foreach ($arrProtocol as $protocol) {
+                        $mKey = $protocol->cpid."_".$nCoolType;
+                        if (array_key_exists($mKey, $arrMark )) {
+                            $protocol->corner_mark = $arrMark[$mKey]['url'];
+                            $protocol->mark_gravity = (int)($arrMark[$mKey]['position']);
+                        }
+                    }
+                }
+            }
 			
 			$result =  array(
 					'total_number'=> $count,

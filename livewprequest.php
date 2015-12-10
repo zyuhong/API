@@ -30,14 +30,7 @@ require_once 'public/public.php';
 	$json_result = $coolshow->getCoolShow(COOLXIU_TYPE_LIVE_WALLPAPER, $start, $req_num);
 	
 	echo $json_result;
-// 	require_once 'tasks/statis/ReqStatis.class.php';
 
-// 	$width 	  = (isset($_GET['width']))?$_GET['width']:480;
-// 	$height   = (isset($_GET['height']))?$_GET['height']:800;
-// 	$req_type = (isset($_GET['reqType']))?$_GET['reqType']:0;
-
-// 	$reqStatis = new ReqStatis();
-// 	$reqStatis->recordRequest($req_type, COOLXIU_TYPE_SCENE, $height, $width);
 	require_once 'tasks/Records/RecordTask.class.php';
 	$rt = new RecordTask();
 	$rt->saveRequest(COOLXIU_TYPE_SCENE);#动态壁纸归类为锁屏，在channel里区分来源

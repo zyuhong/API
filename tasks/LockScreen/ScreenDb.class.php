@@ -146,9 +146,9 @@ class ScreenDb extends DBManager
 			return false;
 		}
 		
-		global $g_arr_host;
+		global $g_arr_host_config;
 		foreach ($rows as $row) {
-			$url = $g_arr_host['cdnhost'].$row['url'];
+			$url = $g_arr_host_config['cdnhost'].$row['url'];
 		}
 		$result = $this->_memcached->setSearchResult($sql, $url);
 		if (! $result) {

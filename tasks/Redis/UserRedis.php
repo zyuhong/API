@@ -12,10 +12,13 @@ require_once 'lib/WriteLog.lib.php';
 class UserRedis
 {
     private $_redis;
+    public $markKey;
     public function __construct()
     {
         global $g_arr_redis_config;
         $this->_redis = new CRedis($g_arr_redis_config['server']);
+
+        $this->markKey = 'zhuti_mark_list';
     }
 
     public function getUserToken($key)

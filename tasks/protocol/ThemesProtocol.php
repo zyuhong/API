@@ -27,8 +27,10 @@ class ThemesProtocol extends Protocol
 	const YL_TH_DOWNLOAD_URL = '/service/thdownload.php?id=%s&cpid=%s&type=%d&channel=%d&author=%s';
 
 	public $id;					//主题ID
-	public $name;				//主题名
-	public $enname;				//主题名英文
+	public $name;				//主题名
+
+	public $enname;				//主题名英文
+
 	public $size;				//主题文件大小
 	public $description;		//主题描述
 	public $them_file_url;		//主题URI,绝对路径
@@ -38,12 +40,16 @@ class ThemesProtocol extends Protocol
 	public $main_mms_url;		//mms主缩略图URI 
 	
 	private $_index;	
-	public $index_contact;		//contact预览图索引
-	public $index_icon;			//icon预览图索引
-	public $index_mms;			//mms预览图索引
+	public $index_contact;		//contact预览图索引
+
+	public $index_icon;			//icon预览图索引
+
+	public $index_mms;			//mms预览图索引
+
 	
 	public $created_at;			//主题创建时间
-	public $prev_img_num;		//缩略图数量
+	public $prev_img_num;		//缩略图数量
+
 	public $them_widget_url;	//主题URI,绝对路径
 	
 	public $intro; 				//主题描述
@@ -55,10 +61,12 @@ class ThemesProtocol extends Protocol
 	public $effect;	 			//主题特效
     public $font_style; 		//主题字体样式
     public $keyguard_style; 	//主题解锁样式
-    public $prev_imgs;			//主题缩略图数组
+    public $prev_imgs;			//主题缩略图数组
+
 //  public $download_times;		//下载次数
 
-	public $ad;					//0:无1：网页2：文件
+	public $ad;					//0:无1：网页2：文件
+
 	public $adicon;				//广告图片
 	public $adurl;				//广告地址
 	function __construct(){
@@ -198,7 +206,11 @@ class ThemesProtocol extends Protocol
 		$this->ad				= (int)isset($theme_row['ad'])?$theme_row['ad']:0;
 		$strAdIcon				= isset($theme_row['adicon'])?$theme_row['adicon']:'';
 		global $g_arr_host_config;
-		$this->adicon			=  $g_arr_host_config['cdnhost'].$strAdIcon;//isset($theme_row['adicon'])?$theme_row['adicon']:'';
+        if (empty($strAdIcon)) {
+            $this->adicon   = '';
+        } else {
+            $this->adicon			=  $g_arr_host_config['cdnhost'].$strAdIcon;//isset($theme_row['adicon'])?$theme_row['adicon']:'';
+        }
 		$this->adurl			= isset($theme_row['adurl'])?$theme_row['adurl']:'';
 	}
 }

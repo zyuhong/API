@@ -34,7 +34,10 @@ abstract class Protocol
 	public $ruleid;				//消耗积分规则ID
 	public $score;				//积分分值
 	public $incruleid;			//积累积分规则ID
-	public $incscore;			//积分分值	
+	public $incscore;			//积分分值
+
+    public  $corner_mark;   //角标地址
+    public  $mark_gravity;  //角标位置
 	
 	public function __construct(){
 		$this->_product 			= '';	
@@ -67,6 +70,9 @@ abstract class Protocol
 		$this->incruleid			= '';
 		$this->score				= 0;
 		$this->incscore				= 0;
+
+        $this->corner_mark = '';
+        $this->mark_gravity = 0;
 	}
 	
 	public function getUserid()

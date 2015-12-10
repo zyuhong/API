@@ -17,8 +17,6 @@ try{
 	}
 	require_once 'public/public.php';
 	require_once 'configs/config.php';
-	
-	global  $g_arr_host;
 
 	$url = stripslashes($url) ;
 	$url = stripslashes($url) ;
