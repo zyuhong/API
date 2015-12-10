@@ -296,11 +296,12 @@ class CoolShowSearch
                 $key = $redis->markKey;
                 $arrMark = $redis->getKey($key);
                 if ( $arrMark != false ){
+                    global $g_arr_host_config;
                     $arrMark = json_decode($arrMark, true);
                     foreach ($arrProtocol as $protocol) {
                         $mKey = $protocol->cpid."_".$nCoolType;
                         if (array_key_exists($mKey, $arrMark )) {
-                            $protocol->corner_mark = $arrMark[$mKey]['url'];
+                            $protocol->corner_mark = $g_arr_host_config['cdnhost'].$arrMark[$mKey]['url'];
                             $protocol->mark_gravity = (int)($arrMark[$mKey]['position']);
                         }
                     }
