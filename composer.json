@@ -1,0 +1,19 @@
+{
+    "name": "qiku/oss",
+    "description": "oss project for qiku corporation",
+    "license": "internal",
+    "keywords": [
+        "interal project"
+    ],
+    "homepage": "http://oss.os.qiku.com/",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/yooshang/verify"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "data/verify": "1.0.1"
+    }
+}

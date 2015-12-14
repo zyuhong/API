@@ -1,2 +1,15 @@
+*~
+#*
+.#*
+composer.lock
+.buildpath
+.project
+.settings
+composer.phar
+public/js/bower
+dev.config.php
 local.config.php
-Logs
+logs/
+Logs/
+*.log
+vendor
