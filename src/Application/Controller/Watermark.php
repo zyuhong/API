@@ -24,6 +24,7 @@ class Watermark extends Base
                                 'id' => 1,
                                 'name' => '魂之挽歌',
                                 'cover' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
+                                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
                                 'sort' => 1000, // desc
                             ],
                         ]
@@ -44,54 +45,63 @@ class Watermark extends Base
                                 'id' => 1,
                                 'name' => '魂之挽歌',
                                 'cover' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
+                                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
                                 'sort' => 1000, // desc
                             ],
                             [
                                 'id' => 2,
                                 'name' => '青春',
                                 'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
+                                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
                                 'sort' => 990, // desc
                             ],
                             [
                                 'id' => 3,
                                 'name' => 'test3',
                                 'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
+                                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
                                 'sort' => 980, // desc
                             ],
                             [
                                 'id' => 3,
                                 'name' => 'test3',
                                 'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
+                                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
                                 'sort' => 970, // desc
                             ],
                             [
                                 'id' => 4,
                                 'name' => 'test4',
                                 'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
+                                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
                                 'sort' => 960, // desc
                             ],
                             [
                                 'id' => 5,
                                 'name' => 'test5',
                                 'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
+                                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
                                 'sort' => 950, // desc
                             ],
                             [
                                 'id' => 6,
                                 'name' => 'test3',
                                 'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
+                                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
                                 'sort' => 940, // desc
                             ],
                             [
                                 'id' => 7,
                                 'name' => 'test3',
                                 'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
+                                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
                                 'sort' => 930, // desc
                             ],
                             [
                                 'id' => 8,
                                 'name' => 'test3',
                                 'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
+                                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
                                 'sort' => 920, // desc
                             ],
                         ]
@@ -134,6 +144,7 @@ class Watermark extends Base
                 'id' => 1,
                 'name' => '魂之挽歌',
                 'cover' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
+                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
                 'resource' => 'http://watermark.test.os.qkcorp.net/101.zip',
                 'hash' => '8f44d5f0cc77e40ddd6f2be13a332bc4',
                 'sort' => 1000, // desc
