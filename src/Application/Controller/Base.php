@@ -2,7 +2,7 @@
 
 namespace Controller;
 
-use Data\TYPE as DT;
+use Data\Type as DT;
 class Base
 {
     /**
