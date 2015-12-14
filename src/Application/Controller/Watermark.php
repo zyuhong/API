@@ -19,6 +19,7 @@ class Watermark extends Base
                         'id' => 1,
                         'name' => 'test',
                         'cat' => $cat,
+                        'watermarks_count' => 1,
                         'watermarks' => [
                             [
                                 'id' => 1,
@@ -40,6 +41,7 @@ class Watermark extends Base
                         'id' => 1,
                         'name' => '热点',
                         'cat' => 'hot',
+                        'watermarks_count' => 8,
                         'watermarks' => [
                             [
                                 'id' => 1,
@@ -140,6 +142,7 @@ class Watermark extends Base
         $demo = [
             'result' => true,
             'total_number' => 100,
+            'watermarks_count' => 1,
             'watermarks' => [
                 'id' => 1,
                 'name' => '魂之挽歌',
