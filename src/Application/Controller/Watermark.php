@@ -62,13 +62,6 @@ class Watermark extends Base
                                 'name' => 'test3',
                                 'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
                                 'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
-                                'sort' => 980, // desc
-                            ],
-                            [
-                                'id' => 3,
-                                'name' => 'test3',
-                                'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
-                                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
                                 'sort' => 970, // desc
                             ],
                             [
@@ -144,7 +137,7 @@ class Watermark extends Base
             'total_number' => 100,
             'watermarks_count' => 1,
             'watermarks' => [
-                'id' => 1,
+                'id' => $id,
                 'name' => '魂之挽歌',
                 'cover' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
                 'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
