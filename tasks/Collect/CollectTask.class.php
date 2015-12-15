@@ -95,7 +95,6 @@ class CollectTask
 	public function getCollect($nCollect)
 	{
 		try{
-			//$bCollect = isset($_GET['collect'])?$_GET['collect']:0;
 			$strCyid  = isset($_GET['cyid'])?$_GET['cyid']:'';
 			$strAuthorId  = isset($_GET['author'])?$_GET['author']:'';
 			

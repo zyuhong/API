@@ -29,9 +29,9 @@ class Collect
 	{
 		return sprintf(SQL_SELECT_DESIGNER, $strCyid);
 	}
-	
-	static public function getSelectCollectStatusSql($strCyid, $strAuthorId)
-	{
-		return sprintf(SQL_SELECT_COLLECT_STATUS, $strCyid, $strAuthorId);
-	}
+
+    static public function getSelectCollectStatusSql($strCyid, $strAuthorId)
+    {
+        return sprintf(SQL_SELECT_COLLECT_STATUS, addslashes($strCyid), addslashes($strAuthorId));
+    }
 }

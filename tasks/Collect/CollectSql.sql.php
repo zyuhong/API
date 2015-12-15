@@ -37,4 +37,4 @@ defined("SQL_SELECT_DESIGNER")
  * 获取我的设计是
  */
 defined("SQL_SELECT_COLLECT_STATUS")
-	or define("SQL_SELECT_COLLECT_STATUS", "SELECT * FROM tb_yl_collect_designer WHERE cyid = '%s' AND authorid = '%s' " );
+    or define("SQL_SELECT_COLLECT_STATUS", "SELECT * FROM tb_yl_collect_designer WHERE cyid = '%s' AND authorid = '%s' " );
