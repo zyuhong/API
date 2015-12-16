@@ -21,6 +21,11 @@ class UserRedis
         $this->markKey = 'zhuti_mark_list';
     }
 
+    public function selectDB($index)
+    {
+        return $this->_redis->selectDB($index);
+    }
+
     public function getUserToken($key)
     {
         try {
@@ -49,5 +54,11 @@ class UserRedis
     {
         $bResult = $this->_redis->setValue($key, $value);
         return $bResult;
+    }
+
+    public function setUserCount($key){
+        $bRet = $this->_redis->incr($key);
+
+        return $bRet;
     }
 }
