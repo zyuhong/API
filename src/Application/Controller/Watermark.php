@@ -116,20 +116,37 @@ class Watermark extends Base
             $this->jsonOutput(['result' => false]);
         }
 
-        $demo = [
-            'result' => true,
-            'total_number' => 1,
-            'watermarks_count' => 1,
-            'watermarks' => [
-                'id' => $id,
-                'name' => '魂之挽歌',
-                'cover' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
-                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
-                'resource' => 'http://watermark.test.os.qkcorp.net/101.zip',
-                'hash' => '8f44d5f0cc77e40ddd6f2be13a332bc4',
-                'sort' => 1000 - $id, // desc
-            ]
-        ];
+        if ($id % 2 == 1) {
+            $demo = [
+                'result' => true,
+                'total_number' => 1,
+                'watermarks_count' => 1,
+                'watermarks' => [
+                    'id' => $id,
+                    'name' => '魂之挽歌',
+                    'cover' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
+                    'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
+                    'resource' => 'http://watermark.test.os.qkcorp.net/101.zip',
+                    'hash' => '8f44d5f0cc77e40ddd6f2be13a332bc4',
+                    'sort' => 1000 - $id, // desc
+                ]
+            ];
+        } else {
+            $demo = [
+                'result' => true,
+                'total_number' => 1,
+                'watermarks_count' => 1,
+                'watermarks' => [
+                    'id' => $id,
+                    'name' => 'KEEP CALM AND EAT FOOD',
+                    'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
+                    'preview' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
+                    'resource' => 'http://watermark.test.os.qkcorp.net/102.zip',
+                    'hash' => '27797829bbca9f19013bc097e52bf8da',
+                    'sort' => 1000 - $id, // desc
+                ]
+            ];
+        }
 
         $this->jsonOutput($demo);
     }
@@ -146,12 +163,23 @@ class Watermark extends Base
 
     public function getDetail($id)
     {
-        return [
-            'id' => $id,
-            'name' => '魂之挽歌',
-            'cover' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
-            'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
-            'sort' => 1000 - $id, // desc
-        ];
+        if ($id % 1 == 1) {
+            return [
+                'id' => $id,
+                'name' => '魂之挽歌',
+                'cover' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
+                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
+                'sort' => 1000 - $id, // desc
+            ];
+        } else {
+            return [
+                'id' => $id,
+                'name' => 'KEEP CALM AND EAT FOOD',
+                'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
+                'preview' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
+                'sort' => 1000 - $id, // desc
+            ];
+        }
+
     }
 }
