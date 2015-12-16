@@ -142,7 +142,7 @@ class Watermark extends Base
                     'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
                     'preview' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
                     'resource' => 'http://watermark.test.os.qkcorp.net/102.zip',
-                    'hash' => '27797829bbca9f19013bc097e52bf8da',
+                    'hash' => 'e209438eb7978d30ea9b58cc8193cc85',
                     'sort' => 1000 - $id, // desc
                 ]
             ];
