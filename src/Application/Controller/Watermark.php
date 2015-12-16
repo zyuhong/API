@@ -163,7 +163,8 @@ class Watermark extends Base
 
     public function getDetail($id)
     {
-        if ($id % 1 == 1) {
+
+        if ($id % 2 == 1) {
             return [
                 'id' => $id,
                 'name' => '魂之挽歌',
