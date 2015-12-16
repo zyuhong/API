@@ -55,10 +55,4 @@ class UserRedis
         $bResult = $this->_redis->setValue($key, $value);
         return $bResult;
     }
-
-    public function setUserCount($key){
-        $bRet = $this->_redis->incr($key);
-
-        return $bRet;
-    }
 }
