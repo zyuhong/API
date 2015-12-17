@@ -50,7 +50,8 @@ class ActivityTask
 
     private function getActivityInfo()
     {
-        $arrActivity = array('cover' => ActivityTask::ACTIVTTY_COVER,
+        $arrActivity = array('result' => true,
+                            'cover' => ActivityTask::ACTIVTTY_COVER,
                             'event_url' => ActivityTask::ACTIVTTY_URL,
                             'title' => ActivityTask::ACTIVTTY_TITLE);
         return $arrActivity;
