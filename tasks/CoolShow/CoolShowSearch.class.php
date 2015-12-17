@@ -264,8 +264,7 @@ class CoolShowSearch
 				$result = get_rsp_result(false, 'get protocol sql empty');
 				return $result;
 			}
-			
-//  	  	Log::write('CoolShowSearch::getCoolShow():getCoolShowListSql(), SQL:'.$strSql, 'debug');
+
 			$result = $this->_memcached->getSearchResult($strSql.$coolshow->nCharge);
 			if($result){
 // 				Log::write('CoolXiuDb::searchCoolXiuList():getSearchResult()'.$strSql, 'log');

@@ -303,6 +303,7 @@ define('TAG_ENGINE_CHANNEL_COOLPAD', 2);
 define('TAG_ENGINE_CHANNEL_IVVI', 3);
 define('TAG_ENGINE_TYPE_TT', 1);
 define('TAG_ENGINE_TYPE_VL', 2);
+define('TAG_THEME_TYPE_INPUT', 2);
 
 /**
  * MODIFY BY liangweiwei@yulong.com AT 2012-08-03
