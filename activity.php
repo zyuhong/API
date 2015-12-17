@@ -12,6 +12,10 @@ require_once 'tasks/Activity/ActivityTask.class.php';
 
 $meid = Verify::check($_GET, 'meid');
 $cyid = Verify::check($_GET, 'cyid');
+$width = Verify::check($_GET, 'width');
+$height = Verify::check($_GET, 'height');
+$verCode = Verify::check($_GET, 'versioncode', Type::INT);
+$language = Verify::check($_GET, 'language');
 
 if (empty($meid) && empty($cyid)) {
     Log::write("user info all null", "log");

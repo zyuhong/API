@@ -5,11 +5,12 @@
  * Date: 2015/12/16
  * Time: 20:23
  */
+require_once 'configs/config.php';
 require_once 'tasks/Redis/UserRedis.php';
 class ActivityTask
 {
     const ACTIVITY_COUNT = 10;
-    const ACTIVTTY_COVER = '';
+    const ACTIVTTY_COVER = '/activity/activity_01.png';
     const ACTIVTTY_URL = 'http://www.baidu.com';
     const ACTIVTTY_TITLE = '主题商店活动测试';
     public function getUserActivity($id)
@@ -50,8 +51,9 @@ class ActivityTask
 
     private function getActivityInfo()
     {
+        global $g_arr_host_config;
         $arrActivity = array('result' => true,
-                            'cover' => ActivityTask::ACTIVTTY_COVER,
+                            'cover' => $g_arr_host_config['cdnhost'] . ActivityTask::ACTIVTTY_COVER,
                             'event_url' => ActivityTask::ACTIVTTY_URL,
                             'title' => ActivityTask::ACTIVTTY_TITLE);
         return $arrActivity;
