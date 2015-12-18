@@ -103,8 +103,12 @@ class Watermark extends Base
             return false;
         }
 
+        $cdn = \AppConf::getCfg('/app/cdn');
         $resource['id'] = intval($resource['id']);
         $resource['sort'] = intval($resource['sort']);
+        $resource['cover'] = $cdn . $resource['cover'];
+        $resource['preview'] = $cdn . $resource['preview'];
+        $resource['resource'] = $cdn . $resource['resource'];
 
         return $resource;
     }
@@ -119,7 +123,7 @@ class Watermark extends Base
     {
         $cat = new \Model\WatermarkCatDetail();
         $details = $cat->getAll([
-                'cols' => 'd.id, d.name, d.cover, d.preview, d.hash, d.resource,d.sort',
+                'cols' => 'd.id, d.name, d.cover, d.preview,d.sort',
                 'where' => 'cid=?',
                 'value' => [$cid],
                 'left_join' => 'watermark_detail as d on watermark_cat_detail.wid=d.id ',
@@ -129,9 +133,12 @@ class Watermark extends Base
         );
 
         if ($details) {
+            $cdn = \AppConf::getCfg('/app/cdn');
             foreach ($details as &$detail) {
                 $detail['id'] = intval($detail['id']);
                 $detail['sort'] = intval($detail['sort']);
+                $detail['preview'] = $cdn . $detail['preview'];
+                $detail['cover'] = $cdn . $detail['cover'];
             }
         }
 
