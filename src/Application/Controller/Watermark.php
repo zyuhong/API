@@ -9,178 +9,133 @@ class Watermark extends Base
 {
     public function listAction()
     {
+        $catModel = new \Model\WatermarkCat();
+
         $cat = $this->get('cat');
-        $cats = [
-            [
-                'id' => 1,
-                'name' => '热点',
-                'cat' => 'hot',
-                'watermarks_count' => 8,
-                'watermarks' => [
-                    $this->getDetail(1),
-                    $this->getDetail(2),
-                    $this->getDetail(3),
-                    $this->getDetail(4),
-                    $this->getDetail(5),
-                    $this->getDetail(6),
-                    $this->getDetail(7),
-                    $this->getDetail(8),
-                ]
-            ],
-            [
-                'id' => 2,
-                'name' => '心情',
-                'cat' => 'xinqing',
-            ],
-            [
-                'id' => 3,
-                'name' => '人像',
-                'cat' => 'renxiang',
-            ],
-            [
-                'id' => 4,
-                'name' => '地点',
-                'cat' => 'didian',
-            ],
-            [
-                'id' => 5,
-                'name' => '时间',
-                'cat' => 'shijian',
-            ],
-        ];
-        if (is_numeric($cat)) {
-            $catsHash = D::hashMap($cats, 'id');
-        } else {
-            $catsHash = D::hashMap($cats, 'cat');
-        }
-        if (!empty($cat)) {
-            if (!D::get($catsHash, $cat)) {
-                $this->jsonOutput(['result' => false]);
+        $offset = $this->get('offset', DT::INT, 'default=0,max=640');
+        $size = $this->get('size', DT::INT, 'default=10,max=100');
+        $where = '';
+        $value = [];
+        if ($cat) {
+            if (is_numeric($cat)) {
+                $where = 'id=?';
+            } else {
+                $where = 'cat=?';
             }
-            $demo = [
+            $value[] = $cat;
+        }
+
+        $cats = $catModel->getAll(['cols' => 'id, name, cat', 'where' => $where, 'value' => $value]);
+
+        if (empty($cats)) {
+            $this->jsonOutput(['result' => false]);
+        }
+
+        if ($cats) {
+            foreach ($cats as &$c) {
+                $c['id'] = intval($c['id']);
+            }
+        }
+
+        if (!empty($cat)) {
+            $watermarks = $this->getCatResources(D::get($cats, '0.id'), $offset, $size);
+            $cats[0]['watermarks_count'] = $watermarks['count'];
+            $cats[0]['watermarks'] = $watermarks['data'];
+            $result = [
                 'result' => true,
                 'total_number' => 1,
                 'cats' => [
-                    [
-                        'id' => $catsHash[$cat]['id'],
-                        'name' => $catsHash[$cat]['name'],
-                        'cat' => $cat,
-                        'watermarks_count' => 8,
-                        'watermarks' => $this->getWaters($cat, $catsHash[$cat]['id'])
-                    ]
+                    $cats[0]
                 ]
             ];
         } else {
-            $demo = [
+            $watermarks = $this->getCatResources(D::get($cats, '0.id'));
+            $cats[0]['watermarks_count'] = $watermarks['count'];
+            $cats[0]['watermarks'] = $watermarks['data'];
+
+            $result = [
                 'result' => true,
                 'total_number' => 5,
-                'cats' => [
-                    [
-                        'id' => 1,
-                        'name' => '热点',
-                        'cat' => 'hot',
-                        'watermarks_count' => 8,
-                        'watermarks' => $this->getWaters('hot', 1)
-                    ],
-                    [
-                        'id' => 2,
-                        'name' => '心情',
-                        'cat' => 'xinqing',
-                    ],
-                    [
-                        'id' => 3,
-                        'name' => '人像',
-                        'cat' => 'renxiang',
-                    ],
-                    [
-                        'id' => 4,
-                        'name' => '地点',
-                        'cat' => 'didian',
-                    ],
-                    [
-                        'id' => 5,
-                        'name' => '时间',
-                        'cat' => 'shijian',
-                    ],
-                ]
+                'cats' => $cats
             ];
         }
 
-        $this->jsonOutput($demo);
+        $this->jsonOutput($result);
     }
 
     public function detailAction()
     {
         $id = $this->get('id', DT::INT);
+
         if (empty($id)) {
             $this->jsonOutput(['result' => false]);
         }
 
-        if ($id % 2 == 1) {
-            $demo = [
-                'result' => true,
-                'total_number' => 1,
-                'watermarks_count' => 1,
-                'watermarks' => [
-                    'id' => $id,
-                    'name' => '魂之挽歌',
-                    'cover' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
-                    'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
-                    'resource' => 'http://watermark.test.os.qkcorp.net/101.zip',
-                    'hash' => '8f44d5f0cc77e40ddd6f2be13a332bc4',
-                    'sort' => 1000 - $id, // desc
-                ]
-            ];
-        } else {
-            $demo = [
-                'result' => true,
-                'total_number' => 1,
-                'watermarks_count' => 1,
-                'watermarks' => [
-                    'id' => $id,
-                    'name' => 'KEEP CALM AND EAT FOOD',
-                    'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
-                    'preview' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
-                    'resource' => 'http://watermark.test.os.qkcorp.net/102.zip',
-                    'hash' => 'e209438eb7978d30ea9b58cc8193cc85',
-                    'sort' => 1000 - $id, // desc
-                ]
-            ];
+        $resource = $this->getResource($id);
+        if (empty($resource)) {
+            $this->jsonOutput(['result' => false]);
         }
 
-        $this->jsonOutput($demo);
+        $result = [
+            'result' => true,
+            'total_number' => 1,
+            'watermarks_count' => 1,
+            'watermarks' => $resource
+        ];
+
+        $this->jsonOutput($result);
     }
 
-    public function getWaters($cat, $index)
+    /**
+     * 获取具体资源
+     */
+    public function getResource($id)
     {
-        $size = 8;
-        $watermarks = [];
-        for ($i = 0; $i < $size; $i++) {
-            $watermarks[] = $this->getDetail(($index - 1) * $size + $i + 1);
+        $detailTable = new \Model\WatermarkDetail();
+        $resource = $detailTable->getByPk($id, 'id,name,cover,preview,resource,hash,sort');
+
+        if (empty($resource)) {
+            return false;
         }
-        return $watermarks;
+
+        $resource['id'] = intval($resource['id']);
+        $resource['sort'] = intval($resource['sort']);
+
+        return $resource;
     }
 
-    public function getDetail($id)
+    /**
+     * 获取分类下的资源
+     * @param $cid 分类id
+     * @param $offset 偏移量
+     * @param $size 获取记录数
+     */
+    public function getCatResources($cid, $offset = 0, $size = 10)
     {
+        $cat = new \Model\WatermarkCatDetail();
+        $details = $cat->getAll([
+                'cols' => 'd.id, d.name, d.cover, d.preview, d.hash, d.resource,d.sort',
+                'where' => 'cid=?',
+                'value' => [$cid],
+                'left_join' => 'watermark_detail as d on watermark_cat_detail.wid=d.id ',
+                'limit' => "$offset,$size",
+                'order' => 'd.sort desc'
+            ]
+        );
 
-        if ($id % 2 == 1) {
-            return [
-                'id' => $id,
-                'name' => '魂之挽歌',
-                'cover' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
-                'preview' => 'http://watermark.test.os.qkcorp.net/cover1.jpg',
-                'sort' => 1000 - $id, // desc
-            ];
-        } else {
-            return [
-                'id' => $id,
-                'name' => 'KEEP CALM AND EAT FOOD',
-                'cover' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
-                'preview' => 'http://watermark.test.os.qkcorp.net/cover2.jpg',
-                'sort' => 1000 - $id, // desc
-            ];
+        if ($details) {
+            foreach ($details as &$detail) {
+                $detail['id'] = intval($detail['id']);
+                $detail['sort'] = intval($detail['sort']);
+            }
         }
 
+        $count = $cat->count('cid=?', [$cid]);
+
+        return [
+            'data' => $details,
+            'count' => $count
+        ];
     }
+
 }

@@ -2,9 +2,6 @@
 
 require(dirname(dirname(__DIR__)) . '/config/config.php');
 
-$loader = include ROOT_PATH . '/vendor/autoload.php';
-$loader->addPsr4('Controller\\', ROOT_PATH . '/src/Application/Controller');
-
 @list($nameUri, $queryStr) = isset($_SERVER['REQUEST_URI']) ? explode("?" , $_SERVER['REQUEST_URI']) : [];
 
 $_SERVER['SCRIPT_NAME'] = $nameUri;

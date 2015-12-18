@@ -15,6 +15,7 @@ function dump()
 
 function dd()
 {
+    header('Content-type: text/html; charset=utf-8');
     call_user_func_array('dump', func_get_args());
     die();
 }
