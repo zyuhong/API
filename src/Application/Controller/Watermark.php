@@ -106,9 +106,9 @@ class Watermark extends Base
         $cdn = \AppConf::getCfg('/app/cdn');
         $resource['id'] = intval($resource['id']);
         $resource['sort'] = intval($resource['sort']);
-        $resource['cover'] = $cdn . $resource['cover'];
-        $resource['preview'] = $cdn . $resource['preview'];
-        $resource['resource'] = $cdn . $resource['resource'];
+        $resource['cover'] = $resource['cover'] ? $cdn . $resource['cover'] : '';
+        $resource['preview'] = $resource['preview'] ? $cdn . $resource['preview'] : '';
+        $resource['resource'] = $resource['resource'] ? $cdn . $resource['resource'] : '';
 
         return $resource;
     }
@@ -137,8 +137,8 @@ class Watermark extends Base
             foreach ($details as &$detail) {
                 $detail['id'] = intval($detail['id']);
                 $detail['sort'] = intval($detail['sort']);
-                $detail['preview'] = $cdn . $detail['preview'];
-                $detail['cover'] = $cdn . $detail['cover'];
+                $detail['preview'] = $detail['preview'] ? $cdn . $detail['preview'] : '';
+                $detail['cover'] = $detail['cover'] ? $cdn . $detail['cover'] : '';
             }
         }
 
