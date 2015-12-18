@@ -11,6 +11,7 @@ class Watermark extends Base
     {
         $catModel = new \Model\WatermarkCat();
 
+        $id = $this->get('id', DT::INT);
         $cat = $this->get('cat');
         $offset = $this->get('offset', DT::INT, 'default=0,max=640');
         $page = $this->get('page', DT::INT, 'default=1,max=64');
@@ -23,13 +24,10 @@ class Watermark extends Base
 
         $where = '';
         $value = [];
-        if ($cat) {
-            if (is_numeric($cat)) {
-                $where = 'id=?';
-            } else {
-                $where = 'cat=?';
-            }
-            $value[] = $cat;
+
+        if ($id) {
+            $where = 'id=?';
+            $value[] = $id;
         }
 
         $cats = $catModel->getAll(['cols' => 'id, name, cat', 'where' => $where, 'value' => $value]);
@@ -44,7 +42,7 @@ class Watermark extends Base
             }
         }
 
-        if (!empty($cat)) {
+        if (!empty($id)) {
             $watermarks = $this->getCatResources(D::get($cats, '0.id'), $offset, $num);
             $cats[0]['watermarks_count'] = $watermarks['count'];
             $cats[0]['watermarks'] = $watermarks['data'];
