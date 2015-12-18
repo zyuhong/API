@@ -293,15 +293,24 @@ class CoolShowSearch
                 require_once 'tasks/Redis/UserRedis.php';
                 $redis = new UserRedis();
                 $key = $redis->markKey;
+                $priceKey = $redis->priceKey;
                 $arrMark = $redis->getKey($key);
-                if ( $arrMark != false ){
+                $arrPrice = $redis->getKey($priceKey);
+                $arrMark = ($arrMark == false) ? array() : $arrMark;
+                $arrPrice = ($arrPrice == false) ? array() : $arrPrice;
+                if (! empty($arrMark) || ! empty($arrPrice)){
                     global $g_arr_host_config;
                     $arrMark = json_decode($arrMark, true);
+                    $arrPrice = json_decode($arrPrice, true);
                     foreach ($arrProtocol as $protocol) {
                         $mKey = $protocol->cpid."_".$nCoolType;
                         if (array_key_exists($mKey, $arrMark )) {
                             $protocol->corner_mark = $g_arr_host_config['cdnhost'].$arrMark[$mKey]['url'];
                             $protocol->mark_gravity = (int)($arrMark[$mKey]['position']);
+                        }
+
+                        if (array_key_exists($mKey, $arrPrice )) {
+                            $protocol->price_tag = $arrPrice[$mKey]['price'];
                         }
                     }
                 }

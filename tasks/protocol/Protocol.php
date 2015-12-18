@@ -38,6 +38,7 @@ abstract class Protocol
 
     public  $corner_mark;   //角标地址
     public  $mark_gravity;  //角标位置
+    public $price_tag;      //价格标签
 	
 	public function __construct(){
 		$this->_product 			= '';	
@@ -73,6 +74,7 @@ abstract class Protocol
 
         $this->corner_mark = '';
         $this->mark_gravity = 0;
+        $this->price_tag = '';
 	}
 	
 	public function getUserid()
