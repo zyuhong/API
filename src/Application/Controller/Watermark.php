@@ -13,7 +13,14 @@ class Watermark extends Base
 
         $cat = $this->get('cat');
         $offset = $this->get('offset', DT::INT, 'default=0,max=640');
-        $size = $this->get('size', DT::INT, 'default=10,max=100');
+        $page = $this->get('page', DT::INT, 'default=1,max=64');
+        $num = $this->get('num', DT::INT, 'default=10,max=100');
+        $vcode = $this->get('vcode');
+
+        if (!isset($_GET['offset'])) {
+            $offset = ($page - 1) * $num;
+        }
+
         $where = '';
         $value = [];
         if ($cat) {
@@ -38,7 +45,7 @@ class Watermark extends Base
         }
 
         if (!empty($cat)) {
-            $watermarks = $this->getCatResources(D::get($cats, '0.id'), $offset, $size);
+            $watermarks = $this->getCatResources(D::get($cats, '0.id'), $offset, $num);
             $cats[0]['watermarks_count'] = $watermarks['count'];
             $cats[0]['watermarks'] = $watermarks['data'];
             $result = [
@@ -49,7 +56,7 @@ class Watermark extends Base
                 ]
             ];
         } else {
-            $watermarks = $this->getCatResources(D::get($cats, '0.id'));
+            $watermarks = $this->getCatResources(D::get($cats, '0.id'), $offset, $num);
             $cats[0]['watermarks_count'] = $watermarks['count'];
             $cats[0]['watermarks'] = $watermarks['data'];
 
