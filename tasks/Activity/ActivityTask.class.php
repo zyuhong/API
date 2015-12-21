@@ -10,6 +10,7 @@ require_once 'tasks/Redis/UserRedis.php';
 class ActivityTask
 {
     const ACTIVITY_COUNT = 10;
+    const ACTIVITY_PAGE_SHOW_TIME = 5;
     const ACTIVTTY_COVER = '/activity/activity_01.png';
     const ACTIVTTY_URL = 'http://www.baidu.com';
     const ACTIVTTY_TITLE = '主题商店活动测试';
@@ -55,7 +56,8 @@ class ActivityTask
         $arrActivity = array('result' => true,
                             'cover' => $g_arr_host_config['cdnhost'] . ActivityTask::ACTIVTTY_COVER,
                             'event_url' => ActivityTask::ACTIVTTY_URL,
-                            'title' => ActivityTask::ACTIVTTY_TITLE);
+                            'title' => ActivityTask::ACTIVTTY_TITLE,
+                            'exsit_time' => ActivityTask::ACTIVITY_PAGE_SHOW_TIME);
         return $arrActivity;
     }
 }
