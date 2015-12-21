@@ -65,6 +65,26 @@
 	        clearstatcache();   
 	        // 写日志, 返回成功与否   
 	        return error_log("$s_now_time $s_message \n\n",  3,  $s_target);   
-	    }   
+	    }  
+	    
+	    public static function appendJson($msg, $type)
+	    {
+	        // 检查日志目录是否可写   
+			if( !file_exists(self::$s_log_path) ) {
+	            @mkdir(self::$s_log_path);        
+	        } 
+	        
+	        $day = date("Y-m-d");
+	        $path = self::$s_log_path;
+	        $file = "{$path}{$type}.{$day}";
+	        $time = date("Y-m-d H:i:s");
+	
+	        if (is_array($msg)) {
+	            $msg['time'] = $time;
+	            $msg = json_encode($msg);
+	        }
+	
+	        error_log("{$msg}\n", 3, $file);
+	    }  
 	}  
 ?>

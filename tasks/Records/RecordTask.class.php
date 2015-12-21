@@ -94,6 +94,9 @@ class RecordTask
 	// 		}
 			
 	// 		$record->close();
+			$mystatis = (array)$req;
+			$mystatis['optype'] = 'request';
+			Log::appendJson($mystatis, "mstatis");
 	  		$queue = new QueueTask();
 	  		$queue->push('request', $nCoolType, json_encode($req), 'coolshow_req_count');
   		}catch (Exception $e){
@@ -118,6 +121,9 @@ class RecordTask
 	
 	// 		$record->close();
 	// 		Log::write('RecordTask::saverRequest():saveBrowse()', 'debug');
+			$mystatis = (array)$br;
+			$mystatis['optype'] = 'browse';
+			Log::appendJson($mystatis, "mstatis");
 			$queue = new QueueTask();
 			$queue->push('browse', $nCoolType, json_encode($br), 'coolshow_browse_count');
 		}catch (Exception $e){
@@ -177,7 +183,9 @@ class RecordTask
 // 		}
 
 // 		$record->close();
-		
+		$mystatis = (array)$dl;
+		$mystatis['optype'] = 'download';
+		Log::appendJson($mystatis, "mstatis");
 		$queue = new QueueTask();
 		$queue->push('dl', $nCoolType, json_encode($dl), 'coolshow_dl_count');
 		
@@ -313,6 +321,9 @@ class RecordTask
 
 		$record->close();
 		
+		$mystatis = (array)$apply;
+		$mystatis['optype'] = 'apply';
+		Log::appendJson($mystatis, "mstatis");
 		$queue = new QueueTask();
 		$queue->push('apply', $nCoolType, json_encode($apply), 'coolshow_apply_count');
 		return true;
