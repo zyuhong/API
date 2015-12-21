@@ -26,7 +26,7 @@
  *
  * type:模块下的分类
  * 如壁纸的：美女、动物、植物、视觉等
- * 
+ *
  * optype:操作类型
  * 0：请求        //一般不用，当全部通过第三方的服务器时，做自己的统计用
  * 1：预览
@@ -39,14 +39,14 @@
  * 3： 壁纸->主菜单
  *
  * POST字段 ：为手机基本信息
- * 			product:产品名称
- * 			cyid： 酷云账号（暂无）
- * 			imsi： 终端串号
+ *          product:产品名称
+ *          cyid： 酷云账号（暂无）
+ *          imsi： 终端串号
  *			meid   终端串号
- * 			versionCode：应用版本
- * 			width：  分辨率宽
- * 			height： 分辨率高
- * 			network: 网络模式2g/3g/wifi
+ *          versionCode：应用版本
+ *          width：  分辨率宽
+ *          height： 分辨率高
+ *          network: 网络模式2g/3g/wifi
  */
 
 require_once 'lib/WriteLog.lib.php';
@@ -54,9 +54,9 @@ require_once 'public/public.php';
 require_once 'tasks/Records/RecordTask.class.php';
 require_once 'tasks/statis/StatisInterface.class.php';
 
-if (!isset($_GET['id'])){
-	Log::write('statis:: id is not set', 'log');
-	exit(get_rsp_result(false, 'id is empty'));
+if (!isset($_GET['id'])) {
+    Log::write('statis:: id is not set', 'log');
+    exit(get_rsp_result(false, 'id is empty'));
 }
 
 //MYSQL记录
@@ -67,5 +67,6 @@ $result = $statis->saveStatis();
 $rt = new RecordTask();
 $result = $rt->saveStaticRecord();
 
-echo get_rsp_result(true);
+Log::appendJson($_REQUEST, "statis");
 
+echo get_rsp_result(true);
