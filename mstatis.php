@@ -67,6 +67,15 @@ $result = $statis->saveStatis();
 $rt = new RecordTask();
 $result = $rt->saveStaticRecord();
 
-Log::appendJson($_REQUEST, "statis");
+$logArr = $_REQUEST;
+if (isset($_POST['statis'])) {
+    unset($logArr['statis']);
+    $statis = json_decode($_POST['statis'], 1);
+
+    if ($statis) {
+        $logArr = array_merge($statis, $logArr);
+    }
+}
+Log::appendJson($logArr, "statis");
 
 echo get_rsp_result(true);
