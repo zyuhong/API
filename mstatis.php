@@ -76,6 +76,6 @@ if (isset($_POST['statis'])) {
         $logArr = array_merge($statis, $logArr);
     }
 }
-Log::appendJson($logArr, "statis");
+Log::appendJson($logArr, 'statis', '_time');
 
 echo get_rsp_result(true);

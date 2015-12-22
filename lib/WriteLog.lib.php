@@ -69,7 +69,7 @@ class Log
         return error_log("$s_now_time $s_message \n\n",  3,  $s_target);
     }
 
-    public static function appendJson($msg, $type)
+    public static function appendJson($msg, $type, $time = 'time')
     {
         // 检查日志目录是否可写
         if (!file_exists(self::$s_log_path)) {
@@ -82,7 +82,7 @@ class Log
         $time = date("Y-m-d H:i:s");
 
         if (is_array($msg)) {
-            $msg['time'] = $time;
+            $msg[$time] = $time;
             $msg = json_encode($msg);
         }
 
