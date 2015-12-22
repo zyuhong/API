@@ -24,7 +24,7 @@ class CoolShowSearch
 		$this->_memcached = new MemDb();
 		global $g_arr_memcache_config;
 		$this->_memcached->connectMemcached($g_arr_memcache_config);
-		$this->_db 		  = null;//new CoolShowDb($dbConfig);
+		$this->_db 		  = null;
 		$this->_rdb		  = null;
 		$this->_dbconfig  = $dbConfig;
 	}
@@ -242,96 +242,74 @@ class CoolShowSearch
 		if($nCoolType == COOLXIU_TYPE_LIVE_WALLPAPER){
 			$coolshow->setChannel(REQUEST_CHANNEL_LIVEWP);
 		}
-	}	
-	
-	public function getCoolShow($nCoolType, $start = 0, $limit = 10)
-	{
-		try {
-			$coolshow = CoolShowFactory::getCoolShow($nCoolType);
-			if(!$coolshow){
-				Log::write('CoolShowSearch::getCoolShow() coolshow  is null', 'log');
-				$result = get_rsp_result(false, 'get coolshow is null');
-				return $result;
-			}
-			
-			$this->_setCoolShowParam($coolshow);
-			
-			$this->_setChannel($coolshow, $nCoolType);
-			
-			$strSql = $coolshow->getCoolShowListSql($start, $limit);
-			if(!$strSql){
-				Log::write('CoolShowSearch::getCoolShow():getCoolShowListSql() failed, Sql is empty', 'log');
-				$result = get_rsp_result(false, 'get protocol sql empty');
-				return $result;
-			}
-
-			$result = $this->_memcached->getSearchResult($strSql.$coolshow->nCharge);
-			if($result){
-// 				Log::write('CoolXiuDb::searchCoolXiuList():getSearchResult()'.$strSql, 'log');
-				return json_encode($result);
-			}
-			
-			$count = $this->_getCoolShowCount($coolshow);
-			
-			if(!$coolshow->bHavePaid || 
-				($nCoolType == COOLXIU_TYPE_THEMES 
-				    && $coolshow->_nProtocolCode >= 3 
-					&& ($coolshow->_nSort == COOLXIU_SEARCH_COMMEN 
-						|| $coolshow->_nSort == COOLXIU_SEARCH_CHOICE )) || 
-				$coolshow->nCharge != 2){
-				$arrProtocol = $this->_getProtocol($coolshow, $strSql);
-			}else{
-				$arrProtocol = $this->_getProtocolMix($coolshow, $start, $limit);
-			}
-			if(!$arrProtocol){
- 				Log::write('CoolShowSearch::searchCoolXiuList():_getProtocol() failed', 'log');
-				$result = get_rsp_result(false, 'get protocol failed');
-				return $result;
-			}
-
-            if ($nCoolType == COOLXIU_TYPE_THEMES) {
-                require_once 'tasks/Redis/UserRedis.php';
-                $redis = new UserRedis();
-                $key = $redis->markKey;
-                $priceKey = $redis->priceKey;
-                $arrMark = $redis->getKey($key);
-                $arrPrice = $redis->getKey($priceKey);
-                $arrMark = ($arrMark == false) ? array() : $arrMark;
-                $arrPrice = ($arrPrice == false) ? array() : $arrPrice;
-                if (! empty($arrMark) || ! empty($arrPrice)){
-                    global $g_arr_host_config;
-                    $arrMark = json_decode($arrMark, true);
-                    $arrPrice = json_decode($arrPrice, true);
-                    foreach ($arrProtocol as $protocol) {
-                        $mKey = $protocol->cpid."_".$nCoolType;
-                        if (array_key_exists($mKey, $arrMark )) {
-                            $protocol->corner_mark = $g_arr_host_config['cdnhost'].$arrMark[$mKey]['url'];
-                            $protocol->mark_gravity = (int)($arrMark[$mKey]['position']);
-                        }
-
-                        if (array_key_exists($mKey, $arrPrice )) {
-                            $protocol->price_tag = $arrPrice[$mKey]['price'];
-                        }
-                    }
-                }
-            }
-			
-			$result =  array(
-					'total_number'=> $count,
-					'ret_number'  => count($arrProtocol),
-					$coolshow->strType     => $arrProtocol
-			);
-			
- 			$this->_memcached->setSearchResult($strSql.$coolshow->nCharge, $result, 60*60);
-			
-		}catch(Exception $e){
-			Log::write('CoolShowSearch::getCoolShow() excepton error:'.$e->getMessage(), 'log');
-			$result = get_rsp_result(false, 'get coolshow exception');
-			return $result;
-		}
-		
-		return json_encode($result);
 	}
+
+    public function getCoolShow($nCoolType, $start = 0, $limit = 10)
+    {
+        try {
+            $coolshow = CoolShowFactory::getCoolShow($nCoolType);
+            if (! $coolshow) {
+                Log::write('CoolShowSearch::getCoolShow() coolshow  is null', 'log');
+                $result = get_rsp_result(false, 'get coolshow is null');
+                return $result;
+            }
+
+            $this->_setCoolShowParam($coolshow);
+            $this->_setChannel($coolshow, $nCoolType);
+
+            $strSql = $coolshow->getCoolShowListSql($start, $limit);
+            if (! $strSql) {
+                Log::write('CoolShowSearch::getCoolShow():getCoolShowListSql() failed, Sql is empty', 'log');
+                $result = get_rsp_result(false, 'get protocol sql empty');
+                return $result;
+            }
+
+            $result = $this->_memcached->getSearchResult($strSql.$coolshow->nCharge);
+            if($result){
+                return json_encode($result);
+            }
+
+            $count = $this->_getCoolShowCount($coolshow);
+
+            if (! $coolshow->bHavePaid ||
+                ($nCoolType == COOLXIU_TYPE_THEMES
+                    && $coolshow->_nProtocolCode >= 3
+                    && ($coolshow->_nSort == COOLXIU_SEARCH_COMMEN
+                        || $coolshow->_nSort == COOLXIU_SEARCH_CHOICE )) ||
+                $coolshow->nCharge != 2) {
+                $arrProtocol = $this->_getProtocol($coolshow, $strSql);
+			} else {
+                $arrProtocol = $this->_getProtocolMix($coolshow, $start, $limit);
+            }
+
+            if (! $arrProtocol) {
+                Log::write('CoolShowSearch::searchCoolXiuList():_getProtocol() failed', 'log');
+                $result = get_rsp_result(false, 'get protocol failed');
+                return $result;
+            }
+
+            if ($nCoolType == COOLXIU_TYPE_THEMES
+                || $nCoolType == COOLXIU_TYPE_FONT
+                || $nCoolType == COOLXIU_TYPE_SCENE
+                || $nCoolType == COOLXIU_TYPE_LIVE_WALLPAPER) {
+                $this->addMarkAndPriceProtocol($arrProtocol, $nCoolType);
+            }
+
+            $result =  array('total_number' => $count,
+					        'ret_number' => count($arrProtocol),
+					        $coolshow->strType => $arrProtocol
+            );
+
+            $this->_memcached->setSearchResult($strSql.$coolshow->nCharge, $result, 60*60);
+			
+		} catch (Exception $e) {
+            Log::write('CoolShowSearch::getCoolShow() excepton error:'.$e->getMessage(), 'log');
+            $result = get_rsp_result(false, 'get coolshow exception');
+            return $result;
+        }
+
+        return json_encode($result);
+    }
 	
 	public function getBanner($nCoolType)
 	{
@@ -345,8 +323,7 @@ class CoolShowSearch
 				Log::write("CoolShowSearch::getBanner():getSelectBannerSql() failed Sql is empty", "log");
 				return false;
 			}
-			
-//  		Log::write('CoolShowSearch::getBanner():getSearchResult() SQL:'.$strSql, 'debug');
+
 			$result = $this->_memcached->getSearchResult($strSql);
 			if($result){
 // 				Log::write('CoolShowSearch::getBanner():getSearchResult()'.$strSql, 'log');
@@ -1363,8 +1340,7 @@ class CoolShowSearch
 				Log::write('CoolShowSearch::getWallpaper():getChoiceWallpaperSql() failed, Sql is empty', 'log');
 				return false;
 			}
-		
-//  		Log::write('CoolShowSearch::getChoiceWallpaer():getCoolShowListSql(), SQL:'.$strSql, 'debug');
+
 			$result = $this->_memcached->getSearchResult($strSql);
 			if($result){
 // 				Log::write('CoolShowSearch::getChoiceWallpaer():getSearchResult()'.$strSql, 'log');
@@ -1383,6 +1359,8 @@ class CoolShowSearch
 				Log::write('CoolShowSearch::getWallpaper():getCoolShowCount() failed, SQL:'.$strCountSql, 'log');
 				return  false;
 			}
+
+            $this->addMarkAndPriceProtocol($arrProtocol, $req_type);
 				
 			$result =  array(
 					'total_number'=> $count,
@@ -1611,5 +1589,37 @@ class CoolShowSearch
             $result = array('result'=>false, 'error'=>'get rscsign res exception');
             out_json($result);
         }
+    }
+
+    private function addMarkAndPriceProtocol(&$arrProtocol, $nCoolType)
+    {
+        require_once 'tasks/Redis/UserRedis.php';
+        $redis = new UserRedis();
+        $key = $redis->markKey;
+        $priceKey = $redis->priceKey;
+        $arrMark = $redis->getKey($key);
+        $arrPrice = $redis->getKey($priceKey);
+        $arrMark = ($arrMark == false) ? '' : $arrMark;
+        $arrPrice = ($arrPrice == false) ? '' : $arrPrice;
+        if (! empty($arrMark) || ! empty($arrPrice)){
+            global $g_arr_host_config;
+            $arrMark = json_decode($arrMark, true);
+            $arrPrice = json_decode($arrPrice, true);
+            $arrMark = ($arrMark == null) ? array() : $arrMark;
+            $arrPrice = ($arrPrice == null) ? array() : $arrPrice;
+            foreach ($arrProtocol as $protocol) {
+                $mKey = $protocol->cpid . "_" . $nCoolType;
+                if (array_key_exists($mKey, $arrMark )) {
+                    $protocol->corner_mark = $g_arr_host_config['cdnhost'] . $arrMark[$mKey]['url'];
+                    $protocol->mark_gravity = (int)($arrMark[$mKey]['position']);
+                }
+
+                if (array_key_exists($mKey, $arrPrice )) {
+                    $protocol->price_tag = $arrPrice[$mKey]['price'];
+                }
+            }
+        }
+
+        return $arrProtocol;
     }
 }

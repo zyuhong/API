@@ -109,10 +109,6 @@
 			}else{
 				$result = getAndroidesk($wp_list, $width, $height, $start, $req_num, $req_type, $sorttype, $channel);
 			}
-// 			$kernel = 1; $id = ''; $cpid = ''; $url = '';
-// 			$reqStatis->recordRequest($req_type, COOLXIU_TYPE_ANDROIDESK_WALLPAPER, $height, $width,  
-// 								  $kernel, $id, $cpid, $url, 
-// 								  $channel, $vercode);
 			
 			$rt->saveRequest(COOLXIU_TYPE_ANDROIDESK_WALLPAPER);
 			
