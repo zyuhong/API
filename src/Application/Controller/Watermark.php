@@ -99,7 +99,7 @@ class Watermark extends Base
         $detailTable = new \Model\WatermarkDetail();
         $resource = $detailTable->getByPk($id, 'id,name,cover,preview,resource,hash,sort');
 
-        if (empty($resource)) {
+        if (empty($resource) || empty(D::get($resource, 'is_online'))) {
             return false;
         }
 
@@ -124,7 +124,7 @@ class Watermark extends Base
         $cat = new \Model\WatermarkCatDetail();
         $details = $cat->getAll([
                 'cols' => 'd.id, d.name, d.cover, d.preview,d.sort',
-                'where' => 'cid=?',
+                'where' => 'cid=? and d.is_online=1',
                 'value' => [$cid],
                 'left_join' => 'watermark_detail as d on watermark_cat_detail.wid=d.id ',
                 'limit' => "$offset,$size",
