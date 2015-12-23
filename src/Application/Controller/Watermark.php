@@ -97,7 +97,7 @@ class Watermark extends Base
     public function getResource($id)
     {
         $detailTable = new \Model\WatermarkDetail();
-        $resource = $detailTable->getByPk($id, 'id,name,cover,preview,resource,hash,sort');
+        $resource = $detailTable->getByPk($id, 'id,name,cover,preview,resource,hash,sort,is_online');
 
         if (empty($resource) || empty(D::get($resource, 'is_online'))) {
             return false;
