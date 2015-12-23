@@ -23,7 +23,7 @@ $g_arr_host_config = array(
 );
 
 $g_arr_qk_yun_config = array(
-    "check_tkt" => "http://passport.coolyun.com/uac/m/check_tkt",
+    "check_tkt" => "http://passport.qiku.com/uac/m/check_tkt",
     "skip_url" => 'http://192.168.30.54:8088/forward.php',
 );
 $g_arr_des_key = array(
