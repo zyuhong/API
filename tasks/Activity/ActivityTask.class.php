@@ -12,7 +12,7 @@ class ActivityTask
     const ACTIVITY_COUNT = 10;
     const ACTIVITY_PAGE_SHOW_TIME = 5;
     const ACTIVTTY_COVER = '/activity/activity_01.png';
-    const ACTIVTTY_URL = 'http://www.baidu.com';
+    const ACTIVTTY_URL = 'http://open.zookingsoft.com/e/zhuanpan/index.html';
     const ACTIVTTY_TITLE = '主题商店活动测试';
     public function getUserActivity($id)
     {
