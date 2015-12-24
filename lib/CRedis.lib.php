@@ -23,6 +23,11 @@ class CRedis
         return $this->_redis->dbsize();
     }
 
+    public function selectDB($index)
+    {
+        return $this->_redis->select($index);
+    }
+
     /**
      *  string: Redis::REDIS_STRING
      *	set: Redis::REDIS_SET

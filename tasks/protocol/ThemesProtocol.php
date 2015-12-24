@@ -16,10 +16,16 @@ class PrevProtocol{
 		global $g_arr_host_config;
 		return $g_arr_host_config['cdnhost'].$prev['prev_url'];
 	}
-	public function setPrev($prev){
-		global $g_arr_host_config;
-		$this->img_url = $g_arr_host_config['cdnhost'].$prev['prev_url'];
-	}
+
+    public function setPrev($prev)
+    {
+        global $g_arr_host_config;
+        if ($prev['type'] == TAG_THEME_TYPE_INPUT) {
+            $this->img_url = 'http://coolshowdl.coolyun.com' . $prev['prev_url'];
+        } else {
+            $this->img_url = $g_arr_host_config['cdnhost'] . $prev['prev_url'];
+        }
+    }
 }
 
 class ThemesProtocol extends Protocol
@@ -110,23 +116,35 @@ class ThemesProtocol extends Protocol
 		$this->adicon				= '';
 		$this->adurl				= '';
 	}
-	
-	public function setMainPrev($prev){
-		global  $g_arr_host_config;
-		$strUrl = isset($prev['pre_url'])?$prev['pre_url']:'';
-		if (empty($strUrl)) $strUrl = $prev['prev_url'];
-		$this->main_prev_url 	= $g_arr_host_config['cdnhost'].$strUrl;//$prev['prev_url'];
-		
-		$strUrl = isset($prev['pre_contact'])?$prev['pre_contact']:'';
-		if (!empty($strUrl)) $this->main_contact_url = $g_arr_host_config['cdnhost'].$strUrl;//$prev['prev_url'];
 
-		$strUrl = isset($prev['pre_icon'])?$prev['pre_icon']:'';
-		if (!empty($strUrl)) $this->main_icon_url = $g_arr_host_config['cdnhost'].$strUrl;//$prev['prev_url'];
-		
-		$strUrl = isset($prev['pre_mms'])?$prev['pre_mms']:'';
-		if (!empty($strUrl)) $this->main_mms_url = $g_arr_host_config['cdnhost'].$strUrl;//$prev['prev_url'];
-		
-	}
+    public function setMainPrev($prev)
+    {
+        global  $g_arr_host_config;
+        $strUrl = isset($prev['pre_url']) ? $prev['pre_url'] : '';
+        if (empty($strUrl)) {
+            $strUrl = $prev['prev_url'];
+        }
+        if ($this->type == TAG_THEME_TYPE_INPUT) {
+            $this->main_prev_url 	= 'http://coolshowdl.coolyun.com' . $strUrl;
+        } else {
+            $this->main_prev_url 	= $g_arr_host_config['cdnhost'] . $strUrl;//$prev['prev_url'];
+        }
+
+        $strUrl = isset($prev['pre_contact']) ? $prev['pre_contact'] : '';
+        if (! empty($strUrl)) {
+            $this->main_contact_url = $g_arr_host_config['cdnhost'] . $strUrl;
+        }
+
+        $strUrl = isset($prev['pre_icon']) ? $prev['pre_icon'] : '';
+        if (! empty($strUrl)) {
+            $this->main_icon_url = $g_arr_host_config['cdnhost'] . $strUrl;
+        }
+
+        $strUrl = isset($prev['pre_mms']) ? $prev['pre_mms'] : '';
+        if (! empty($strUrl)) {
+            $this->main_mms_url = $g_arr_host_config['cdnhost'] . $strUrl;
+        }
+    }
 
 	public function pushPrevImg($prev, $type = 0){
 		array_push($this->prev_imgs, $prev);

@@ -26,6 +26,10 @@ class WallpaperProtocol{
 	public $type;				//具体类型
 	public $author;				//作者
 	public $channel;			//下载渠道
+
+    public $corner_mark;   //角标地址
+    public $mark_gravity;  //角标位置
+    public $price_tag;      //价格标签
 	
 	function __construct(){
 		$this->_product = new Product();
@@ -42,6 +46,10 @@ class WallpaperProtocol{
 		$this->download_times		= 	0;
 		$this->author				=   '';	
 		$this->channel			    = 0;
+
+        $this->corner_mark = '';
+        $this->mark_gravity = 0;
+        $this->price_tag = '';
 	}
 	
 	public function setVercode($vercode)

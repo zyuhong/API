@@ -23,7 +23,7 @@ $g_arr_host_config = array(
 );
 
 $g_arr_qk_yun_config = array(
-    "check_tkt" => "http://passport.coolyun.com/uac/m/check_tkt",
+    "check_tkt" => "http://passport.qiku.com/uac/m/check_tkt",
     "skip_url" => 'http://192.168.30.54:8088/forward.php',
 );
 $g_arr_des_key = array(
@@ -294,6 +294,16 @@ define('REQUEST_CHANNEL_LIVEWP',    13);
 define('REQUEST_CHANNEL_CONTACT',    15);
 define('REQUEST_CHANNEL_ICON',    17);
 //安卓壁纸
+
+/**
+ * update:2015-12-17
+ */
+define('TAG_ENGINE_CHANNEL_QIKU', 1);
+define('TAG_ENGINE_CHANNEL_COOLPAD', 2);
+define('TAG_ENGINE_CHANNEL_IVVI', 3);
+define('TAG_ENGINE_TYPE_TT', 1);
+define('TAG_ENGINE_TYPE_VL', 2);
+define('TAG_THEME_TYPE_INPUT', 2);
 
 /**
  * MODIFY BY liangweiwei@yulong.com AT 2012-08-03

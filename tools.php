@@ -7,7 +7,8 @@
 	$strGet = isset($_GET['get'])? $_GET['get']:'';
 	$bGetIp = isset($_GET['getip'])? $_GET['getip']:0;
 	$strGetIp = isset($_GET['getips'])? $_GET['getips']:'';
-    $strUpdateMark = (int)(isset($_GET['mark'])?$_GET['mark']:0);
+    $strUpdateMark = (int)(isset($_GET['mark']) ? $_GET['mark'] : 0);
+    $strUpdatePrice = (int)(isset($_GET['price']) ? $_GET['price'] : 0);
 	
 	$memcached = new MemDb();
 	if(!$memcached){
@@ -90,9 +91,19 @@
 
         exit("SUCCESS");
     }
-	
-	
-?>
+
+    if ($strUpdatePrice) {
+        require_once 'tasks/CoolShow/PriceTagDb.class.php';
+
+        $price = new PriceTagDb();
+        $bResult = $price->updatePriceTagList();
+        if (! $bResult) {
+            Log::write("update fail", "log");
+            exit("Fail");
+        }
+
+        exit("SUCCESS");
+    }
 	
 	
 	
