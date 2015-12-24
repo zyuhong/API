@@ -9,7 +9,6 @@ class Watermark extends Base
 {
     public function listAction()
     {
-        $catModel = new \Model\WatermarkCat();
 
         $id = $this->get('id', DT::INT);
         $cat = $this->get('cat');
@@ -30,6 +29,7 @@ class Watermark extends Base
             $value[] = $id;
         }
 
+        $catModel = new \Model\WatermarkCat();
         $cats = $catModel->getAll(['cols' => 'id, name, cat', 'where' => $where, 'value' => $value]);
 
         if (empty($cats)) {

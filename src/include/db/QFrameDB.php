@@ -1,27 +1,27 @@
 <?php
 class QFrameDB
 {
-    private static $_container      = array();
-    private static $_default_config = array(
-        "driver"=>"mysql",
-        "host"=>"127.0.0.1",
-        "port"=>"3306",
-        "username"=>"root",
-        "password"=>"",
-        "charset"=>"gbk",
-        "database"=>"test",
-        "persistent"=>true,
-        "unix_socket"=>"",
-        "options"=>array()
-    );
+    private static $_container      = [];
+    private static $_default_config = [
+        "driver" => "mysql",
+        "host" => "127.0.0.1",
+        "port" => "3306",
+        "username" => "root",
+        "password" => "",
+        "charset" => "utf8",
+        "database" => "test",
+        "persistent" => true,
+        "unix_socket" => "",
+        "options" => []
+    ];
 
-    public static function getInstance($config = array())
+    public static function getInstance($config = [])
     {
         $key = md5(serialize($config));
 
-        if(!isset(self::$_container[$key]) || !(self::$_container[$key] instanceof QFrameDBPDO)) {
+        if (!isset(self::$_container[$key]) || !(self::$_container[$key] instanceof QFrameDBPDO)) {
             $final_config = array();
-            foreach(self::$_default_config as $index=>$value) {
+            foreach (self::$_default_config as $index => $value) {
                 $final_config[$index] = isset($config[$index]) && !empty($config[$index]) ? $config[$index] : self::$_default_config[$index];
             }
             self::$_container[$key] = new QFrameDBPDO($final_config);
@@ -45,13 +45,13 @@ class QFrameDBPDO
     private $_auto_reconnect = true;
 
     public function __construct($config)
-    {/*{{{*/
+    {
         $this->_config = $config;
-    }/*}}}*/
+    }
 
     private function _connect()
-    {/*{{{*/
-        if($this->_conn == null) {
+    {
+        if ($this->_conn == null) {
             if($this->_config["unix_socket"]) {
                 $dsn = "mysql:dbname={$this->_config["database"]};unix_socket={$this->_config["unix_socket"]}";
             } else {
@@ -72,10 +72,10 @@ class QFrameDBPDO
             $this->execute("SET NAMES '{$this->_config["charset"]}'");
             $this->execute("SET character_set_client=binary");
         }
-    }/*}}}*/
+    }
 
     private function _exec($sql, $params)
-    {/*{{{*/
+    {
         $this->_connect();
 
         if($this->_debug) {
@@ -106,10 +106,10 @@ class QFrameDBPDO
         }
 
         return array("stmt"=>$stmt, "execute_return"=>$execute_return);
-    }/*}}}*/
+    }
 
     private function _process($sql, $params)
-    {/*{{{*/
+    {
         if(in_array(preg_replace("/\s{2,}/", " ", strtolower($sql)), array("begin", "commit", "rollback", "start transaction", "set autocommit=0", "set autocommit=1"))) {
             throw new QFrameDBException("存储过程预处理失败[startTrans, commit, rollback]");
         }
@@ -146,11 +146,11 @@ class QFrameDBPDO
         }
 
         return $arr_exec_result;
-    }/*}}}*/
+    }
 
     private function _checkSafe($sql, $is_open_safe = false)  //改为false
-    {/*{{{*/
-        if(!$is_open_safe) {
+    {
+        if (!$is_open_safe) {
             return true;
         }
 
@@ -173,21 +173,20 @@ class QFrameDBPDO
                 break;
         }
 
-        if(!$is_safe) {
-            //echo 'exception';
+        if (!$is_safe) {
             throw new QFrameDBException("SQL:[$sql],本查询操作使用了强制预处理策略，但是没有发现需要预处理内容。");
         }
 
         return $is_safe;
-    }/*}}}*/
+    }
 
     public function getInsertId()
-    {/*{{{*/
+    {
         return $this->_conn->lastInsertId();
-    }/*}}}*/
+    }
 
     public function execute($sql, $params = array(), $is_open_safe = false) //改为false
-    {/*{{{*/
+    {
         $this->_checkSafe($sql, $is_open_safe);
         $arr_process_result = $this->_process($sql, $params);
 
@@ -212,41 +211,41 @@ class QFrameDBPDO
 
         return $arr_process_result["execute_return"];
 
-    }/*}}}*/
+    }
 
     public function query($sql, $params = array(), $is_open_safe = false)
-    {/*{{{*/
+    {
         $this->_checkSafe($sql, $is_open_safe);
         $result = $this->_process($sql, $params);
         return $result["stmt"];
-    }/*}}}*/
+    }
 
     public function getOne($sql, $params = array(), $safe = true)
-    {/*{{{*/
+    {
         $stmt   = $this->query($sql, $params, $safe);
         $record = $stmt->fetch($this->_fetch_type);
         return is_array($record) && !empty($record) ? array_shift($record) : null;
-    }/*}}}*/
+    }
 
     public function getRow($sql, $params = array(), $safe = true)
-    {/*{{{*/
+    {
         $stmt   = $this->query($sql, $params, $safe);
         $record = $stmt->fetch($this->_fetch_type);
         return is_array($record) && !empty($record) ? $record : array();
-    }/*}}}*/
+    }
 
     public function getAll($sql, $params = array(), $safe = false )
-    {/*{{{*/
+    {
         $stmt = $this->query($sql, $params, $safe);
         $data = array();
         while ($record = $stmt->fetch($this->_fetch_type)) {
             $data[] = $record;
         }
         return $data;
-    }/*}}}*/
+    }
 
     private function _operate($table, $record, $operate, $condition = "", $params = array())
-    {/*{{{*/
+    {
         if(in_array($operate, array("insert", "replace", "update"))) {
             $fields = is_array($record) ? array_keys($record)   : array();
             $values = is_array($record) ? array_values($record) : array();
@@ -281,64 +280,64 @@ class QFrameDBPDO
                 break;
         }
         return true;
-    }/*}}}*/
+    }
 
     public function insert($table, $record)
-    {/*{{{*/
+    {
         return $this->_operate($table, $record, "insert");
-    }/*}}}*/
+    }
 
     public function replace($table, $record)
-    {/*{{{*/
+    {
         return $this->_operate($table, $record, "replace");
-    }/*}}}*/
+    }
 
     public function update($table, $record, $condition, $params=array())
-    {/*{{{*/
+    {
         try {
             return $this->_operate($table, $record, "update", $condition, $params);
         } catch (QFrameDBException $e) {
             throw new QFrameDBException($e->getMessage());
         }
-    }/*}}}*/
+    }
 
     public function delete($table, $condition, $params)
-    {/*{{{*/
+    {
         return $this->_operate($table, null, "delete", $condition, $params);
-    }/*}}}*/
+    }
 
     public function setWaitTimeOut($seconds)
-    {/*{{{*/
+    {
         $this->execute("set wait_timeout=$seconds");
-    }/*}}}*/
+    }
 
     public function setAutoReconnect($flag)
-    {/*{{{*/
+    {
         $this->_auto_reconnect = $flag;
-    }/*}}}*/
+    }
 
     public function setDebug($flag = false)
-    {/*{{{*/
+    {
         $this->_debug = $flag;
-    }/*}}}*/
+    }
 
     public function setOptimize($flag = false)
-    {/*{{{*/
+    {
         $this->_optimize = $flag;
-    }/*}}}*/
+    }
 
     public function setFetchMode($fetch_type = PDO:: FETCH_ASSOC)
-    {/*{{{*/
+    {
         $this->_fetch_type = $fetch_type;
-    }/*}}}*/
+    }
 
     public function setLog($log)
-    {/*{{{*/
+    {
         $this->_log = $log;
-    }/*}}}*/
+    }
 
     public function startTrans()
-    {/*{{{*/
+    {
         if($this->_transaction) {
             throw new QFrameDBException("有事务未提交!");
         }
@@ -354,10 +353,10 @@ class QFrameDBPDO
 
         $this->_transaction = true;
         $this->_reconnected = false;
-    }/*}}}*/
+    }
 
     public function commit()
-    {/*{{{*/
+    {
         if(!$this->_transaction) {
             throw new QFrameDBException("并未在事务流程中!");
         }
@@ -371,10 +370,10 @@ class QFrameDBPDO
             $errorInfo = $this->_conn->errorInfo();
             throw new QFrameDBException($errorInfo[2], $errorInfo[1]);
         }
-    }/*}}}*/
+    }
 
     public function rollback()
-    {/*{{{*/
+    {
         if(!$this->_transaction) {
             throw new QFrameDBException("并未在事务流程中!");
         }
@@ -388,29 +387,30 @@ class QFrameDBPDO
             $errorInfo = $this->_conn->errorInfo();
             throw new QFrameDBException($errorInfo[2], $errorInfo[1]);
         }
-    }/*}}}*/
+    }
 
     public function commit_start()
-    {/*{{{*/
+    {
         $this->_conn->autocommit(false);
-    }/*}}}*/
+    }
 
     public function commit_end()
-    {/*{{{*/
+    {
         $this->_conn->autocommit(true);
-    }/*}}}*/
+    }
 
-    public function commit_errno(){
+    public function commit_errno()
+    {
         return $this->_conn->errno;
     }
 
     public function close()
-    {/*{{{*/
+    {
         $this->_conn = null;
-    }/*}}}*/
+    }
 
     public function getBindedSql($sql, $params = array())
-    {/*{{{*/
+    {
         if (!preg_match("/\?/", $sql)) {
             return $sql;
         }
@@ -438,12 +438,12 @@ class QFrameDBPDO
         }
 
         return $sql;
-    }/*}}}*/
+    }
 
     public function quote($string)
-    {/*{{{*/
+    {
         return $this->_conn->quote($string);
-    }/*}}}*/
+    }
 }
 
 class QFrameDBStatment
@@ -451,37 +451,37 @@ class QFrameDBStatment
     private $_stmt;
 
     public function __construct($stmt)
-    {/*{{{*/
+    {
         $this->_stmt = $stmt;
-    }/*}}}*/
+    }
 
     public function fetch($mode = PDO::FETCH_ASSOC)
-    {/*{{{*/
+    {
         return $this->_stmt->fetch($mode);
-    }/*}}}*/
+    }
 
     public function execute()
-    {/*{{{*/
+    {
         return $this->_stmt->execute();
-    }/*}}}*/
+    }
 
     public function bind($parameter, $value)
-    {/*{{{*/
+    {
         return $this->_stmt->bindValue($parameter, $value);
-    }/*}}}*/
+    }
 
     public function getEffectedRows()
-    {/*{{{*/
+    {
         return $this->_stmt->rowCount();
-    }/*}}}*/
+    }
 }
 
 class QFrameDBException extends Exception
 {
     public function __construct($message,$code=0)
-    {/*{{{*/
+    {
         $message = "数据库执行异常，[$code]:$message ($code)";
 
         parent::__construct($message,$code);
-    }/*}}}*/
+    }
 }
