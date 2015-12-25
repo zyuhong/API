@@ -54,9 +54,19 @@ class Watermark extends Base
                 ]
             ];
         } else {
-            $watermarks = $this->getCatResources(D::get($cats, '0.id'), $offset, $num);
-            $cats[0]['watermarks_count'] = $watermarks['count'];
-            $cats[0]['watermarks'] = $watermarks['data'];
+            foreach ($cats as $i => $cat) {
+                if ($i == 0) {
+                    $watermarks = $this->getCatResources(D::get($cats, '0.id'), $offset, $num);
+                    $cats[0]['watermarks_count'] = $watermarks['count'];
+                    $cats[0]['watermarks'] = $watermarks['data'];
+                } else {
+                    // if other cats have no watermark, unset them
+                    $watermarksCount = $this->getCatResourcesCount($cat['id']);
+                    if (!$watermarksCount) {
+                        unset($cats[$i]);
+                    }
+                }
+            }
 
             $result = [
                 'result' => true,
@@ -149,6 +159,18 @@ class Watermark extends Base
             'data' => $details,
             'count' => $count
         ];
+    }
+
+    /**
+     * 获取分类下的资源数
+     * @param $cid 分类id
+     */
+    public function getCatResourcesCount($cid)
+    {
+        $cat = new \Model\WatermarkCatDetail();
+        $count = $cat->count('cid=?', [$cid]);
+
+        return $count;
     }
 
 }
