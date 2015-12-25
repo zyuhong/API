@@ -104,6 +104,7 @@ class Watermark extends Base
         }
 
         $cdn = \AppConf::getCfg('/app/cdn');
+        unset($resource['is_online']);
         $resource['id'] = intval($resource['id']);
         $resource['sort'] = intval($resource['sort']);
         $resource['cover'] = $resource['cover'] ? $cdn . $resource['cover'] : '';
