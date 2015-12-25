@@ -14,10 +14,15 @@ class ActivityTask
     const ACTIVTTY_COVER = '/activity/activity_01.png';
     const ACTIVTTY_URL = 'http://open.zookingsoft.com/e/zhuanpan/index.html';
     const ACTIVTTY_TITLE = '主题商店活动测试';
-    const ACTIVITY_SWITCH = false;
+    const ACTIVITY_SWITCH = true;
     public function getUserActivity($id)
     {
         if (! ActivityTask::ACTIVITY_SWITCH) {
+            return array('result' => false);
+        }
+
+        global $arr_activity_white_list;
+        if (! in_array($id, $arr_activity_white_list)) {
             return array('result' => false);
         }
 

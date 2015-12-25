@@ -351,3 +351,9 @@ $g_arr_product_filter = array(
     ),
 
 );
+
+//活动白名单
+$arr_activity_white_list = array(
+    '31388669',
+    '867886021288091'
+);
