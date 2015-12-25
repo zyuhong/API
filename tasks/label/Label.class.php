@@ -27,26 +27,27 @@ class Label
 		$this->_nWidth 		= $nWidth;
 		$this->_nHeight 	= $nHeight;
 	}
-	
-	private function _getTable()
-	{
-		$table = '';
-		switch ($this->_nType){
-			case COOLXIU_TYPE_ANDROIDESK_WALLPAPER:{
-				$table = 'tb_yl_adwp_label';
-			}break;
-			case COOLXIU_TYPE_RING:{
-				$table = 'tb_yl_ring_label';
-			}break;
-			case COOLXIU_TYPE_THEMES:{
-				$table = 'tb_yl_theme_label';
-			}break;
-			case COOLXIU_TYPE_ALARM:{
-				$table = 'tb_yl_alarm_label';
-			}break;
-		}
-		return $table;
-	}
+
+    private function _getTable()
+    {
+        $table = '';
+        switch ($this->_nType) {
+            case COOLXIU_TYPE_ANDROIDESK_WALLPAPER:{
+            //$table = 'tb_yl_adwp_label';
+                $table = 'tb_qiku_wp_type';
+            }break;
+            case COOLXIU_TYPE_RING:{
+                $table = 'tb_yl_ring_label';
+            }break;
+            case COOLXIU_TYPE_THEMES:{
+                $table = 'tb_yl_theme_label';
+            }break;
+            case COOLXIU_TYPE_ALARM:{
+                $table = 'tb_yl_alarm_label';
+            }break;
+        }
+        return $table;
+    }
 	
 	private function _getCondition()
 	{
