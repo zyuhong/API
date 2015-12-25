@@ -64,6 +64,8 @@ class Watermark extends Base
                     $watermarksCount = $this->getCatResourcesCount($cat['id']);
                     if (!$watermarksCount) {
                         unset($cats[$i]);
+                    } else {
+                        $cats[$i]['watermarks_count'] = $watermarksCount;
                     }
                 }
             }
