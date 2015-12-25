@@ -3,8 +3,8 @@
 return [
     '/app/cdn' => 'http://d.res.zhuti.qiku.com',
     '/db/mdb/zhuti_api_db' => [
-        "host" => "10.120.253.250",
-        "port" => "4667",
+        "host" => "10.120.253.109",
+        "port" => "3562",
         "username" => "zhuti",
         "password" => "Kw_s71Ls_2t",
         "coding" => "utf8",

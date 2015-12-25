@@ -47,49 +47,49 @@ $g_arr_xring_config = array(
  * @var unknown_type
  */
 $g_arr_db_config = array(
-    'coolshow'=>array("host" =>"10.120.253.250:4667",
+	'coolshow'=>array("host" =>"10.120.253.109:3562",
                     "user" => "zhuti",
                     "pwd"  => "Kw_s71Ls_2t",
                     "type" => "commit",
                     "coding" => "utf8",
                     "db"   => "db_yl_themes"
     ),
-    'designer'=>array("host" =>"10.120.253.250:4667",
+    'designer'=>array("host" =>"10.120.253.109:3562",
         "user" => "zhuti",
         "pwd"  => "Kw_s71Ls_2t",
         "type" => "commit",
         "coding" => "utf8",
         "db"   => "db_yl_designer"
     ),
-    'androidesk'=>array("host" =>"10.120.253.250:4667",
+    'androidesk'=>array("host" =>"10.120.253.109:3562",
         "user" => "zhuti_web",
         "pwd"  => "4hHWTDccMFjK",
         "type" => "commit",
         "coding" => "utf8",
         "db" => "db_yl_androidesk"
     ),
-    'coolshow_record'=>array("host" =>"10.120.253.250:4667",
+    'coolshow_record'=>array("host" =>"10.120.253.109:3562",
         "user" => "zhuti",
         "pwd"  => "Kw_s71Ls_2t",
         "type" => "commit",
         "coding" => "utf8",
         "db"   => "db_yl_themes_records"
     ),
-    'coolshow_scene'=>array("host" =>"10.120.253.250:4667",
+    'coolshow_scene'=>array("host" =>"10.120.253.109:3562",
         "user" => "zhuti",
         "pwd"  => "Kw_s71Ls_2t",
         "type" => "commit",
         "coding" => "utf8",
         "db"   => "db_yl_elflockscreen"
     ),
-    'coolshow_charge_record'=>array('host' =>'10.120.253.250:4667',
+    'coolshow_charge_record'=>array('host' =>'10.120.253.109:3562',
                                     'user' => 'zhuti',
                                     'pwd'  => 'Kw_s71Ls_2t',
                                     'type' => 'commit',
                                     'coding' => 'utf8',
                                     'db'   => 'db_yl_coolshow_charge_records'
     ),
-    'recommend'=>array('host' =>'10.120.253.250:4667',
+    'recommend'=>array('host' =>'10.120.253.109:3562',
         'user' => 'zhuti',
         'pwd'  => 'Kw_s71Ls_2t',
         'type' => 'commit',
@@ -267,19 +267,19 @@ define("COOLXIU_SEARCH_CHOICE",  2);#小编推荐2015.4.28
 define("COOLXIU_SEARCH_LAST",    3);
 define("COOLXIU_SEARCH_HOLIDAY", 4);
 
-define("COOLXIU_SEARCH_WALLPAPER_COMMEN",       0);
-define("COOLXIU_SEARCH_WALLPAPER_ABSTRACT",     1);
-define("COOLXIU_SEARCH_WALLPAPER_PERSON",       2);
+define("COOLXIU_SEARCH_WALLPAPER_COMMEN", 		0);
+define("COOLXIU_SEARCH_WALLPAPER_ABSTRACT",  	1);
+define("COOLXIU_SEARCH_WALLPAPER_PERSON",    	2);
 define("COOLXIU_SEARCH_WALLPAPER_LANDSCAPE",    3);
-define("COOLXIU_SEARCH_WALLPAPER_PLANT",        4);
-define("COOLXIU_SEARCH_WALLPAPER_KATUN",        5);
-define("COOLXIU_SEARCH_WALLPAPER_ANIMAL",       6);
-define("COOLXIU_SEARCH_WALLPAPER_OTHER",        7);
+define("COOLXIU_SEARCH_WALLPAPER_PLANT",	    4);
+define("COOLXIU_SEARCH_WALLPAPER_KATUN",   	 	5);
+define("COOLXIU_SEARCH_WALLPAPER_ANIMAL",    	6);
+define("COOLXIU_SEARCH_WALLPAPER_OTHER",    	7);
 
 
 define('REQUEST_CHANNEL_COMMEN',    0);
-define('REQUEST_CHANNEL_WEB',       1);
-define('REQUEST_CHANNEL_RSC',       2);
+define('REQUEST_CHANNEL_WEB',    	1);
+define('REQUEST_CHANNEL_RSC',    	2);
 define('REQUEST_CHANNEL_ALBUMS',    3);
 define('REQUEST_CHANNEL_WIDGET',    4);
 define('REQUEST_CHANNEL_BANNER',    5);
@@ -337,10 +337,10 @@ $g_arr_tablename = array(
     "art",        //13
     "sport",      //14
     "movie",      //15
-    "others",     //16
-    "hdorigin",   //17
-    "star",       //18
-    "font");      //19
+    "others",	  //16
+    "hdorigin",	  //17
+    "star",		  //18
+    "font");	  //19
 
 
 
