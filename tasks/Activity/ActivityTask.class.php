@@ -9,7 +9,7 @@ require_once 'configs/config.php';
 require_once 'tasks/Redis/UserRedis.php';
 class ActivityTask
 {
-    const ACTIVITY_COUNT = 10;
+    const ACTIVITY_COUNT = 100;
     const ACTIVITY_PAGE_SHOW_TIME = 5;
     const ACTIVTTY_COVER = '/activity/activity_01.png';
     const ACTIVTTY_URL = 'http://open.zookingsoft.com/e/zhuanpan/index.html';
@@ -21,10 +21,10 @@ class ActivityTask
             return array('result' => false);
         }
 
-        global $arr_activity_white_list;
-        if (! in_array($id, $arr_activity_white_list)) {
-            return array('result' => false);
-        }
+//        global $arr_activity_white_list;
+//        if (! in_array($id, $arr_activity_white_list)) {
+//            return array('result' => false);
+//        }
 
         $redis = new UserRedis();
         $redis->selectDB(1);
