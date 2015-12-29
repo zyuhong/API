@@ -1,7 +1,7 @@
 <?php
 
 return [
-    '/app/cdn' => 'http://d.res.zhuti.qiku.com',
+    '/app/cdn' => 'http://d.z.qikucdn.com',
     '/db/mdb/zhuti_api_db' => [
         "host" => "10.120.253.109",
         "port" => "3562",
