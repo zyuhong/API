@@ -21,10 +21,10 @@ class ActivityTask
             return array('result' => false);
         }
 
-//        global $arr_activity_white_list;
-//        if (! in_array($id, $arr_activity_white_list)) {
-//            return array('result' => false);
-//        }
+        global $arr_activity_white_list;
+        if (! in_array($id, $arr_activity_white_list)) {
+            return array('result' => false);
+        }
 
         $redis = new UserRedis();
         $redis->selectDB(1);
