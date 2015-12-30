@@ -11,8 +11,8 @@ class ActivityTask
 {
     const ACTIVITY_COUNT = 100;
     const ACTIVITY_PAGE_SHOW_TIME = 5;
-    const ACTIVTTY_COVER = '/activity/activity_01.png';
-    const ACTIVTTY_URL = 'http://web.test.os.qkcorp.net/zhuti/surprise.html';
+    const ACTIVTTY_COVER = '/activity/activity_02.png';
+    const ACTIVTTY_URL = 'https://web.os.qiku.com/zhuti/surprise.html';
     const ACTIVTTY_TITLE = '主题商店活动测试';
     const ACTIVITY_SWITCH = true;
     public function getUserActivity($id)
