@@ -292,7 +292,8 @@ class CoolShowSearch
                 || $nCoolType == COOLXIU_TYPE_FONT
                 || $nCoolType == COOLXIU_TYPE_SCENE
                 || $nCoolType == COOLXIU_TYPE_LIVE_WALLPAPER) {
-                $this->addMarkAndPriceProtocol($arrProtocol, $nCoolType);
+                $ratio = $this->getRatio();
+                $this->addMarkAndPriceProtocol($arrProtocol, $nCoolType, $ratio);
             }
 
             $result =  array('total_number' => $count,
@@ -1360,7 +1361,8 @@ class CoolShowSearch
 				return  false;
 			}
 
-            $this->addMarkAndPriceProtocol($arrProtocol, $req_type);
+            $ratio = $this->getRatio();
+            $this->addMarkAndPriceProtocol($arrProtocol, $req_type, $ratio);
 				
 			$result =  array(
 					'total_number'=> $count,
@@ -1591,7 +1593,7 @@ class CoolShowSearch
         }
     }
 
-    private function addMarkAndPriceProtocol(&$arrProtocol, $nCoolType)
+    private function addMarkAndPriceProtocol(&$arrProtocol, $nCoolType, $ratio)
     {
         require_once 'tasks/Redis/UserRedis.php';
         $redis = new UserRedis();
@@ -1608,7 +1610,7 @@ class CoolShowSearch
             $arrMark = ($arrMark == null) ? array() : $arrMark;
             $arrPrice = ($arrPrice == null) ? array() : $arrPrice;
             foreach ($arrProtocol as $protocol) {
-                $mKey = $protocol->cpid . "_" . $nCoolType;
+                $mKey = $protocol->cpid . "_" . $nCoolType . "_" . $ratio;
                 if (array_key_exists($mKey, $arrMark )) {
                     $protocol->corner_mark = $g_arr_host_config['cdnhost'] . $arrMark[$mKey]['url'];
                     $protocol->mark_gravity = (int)($arrMark[$mKey]['position']);
@@ -1621,5 +1623,25 @@ class CoolShowSearch
         }
 
         return $arrProtocol;
+    }
+
+    private function getRatio()
+    {
+        $width = (int)(isset($_GET['width']) ? $_GET['width'] : 0);
+        $height   = (int)(isset($_GET['height']) ? $_GET['height'] : 0);
+
+        if ($width <= 720) {
+            return 'xhdpi';
+        }
+
+        if ($width > 720 && $width <= 1080) {
+            return 'xxhdpi';
+        }
+
+        if ($width >= 1440) {
+            return 'xxxhdpi';
+        }
+
+        return 'xxhdpi';
     }
 }

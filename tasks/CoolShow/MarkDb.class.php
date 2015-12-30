@@ -37,7 +37,7 @@ class MarkDb extends DBManager
         }
         $arrList = array();
         foreach($result as $arrMark) {
-            $key = $arrMark['res_id'].'_'.$arrMark['cooltype'];
+            $key = $arrMark['res_id'] . '_' . $arrMark['cooltype'] . '_' . $arrMark['ratio'];
             $arrList[$key] = $arrMark;
         }
         $key = $redis->markKey;
