@@ -1597,6 +1597,7 @@ class CoolShowSearch
     {
         require_once 'tasks/Redis/UserRedis.php';
         $redis = new UserRedis();
+        $redis->selectDB(1);
         $key = $redis->markKey;
         $priceKey = $redis->priceKey;
         $arrMark = $redis->getKey($key);

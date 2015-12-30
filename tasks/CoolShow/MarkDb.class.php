@@ -31,6 +31,7 @@ class MarkDb extends DBManager
 
         //存入redis
         $redis = new UserRedis();
+        $redis->selectDB(1);
         if (count($result) < 1) {
             Log::write("no mark list", "log");
             return false;
