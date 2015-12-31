@@ -16,16 +16,22 @@ $width = Verify::check($_GET, 'width');
 $height = Verify::check($_GET, 'height');
 $verCode = Verify::check($_GET, 'versioncode', Type::INT);
 $language = Verify::check($_GET, 'language');
-
-if (empty($meid) && empty($cyid)) {
-    Log::write("user info all null", "log");
-    $bRet = array('result' => false);
-    out_json($bRet);
-}
+$entry = Verify::check($_GET, 'entry', Type::INT);
 
 $id = empty($cyid) ? $meid : $cyid;
 
 $task = new ActivityTask();
-$arrResult = $task->getUserActivity($id);
+$arrResult = $task->getUserActivity($id, $verCode);
+
+$logArr = $_REQUEST;
+if (isset($_POST['statis'])) {
+    unset($logArr['statis']);
+    $statis = json_decode($_POST['statis'], 1);
+
+    if ($statis) {
+        $logArr = array_merge($statis, $logArr);
+    }
+}
+Log::appendJson($logArr, 'activity', '_time');
 
 out_json($arrResult);
