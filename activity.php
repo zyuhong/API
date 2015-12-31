@@ -32,6 +32,8 @@ if (isset($_POST['statis'])) {
         $logArr = array_merge($statis, $logArr);
     }
 }
+
+$logArr['success'] = Verify::check($arrResult, 'result', Type::BOOLEAN);
 Log::appendJson($logArr, 'activity', '_time');
 
 out_json($arrResult);
