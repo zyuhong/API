@@ -763,36 +763,36 @@ class CoolShowSearch
 		}
 		return $strUrl;
 	}
-	
-	public function checkIscharge($nCoolType, $id)
-	{
-		$coolshow = CoolShowFactory::getCoolShow($nCoolType);
-		$bCharge = false;
-		$strSql  = $coolshow->getSelectInfoByIdSql($id);
-		$result = $this->_memcached->getSearchResult($strSql);
-		if($result){
-			foreach ($result as $row){
-				$bCharge = isset($row['ischarge'])?$row['ischarge']:false;
-			}
-			return $bCharge;
-		}
-		
-		$rows = $this->_getDb()->getCoolShow($strSql);
-		if($rows === false){
-			Log::write("CoolShowSearch::getBrowseUrl():executeQuery() failed, sql: ".$strSql, "log");
-			return false;
-		}
-		
-		foreach ($result as $row){
-			$bCharge = isset($row['ischarge'])?$row['ischarge']:false;
-		}
-		
-		$result = $this->_memcached->setSearchResult($strSql, $rows);
-		if(!$result){
-			Log::write("CoolShowSearch::getBrowseUrl():setSearchResult() failed", "log");
-		}
-		return $bCharge;
-	}
+
+    public function checkIscharge($nCoolType, $id)
+    {
+        $coolshow = CoolShowFactory::getCoolShow($nCoolType);
+        $bCharge = false;
+        $strSql  = $coolshow->getSelectInfoByIdSql($id);
+        $result = $this->_memcached->getSearchResult($strSql);
+        if ($result) {
+            foreach ($result as $row) {
+                $bCharge = isset($row['ischarge']) ? $row['ischarge'] : false;
+            }
+            return $bCharge;
+        }
+
+        $rows = $this->_getDb()->getCoolShow($strSql);
+        if ($rows === false) {
+            Log::write("CoolShowSearch::getBrowseUrl():executeQuery() failed, sql: " . $strSql, "log");
+            return false;
+        }
+
+        foreach ($rows as $row) {
+            $bCharge = isset($row['ischarge']) ? $row['ischarge'] : false;
+        }
+
+        $result = $this->_memcached->setSearchResult($strSql, $rows);
+        if (! $result) {
+            Log::write("CoolShowSearch::getBrowseUrl():setSearchResult() failed", "log");
+        }
+        return $bCharge;
+    }
 	
 	private function _searchLucene($coolshow, $data)
 	{
