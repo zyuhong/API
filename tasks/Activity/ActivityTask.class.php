@@ -28,6 +28,7 @@ class ActivityTask
             return array('result' => false);
         }
         if ($verCode != ActivityTask::ACTIVITY_VERSION) {
+            Log::write("ActivityTask::this version is ".$verCode, "debug");
             return array('result' => false);
         }
 
@@ -38,7 +39,7 @@ class ActivityTask
 
         $tNow = date('Y-m-d H:i:s', time());
         if ($tNow < ActivityTask::ACTIVITY_START_TIME || $tNow > ActivityTask::ACTIVITY_END_TIME) {
-            Log::write("activity already over or have not start", "log");
+            Log::write("activity already over or have not start", "debug");
             return array('result' => false);
         }
 
@@ -56,7 +57,7 @@ class ActivityTask
         $curDate = date('Y-m-d');
 
         if ($userCount >= ActivityTask::ACTIVITY_COUNT) {
-            Log::write("this user " . $id . " is more times", "log");
+            Log::write("this user " . $id . " is more times", "debug");
             return array('result' => false);
         } else {
             return $this->updateKey($redis, $key, $userCount + 1);

@@ -14,7 +14,7 @@ $meid = Verify::check($_GET, 'meid');
 $cyid = Verify::check($_GET, 'cyid');
 $width = Verify::check($_GET, 'width');
 $height = Verify::check($_GET, 'height');
-$verCode = Verify::check($_GET, 'versioncode', Type::INT);
+$verCode = Verify::check($_GET, 'versionCode', Type::INT);
 $language = Verify::check($_GET, 'language');
 $entry = Verify::check($_GET, 'entry', Type::INT);
 
