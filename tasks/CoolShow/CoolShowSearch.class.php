@@ -1612,12 +1612,13 @@ class CoolShowSearch
             $arrPrice = ($arrPrice == null) ? array() : $arrPrice;
             foreach ($arrProtocol as $protocol) {
                 $mKey = $protocol->cpid . "_" . $nCoolType . "_" . $ratio;
+                $pKey = $protocol->cpid . "_" . $nCoolType;
                 if (array_key_exists($mKey, $arrMark )) {
                     $protocol->corner_mark = $g_arr_host_config['cdnhost'] . $arrMark[$mKey]['url'];
                     $protocol->mark_gravity = (int)($arrMark[$mKey]['position']);
                 }
 
-                if (array_key_exists($mKey, $arrPrice )) {
+                if (array_key_exists($pKey, $arrPrice )) {
                     $protocol->price_tag = $arrPrice[$mKey]['price'];
                 }
             }
