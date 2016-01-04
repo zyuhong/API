@@ -14,8 +14,8 @@ class ActivityTask
     const ACTIVTTY_COVER = '/activity/activity_02.png';
     const ACTIVTTY_URL = 'https://web.os.qiku.com/zhuti/surprise.html';
     const ACTIVTTY_TITLE = '主题商店活动';
-    const ACTIVITY_START_TIME = '2016-01-01 10:00:00';
-    const ACTIVITY_END_TIME = '2016-01-03 10:00:00';
+    const ACTIVITY_START_TIME = '2016-01-04 15:00:00';
+    const ACTIVITY_END_TIME = '2016-01-04 18:00:00';
     const ACTIVITY_VERSION = 45;
     const ACTIVITY_SWITCH = true;
     public function getUserActivity($id, $verCode)
