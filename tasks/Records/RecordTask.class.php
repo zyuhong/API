@@ -94,7 +94,10 @@ class RecordTask
 	// 		}
 			
 	// 		$record->close();
-	  		$queue = new QueueTask();
+	                $myreq = (array)$req;
+	                $myreq['optype'] = '0';
+			Log::appendJson($myreq, 'data', '_time');
+			$queue = new QueueTask();
 	  		$queue->push('request', $nCoolType, json_encode($req), 'coolshow_req_count');
   		}catch (Exception $e){
 			Log::write('RecordTask::saverRequest():QueueTask():push() failed', 'log');
@@ -118,6 +121,9 @@ class RecordTask
 	
 	// 		$record->close();
 	// 		Log::write('RecordTask::saverRequest():saveBrowse()', 'debug');
+			$mybr = (array)$br;
+			$mybr['optype'] = '1';
+			Log::appendJson($mybr, 'data', '_time');
 			$queue = new QueueTask();
 			$queue->push('browse', $nCoolType, json_encode($br), 'coolshow_browse_count');
 		}catch (Exception $e){
@@ -178,6 +184,9 @@ class RecordTask
 
 // 		$record->close();
 		
+		$mydl = (array)$dl;
+		$mydl['optype'] = '2';
+		Log::appendJson($mydl, 'data', '_time');
 		$queue = new QueueTask();
 		$queue->push('dl', $nCoolType, json_encode($dl), 'coolshow_dl_count');
 		
@@ -313,6 +322,9 @@ class RecordTask
 
 		$record->close();
 		
+		$myapply = (array)$apply;		
+		$myapply['optype'] = '3';
+		Log::appendJson($myapply, 'data', '_time');
 		$queue = new QueueTask();
 		$queue->push('apply', $nCoolType, json_encode($apply), 'coolshow_apply_count');
 		return true;
