@@ -75,7 +75,7 @@ cecho()
     /bin/echo -e "$color"
     /bin/echo -e "$message"
     tput sgr0			# Reset to normal.
-    /bin/echo -e "$black"
+    #/bin/echo -e "$black"
     return
 }
 

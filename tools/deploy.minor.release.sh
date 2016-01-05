@@ -17,28 +17,50 @@ this_dir=`dirname $this_file`
 
 DEPLOY=0
 GITFILE=0
+VERSION="";
 #	读出所有的文件，并过滤黑名单"
 files="";
 
 ###########################################################################
 #	帮助
+COMMAND_LINE_OPTIONS_HELP='
+Command line options:
+    -g          git模式，默认为最后一次提交到仓库的文件。
+    -G commit    指定版本，diff最新和指定之前的文件。
+    -d          deploy switch, deploy会执行make install
+    -h          Print this help menu
+
+Examples:
+    git模式
+        tools/deploy.minor.release.sh -g
+
+    git模式指定版本
+        tools/deploy.minor.release.sh -G d4a7b3a
+
+    指定文件模式
+        tools/deploy.minor.release.sh index.php server.php ...
+
+    编译模式
+        tools/deploy.minor.release.sh -d
+
+'
 
 if [ $# -lt 1 ] || [ "-h" = "$1" ] || [ "--help" = "$1" ]
 then
-    echo "用法: $0 FILE1 [ FILE2 ... ]";
-    echo "FILE* : 需要上传的文件/目录；注意：每一个文件必须是相对于 $PROJECT_HOME 根目录的相对路径"
-    echo "-d deploy模式，进行make install操作"
-    echo "-g git模式，git最新版本的修改文件将会上传"
-    exit 0;
+    echo "$COMMAND_LINE_OPTIONS_HELP"
+    exit $E_OPTERROR;
 fi
 
-while getopts ":gd" opt
+while getopts "gdG:" opt
 do
     case $opt in
         d ) DEPLOY=1
         cecho "=== DEPLOY mode, make install isn't neccessary ===" $c_notify;;
         g ) GITFILE=1
-        cecho "=== git mode, get files from last version ===" $c_notify;;
+            cecho "=== git mode, get files from last version ===" $c_notify;;
+        G ) GITFILE=1
+            VERSION=$OPTARG
+        cecho "=== git mode, get files from version $COMMIT ===" $c_notify;;
         ? ) echo "error"
             exit 1;;
     esac
@@ -64,7 +86,12 @@ then
 
     cd $PROJECT_HOME
     #svn_version=`svn --xml info $svn | grep 'revision' | head -1 | awk -F '"' '{ print $2 }'`	#   获取当前 SVN 的版本"
-    version=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
+    if [ -z "$VERSION" ]
+    then
+        version=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
+    else
+        version=$VERSION
+    fi
 
     cd - > /dev/null 2>&1
 else
@@ -75,10 +102,16 @@ fi
 
 if [ $GITFILE -ne 0 ]
 then
-    cecho "=== git info, please check ===" $c_error
+    cecho "=== last git info, please check ===" $c_error
     cecho "`git log --stat=200 -n 1`"
-    last_version=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
-    files=`git show $last_version --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
+
+    if [ -z "$VERSION" ]
+    then
+        last_version=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
+        files=`git show $last_version --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
+    else
+        files=`git diff $VERSION --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
+    fi
 fi
 
 # init
@@ -130,7 +163,7 @@ no=0;
 for file in $files
 do
     no=`echo "$no + 1" | bc`
-    cecho "$no\t$file";
+    echo "$no $file";
 done
 echo ""
 deploy_confirm "确认文件列表？"
