@@ -13,31 +13,31 @@ if ($engineCodeType == 0 && $engineCode == 0 && $channel == 0) {
     $date = '20151203';
     $versionName = '5.133.2';
     $version = '461';
-    $silent = 0;
+    $silent = 1;
     $wholenet = 1;
     $url = 'http://d.res.zhuti.qiku.com/coolshow/vlife_20151203_qiku.apk';
-} elseif ($engineCodeType == TAG_ENGINE_TYPE_TT && $channel == TAG_ENGINE_CHANNEL_QIKU) {
-    $date = '20151215';
-    $versionName = '1.000.0';
-    $version = '1';
-    $silent = 0;
+} elseif ($engineCodeType == TAG_ENGINE_TYPE_TT) {
+    $date = '20151225';
+    $versionName = '1.1';
+    $version = '2';
+    $silent = 1;
     $wholenet = 1;
-    $url = 'http://d.res.zhuti.qiku.com/coolshow/t_lockscreen.apk';
+    $url = 'http://d.res.zhuti.qiku.com/coolshow/tiantianlocker_V1.1_2_20151225_1429.apk';
 } elseif ($engineCodeType == TAG_ENGINE_TYPE_VL && $channel == TAG_ENGINE_CHANNEL_QIKU) {
     $date = '20151203';
     $versionName = '5.133.2';
     $version = '461';
-    $silent = 0;
+    $silent = 1;
     $wholenet = 1;
     $url = 'http://d.res.zhuti.qiku.com/coolshow/vlife_20151203_qiku.apk';
 } elseif (($engineCodeType == TAG_ENGINE_TYPE_VL && $channel == TAG_ENGINE_CHANNEL_COOLPAD) or
             ($engineCodeType == TAG_ENGINE_TYPE_VL && $channel == TAG_ENGINE_CHANNEL_IVVI) ) {
-    $date = '20151201';
+    $date = '20151222';
     $versionName = '5.133.1';
-    $version = '460';
-    $silent = 0;
+    $version = '461';
+    $silent = 1;
     $wholenet = 1;
-    $url = 'http://d.res.zhuti.qiku.com/coolshow/vlife_20151203_coolpad.apk';
+    $url = 'http://d.res.zhuti.qiku.com/coolshow/vlife-release-461-20151222-134929.apk';
 } else {
     exit();
 }
