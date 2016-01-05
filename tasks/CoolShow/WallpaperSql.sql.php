@@ -85,3 +85,7 @@ defined("SQL_SELECT_AMAZE_WALLPAPER_INFO")
     or define("SQL_SELECT_AMAZE_WALLPAPER_INFO", "SELECT * FROM tb_qiku_vary_wp "
                                                 ." WHERE valid = 1 AND height=%d "
                                                 ." LIMIT %d, %d ");
+
+defined("SQL_COUNT_AMAZE_WALLPAPER_INFO")
+    or define("SQL_COUNT_AMAZE_WALLPAPER_INFO", "SELECT count(1) FROM tb_qiku_vary_wp "
+                                                ." WHERE valid = 1 AND height=%d ");

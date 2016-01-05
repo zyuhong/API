@@ -128,6 +128,13 @@ class Wallpaper extends CoolShow
         $sql = sprintf(SQL_SELECT_AMAZE_WALLPAPER_INFO, $this->_nHeight, $nStart, $nLimit);
         return $sql;
     }
+
+    public function getCountAmazeWallpaperSql()
+    {
+        $this->_resetRatio();
+        $sql = sprintf(SQL_COUNT_AMAZE_WALLPAPER_INFO, $this->_nHeight);
+        return $sql;
+    }
 	
 	public function getCountChoiceWallpaperSql($bChoice = 0, $nType = 0)
 	{
@@ -225,4 +232,16 @@ class Wallpaper extends CoolShow
 	{
 		
 	}
+
+    /**
+     * @param $nCode:新分类
+     * 新分类映射旧分类
+     */
+    public function getNewCode($nCode)
+    {
+        global $g_wp_code_relation;
+        if (! array_key_exists($nCode, $g_wp_code_relation)) {
+            return $nCode;
+        }
+    }
 }
