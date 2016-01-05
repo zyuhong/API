@@ -13,3 +13,5 @@ logs/
 Logs/
 *.log
 vendor
+.env
+storage
