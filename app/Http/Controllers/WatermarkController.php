@@ -27,7 +27,7 @@ class WatermarkController extends BaseController
         $key = "list:$id:" . substr(md5($cat.$offset.$page.$num.$vcode), 8, 16);
 
         $cache = Cache::get($key);
-        if ($cache && 0) {
+        if ($cache) {
             return response()->json($cache);
         }
 

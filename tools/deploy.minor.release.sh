@@ -17,16 +17,22 @@ this_dir=`dirname $this_file`
 
 DEPLOY=0
 GITFILE=0
+# 指定发布的版本
 VERSION="";
+# 发布完成后的版本
+DEPLOY_VERSION="";
 #	读出所有的文件，并过滤黑名单"
 files="";
+
+# 发布信息存储
+DEPLOY_INFO="/tmp/deploy_`pwd | md5sum | awk '{print $1}'`"
 
 ###########################################################################
 #	帮助
 COMMAND_LINE_OPTIONS_HELP='
 Command line options:
-    -g          git模式，默认为最后一次提交到仓库的文件。
-    -G commit    指定版本，diff最新和指定之前的文件。
+    -g          git模式，默认为最后一次提交到仓库的文件, 之后会在/tmp/记录版本信息。
+    -G commit   指定版本，diff最新和指定之前的文件。
     -d          deploy switch, deploy会执行make install
     -h          Print this help menu
 
@@ -57,10 +63,17 @@ do
         d ) DEPLOY=1
         cecho "=== DEPLOY mode, make install isn't neccessary ===" $c_notify;;
         g ) GITFILE=1
-            cecho "=== git mode, get files from last version ===" $c_notify;;
+            VERSION=`cat $DEPLOY_INFO`
+            if [ -z "$VERSION" ]
+            then
+                cecho "=== git mode, get files from last version ===" $c_notify
+            else
+                cecho "=== git mode, get files from version $VERSION ===" $c_notify
+            fi
+            ;;
         G ) GITFILE=1
             VERSION=$OPTARG
-        cecho "=== git mode, get files from version $COMMIT ===" $c_notify;;
+            cecho "=== git mode, get files from version $VERSION ===" $c_notify;;
         ? ) echo "error"
             exit 1;;
     esac
@@ -107,13 +120,14 @@ then
 
     if [ -z "$VERSION" ]
     then
-        last_version=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
-        files=`git show $last_version --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
-    else
-        files=`git diff $VERSION --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
+        VERSION=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
     fi
+    files=`git diff $VERSION --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
+else
+    VERSION=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
 fi
 
+DEPLOY_VERSION=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
 # init
 if [ $DEPLOY = 1 ]
 then
@@ -322,3 +336,6 @@ then
 fi
 
 cecho "\n=== 上线完毕 ===\n" $c_notify
+
+# mark deploy info
+echo $DEPLOY_VERSION > $DEPLOY_INFO
