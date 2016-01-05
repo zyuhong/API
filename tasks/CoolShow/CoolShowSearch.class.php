@@ -1380,22 +1380,23 @@ class CoolShowSearch
 		return $result;
 	}
 
-    public function getAmazeWallpaper($reqType = 0, $limit = 2)
+    public function getAmazeWallpaper($reqType = 0, $start = 0, $limit = 2)
     {
         try {
             $coolshow = new Wallpaper();
             $this->_setCoolShowParam($coolshow);
 
-            $totalPage = 0;
-            $strCountPageSql = $coolshow->getCountAmazeWallpaperSql();
-            $totalNum = $this->_memcached->getSearchResult($strCountPageSql);
-            if (! $totalNum) {
-                $totalNum = $this->_getDb()->getCoolShowCount($strCountPageSql);
-                $this->_memcached->setSearchResult($strCountPageSql, $totalNum, 12*60*60);
-            }
+//            $totalPage = 0;
+//            $strCountPageSql = $coolshow->getCountAmazeWallpaperSql();
+//            $totalNum = $this->_memcached->getSearchResult($strCountPageSql);
+//            if (! $totalNum) {
+//                $totalNum = $this->_getDb()->getCoolShowCount($strCountPageSql);
+//                $this->_memcached->setSearchResult($strCountPageSql, $totalNum, 12*60*60);
+//            }
+//
+//            $totalPage = ceil($totalNum / $limit);
+//            $start = rand(1, $totalPage);
 
-            $totalPage = ceil($totalNum / $limit);
-            $start = rand(1, $totalPage);
 
             $strSql = $coolshow->getAmazeWallpaperSql($start, $limit);
             if (! $strSql) {
