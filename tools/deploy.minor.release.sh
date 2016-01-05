@@ -89,6 +89,8 @@ HOME="/home/qiku"
 DEPLOY_DIR="$HOME/deploy_$USER"
 rm -rf $DEPLOY_DIR && mkdir -p $DEPLOY_DIR
 
+DEPLOY_VERSION=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
+
 if [ -z "$ENV_BETA" ]
 then
     #	release 从 VCS 中 export trunk
@@ -101,7 +103,7 @@ then
     #svn_version=`svn --xml info $svn | grep 'revision' | head -1 | awk -F '"' '{ print $2 }'`	#   获取当前 SVN 的版本"
     if [ -z "$VERSION" ]
     then
-        version=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
+        version=$DEPLOY_VERSION
     else
         version=$VERSION
     fi
@@ -113,21 +115,28 @@ else
     version="beta";
 fi
 
+#version: target version, has beta
+#VERSION: target vesion
+#DEPLOY_VERSION: last git version
+if [ -z "$VERSION" ]
+then
+    VERSION=$DEPLOY_VERSION
+fi
+
 if [ $GITFILE -ne 0 ]
 then
     cecho "=== last git info, please check ===" $c_error
     cecho "`git log --stat=200 -n 1`"
 
-    if [ -z "$VERSION" ]
+    if [ $VERSION = $DEPLOY_VERSION ]
     then
-        VERSION=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
+        files=`git show $VERSION --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
+    else
+        files=`git diff $VERSION --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
     fi
-    files=`git diff $VERSION --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
-else
-    VERSION=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
 fi
 
-DEPLOY_VERSION=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
+
 # init
 if [ $DEPLOY = 1 ]
 then
@@ -187,6 +196,12 @@ do
         filterFiles="${filterFiles} ${file}"
     fi
 done
+
+if [ -z "$filterFiles" ]
+then
+    cecho "\n=== 没有要上传的文件，发布中止 === \n" $c_notify
+    exit
+fi
 echo ""
 deploy_confirm "确认文件列表？"
 if [ 1 != $? ]; then
@@ -197,7 +212,7 @@ fi
 cecho "\n=== 文件打包 === \n" $c_notify
 time=`date "+%Y%m%d%H%M%S"`
 src_tgz="$HOME/patch.${version}.${USER}.${time}.tgz"
-tar cvfz $src_tgz -C $PROJECT_HOME $filterFiles > /dev/null 2>&1
+tar cvfz $src_tgz -C $PROJECT_HOME $filterFiles
 echo "$src_tgz"
 if [ ! -s "$src_tgz" ]; then
     cecho "错误：文件打包失败" $c_error
