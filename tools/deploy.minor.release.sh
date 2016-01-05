@@ -160,10 +160,18 @@ fi
 #	确认文件
 cecho "\n=== 上传文件列表 === \n" $c_notify
 no=0;
+
+# 过滤后的文件列表
+filterFiles=""
 for file in $files
 do
-    no=`echo "$no + 1" | bc`
-    echo "$no $file";
+    filter=`echo $file | grep -P $blacklist`
+    if [ -z $filter ]
+    then
+        no=`echo "$no + 1" | bc`
+        echo "$no $file";
+        filterFiles="${filterFiles} ${file}"
+    fi
 done
 echo ""
 deploy_confirm "确认文件列表？"
@@ -175,7 +183,7 @@ fi
 cecho "\n=== 文件打包 === \n" $c_notify
 time=`date "+%Y%m%d%H%M%S"`
 src_tgz="$HOME/patch.${version}.${USER}.${time}.tgz"
-tar cvfz $src_tgz -C $PROJECT_HOME $files > /dev/null 2>&1
+tar cvfz $src_tgz -C $PROJECT_HOME $filterFiles > /dev/null 2>&1
 echo "$src_tgz"
 if [ ! -s "$src_tgz" ]; then
     cecho "错误：文件打包失败" $c_error
@@ -201,7 +209,7 @@ do
 
     #	获取此主机的对应文件
     online_src="/home/$ssh_user/${USER}.$prj_nam.$host.tgz"
-    $SSH $host tar cvhfz $online_src -C $dst $files > /dev/null 2>&1
+    $SSH $host tar cvhfz $online_src -C $dst $filterFiles > /dev/null 2>&1
     $SCP $host:$online_src $online_src > /dev/null 2>&1
     local_online="$DEPLOY_DIR/online/$host"
     rm -rf $local_online && mkdir -p $local_online
@@ -216,7 +224,7 @@ do
     #	对比文件的 VCS 版本与线上版本
     cecho "\t--- 逐个文件比较差异 ---\n" $c_notify
 
-    for file in $files
+    for file in $filterFiles
     do
         #	确定文件类型，只针对 text 类型
         type=`file $PROJECT_HOME/$file | grep "text"`
@@ -264,7 +272,7 @@ do
     #	备份原始文件
     cecho "\n\t--- 备份原始文件 ---\n" $c_notify
     bak_src_tgz="~$ssh_user/bak.patch.${version}.${USER}.${time}.tgz"
-    $SSH $host tar cvhfz ${bak_src_tgz} -C $dst $files > /dev/null 2>&1
+    $SSH $host tar cvhfz ${bak_src_tgz} -C $dst $filterFiles > /dev/null 2>&1
     cecho "\t${bak_src_tgz}"
 
     $SSH $host "test -s $bak_src_tgz"

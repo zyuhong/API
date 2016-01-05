@@ -36,7 +36,7 @@ git="git@10.100.14.251:os-zhuti/api.git"
 ssh_user="qiku"
 
 #	文件黑名单
-blacklist='(.*\.tmp$)|(.*\.log$)|(.*\.svn.*)|\.git|(local\.config\.php)|(\.env)|(composer\.json)|(readme\.md)|(tools\/.*)'
+blacklist='(.*\.tmp$)|(.*\.log$)|(.*\.svn.*)|\.git|(tools\/.*)|(tests/.*|local.config.php|.env|composer.json|readme.md|Makefile|artisan|phpunit.xml)'
 
 # 编译发布目录
 deploy_dir='vendor'
