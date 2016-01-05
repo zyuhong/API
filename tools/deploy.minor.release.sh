@@ -66,21 +66,6 @@ then
     #svn_version=`svn --xml info $svn | grep 'revision' | head -1 | awk -F '"' '{ print $2 }'`	#   获取当前 SVN 的版本"
     version=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
 
-    if [ $GITFILE -ne 0 ]
-    then
-        cecho "=== git info, please check ===" $c_error
-        cecho "`git log --stat=200 -n 1`"
-        files=`git show $version --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
-    fi
-
-    # init
-    if [ $DEPLOY = 1 ]
-    then
-        cecho "=== make install ===" $c_notify
-        make install
-        cecho "=== make install done ===" $c_notify
-    fi
-
     cd - > /dev/null 2>&1
 else
     #	beta 从 $PROJECT_HOME 中取得代码
@@ -88,17 +73,39 @@ else
     version="beta";
 fi
 
+if [ $GITFILE -ne 0 ]
+then
+    cecho "=== git info, please check ===" $c_error
+    cecho "`git log --stat=200 -n 1`"
+    last_version=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
+    files=`git show $last_version --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
+fi
+
+# init
+if [ $DEPLOY = 1 ]
+then
+    cecho "=== make install ===" $c_notify
+    make install
+    cecho "=== make install done ===" $c_notify
+fi
+
 PROJECT_HOME_LEN=`echo "$PROJECT_HOME/" | wc -m | bc`
 
 if [ "" = "$files" ]; then
     if [ $DEPLOY = 1 ]
     then
-        files="vendor "
+        files="$deploy_dir"
     fi
 
     while [ $# -ne 0 ]
     do
-        if [[ "$LOCAL_OS" == *BSD ]]; then
+        if [ "-d" = "$1" ]; then
+            shift
+            continue
+        fi
+
+        if [[ "$LOCAL_OS" == *BSD ]]
+        then
             file=`echo "/usr/bin/find -E $PROJECT_HOME/$1 -type f -not -regex '$blacklist' | cut -c '$PROJECT_HOME_LEN-1000' | xargs echo" | sh`
         else
             #     Linux
