@@ -24,6 +24,8 @@ abstract class Record
     public $outerVersion;     //外部版本
     public $innerVersion;       //内部版本
     public $uiVersion;          //UI版本
+    public $from_banner;       //banner来源
+    public $banner_id;        //banner id
 	public $insert_time;	//时间
 
     public function __construct()
@@ -49,6 +51,8 @@ abstract class Record
         $this->outerVersion = '';
         $this->innerVersion = '';
         $this->uiVersion = '';
+        $this->from_banner = 0;
+        $this->banner_id = '';
         $this->insert_time = date('Y-m-d H:i:s');
     }
 
@@ -83,6 +87,8 @@ abstract class Record
         }
 
         $this->kernel	= (int)(isset($_GET['kernelCode']) ? $_GET['kernelCode'] : 0);
+        $this->from_banner = (int)(isset($_GET['from_banner']) ? $_GET['from_banner'] : 0);
+        $this->banner_id = isset($_GET['banner_id']) ? $_GET['banner_id'] : '';
         $this->ip = isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : $_SERVER['REMOTE_ADDR'];
     }
 	
