@@ -239,23 +239,12 @@
      * @param $reqType
      */
     function getAmazeWallpaper($retNum, $reqType){
-        require_once 'tasks/Redis/UserRedis.php';
-
-        $redis = new UserRedis();
-        $key = 'amaze_wp_id';
-        $start = $redis->getKey($key);
-        if(! $start){
-            $start = 0;
-        }
+        $retNum = 2;    //设置返回壁纸数量为2
         $coolshow = new CoolShowSearch();
-        $arrList = $coolshow->getAmazeWallpaper($reqType, $start, $retNum);
-        $result = json_encode(array('wallpapers'=>$arrList));
-
-        $nextStart = $start + $retNum;
-        if (count($arrList) < $retNum) {
-            $nextStart = 0;
+        $result = $coolshow->getAmazeWallpaper($reqType, $retNum);
+        if ($result === false) {
+            return get_rsp_result(false, 'get amaze wp fail');
         }
-        $redis->setKey($key, $nextStart);
 
         return $result;
     }

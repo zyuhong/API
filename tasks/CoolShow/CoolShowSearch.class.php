@@ -1380,23 +1380,37 @@ class CoolShowSearch
 		return $result;
 	}
 
-    public function getAmazeWallpaper($reqType = 0, $start = 0, $limit = 2)
+    public function getAmazeWallpaper($reqType = 0, $limit = 2)
     {
         try {
             $coolshow = new Wallpaper();
             $this->_setCoolShowParam($coolshow);
 
-//            $totalPage = 0;
-//            $strCountPageSql = $coolshow->getCountAmazeWallpaperSql();
-//            $totalNum = $this->_memcached->getSearchResult($strCountPageSql);
-//            if (! $totalNum) {
-//                $totalNum = $this->_getDb()->getCoolShowCount($strCountPageSql);
-//                $this->_memcached->setSearchResult($strCountPageSql, $totalNum, 12*60*60);
-//            }
-//
-//            $totalPage = ceil($totalNum / $limit);
-//            $start = rand(1, $totalPage);
+            $totalPage = 0;
+            $strCountPageSql = $coolshow->getCountAmazeWallpaperSql();
+            $totalNum = $this->_memcached->getSearchResult($strCountPageSql);
+            if (! $totalNum) {
+                $totalNum = $this->_getDb()->getCoolShowCount($strCountPageSql);
+                $this->_memcached->setSearchResult($strCountPageSql, $totalNum, 12*60*60);
+            }
 
+            $totalPage = ceil($totalNum / $limit);
+            $nPage = rand(1, $totalPage);
+
+            $jsonReqPage = isset($_GET['filterid']) ? $_GET['filterid'] : '';
+            if (! empty($jsonReqPage)) {
+                $arrReqPage = json_decode($jsonReqPage, true);
+                $bFlag = true;
+                do {
+                    if (in_array($nPage, $arrReqPage)) {
+                        $nPage = rand(1, $totalPage);
+                    } else {
+                        $bFlag = false;
+                    }
+                } while ($bFlag);
+            }
+
+            $start = $nPage * $limit;
 
             $strSql = $coolshow->getAmazeWallpaperSql($start, $limit);
             if (! $strSql) {
@@ -1406,7 +1420,8 @@ class CoolShowSearch
 
             $result = $this->_memcached->getSearchResult($strSql);
             if ($result) {
-                return $result;
+                $arrResult = array("result" => true, "page" => $nPage, "wallpapers" => $result);
+                return json_encode($arrResult);
             }
 
             $rows = $this->_getDb()->getCoolShow($strSql);
@@ -1427,7 +1442,8 @@ class CoolShowSearch
             return false;
         }
 
-        return $arrProtocol;
+        $arrResult = array("result" => true, "page" => $nPage, "wallpapers" => $arrProtocol);
+        return json_encode($arrResult);
     }
 	
 	public function getChoiceWallpaer($req_type = 0, $start = 0, $limit = 10)
