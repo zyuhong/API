@@ -18,7 +18,7 @@ PROJECT_HOME="/home/s/www/$USER/t/zt-api/service"
 
 # 线上集群列表
 # first machine is the regression one.
-online_clusters="101.198.158.87 101.198.158.80 101.198.152.218 101.198.152.213 101.198.152.214"
+online_clusters="101.198.158.87 101.198.152.172 101.198.159.201 101.198.152.254 101.198.152.247";
 
 # 测试机器
 beta_clusters="101.198.158.88";
@@ -36,7 +36,7 @@ git="git@10.100.14.251:os-zhuti/api.git"
 ssh_user="qiku"
 
 #	文件黑名单
-blacklist='(.*\.tmp$)|(.*\.log$)|(.*\.svn.*)|\.git$|(tools\/.*)|(tests/.*|local.config.php|.env$|composer.json|readme.md|Makefile|artisan|phpunit.xml)'
+blacklist='(.*\.tmp$)|(.*\.log$)|(.*\.svn.*)|\.git|(tools\/.*)|(tests/.*|local.config.php|.env$|composer.json|readme.md|Makefile|artisan|phpunit.xml)'
 
 # 编译发布目录
 deploy_dir='vendor'
