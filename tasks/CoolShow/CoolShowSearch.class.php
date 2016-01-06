@@ -1410,7 +1410,7 @@ class CoolShowSearch
                 } while ($bFlag);
             }
 
-            $start = $nPage * $limit;
+            $start = ($nPage - 1) * $limit;
 
             $strSql = $coolshow->getAmazeWallpaperSql($start, $limit);
             if (! $strSql) {
