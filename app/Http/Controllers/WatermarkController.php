@@ -27,7 +27,7 @@ class WatermarkController extends BaseController
         $key = "list:$id:" . substr(md5($cat.$offset.$page.$num.$vcode), 8, 16);
 
         $cache = Cache::get($key);
-        if ($cache && 0) {
+        if ($cache) {
             return response()->json($cache);
         }
 
@@ -84,6 +84,13 @@ class WatermarkController extends BaseController
     public function detail(Request $request)
     {
         $id = $request->input('id');
+        $key = "detail:$id";
+
+        $cache = Cache::get($key);
+        if ($cache) {
+            return response()->json($cache);
+        }
+
         $detail = WatermarkDetail::find($id, ['id', 'name', 'cover', 'preview', 'resource', 'hash', 'sort']);
 
         if (empty($detail)) {
@@ -97,6 +104,8 @@ class WatermarkController extends BaseController
             'watermarks_count' => 1,
             'watermarks' => $this->fixDetailArray($detail, 'detail')
         ];
+
+        Cache::put($key, $result, self::CACHE_TIME);
 
         return response()->json($result);
     }

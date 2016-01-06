@@ -17,16 +17,22 @@ this_dir=`dirname $this_file`
 
 DEPLOY=0
 GITFILE=0
+# 指定发布的版本
 VERSION="";
+# 发布完成后的版本
+DEPLOY_VERSION="";
 #	读出所有的文件，并过滤黑名单"
 files="";
+
+# 发布信息存储
+DEPLOY_INFO="/tmp/deploy_`pwd | md5sum | awk '{print $1}'`"
 
 ###########################################################################
 #	帮助
 COMMAND_LINE_OPTIONS_HELP='
 Command line options:
-    -g          git模式，默认为最后一次提交到仓库的文件。
-    -G commit    指定版本，diff最新和指定之前的文件。
+    -g          git模式，默认为最后一次提交到仓库的文件, 之后会在/tmp/记录版本信息。
+    -G commit   指定版本，diff最新和指定之前的文件。
     -d          deploy switch, deploy会执行make install
     -h          Print this help menu
 
@@ -57,10 +63,17 @@ do
         d ) DEPLOY=1
         cecho "=== DEPLOY mode, make install isn't neccessary ===" $c_notify;;
         g ) GITFILE=1
-            cecho "=== git mode, get files from last version ===" $c_notify;;
+            VERSION=`cat $DEPLOY_INFO`
+            if [ -z "$VERSION" ]
+            then
+                cecho "=== git mode, get files from last version ===" $c_notify
+            else
+                cecho "=== git mode, get files from version $VERSION ===" $c_notify
+            fi
+            ;;
         G ) GITFILE=1
             VERSION=$OPTARG
-        cecho "=== git mode, get files from version $COMMIT ===" $c_notify;;
+            cecho "=== git mode, get files from version $VERSION ===" $c_notify;;
         ? ) echo "error"
             exit 1;;
     esac
@@ -76,6 +89,8 @@ HOME="/home/qiku"
 DEPLOY_DIR="$HOME/deploy_$USER"
 rm -rf $DEPLOY_DIR && mkdir -p $DEPLOY_DIR
 
+DEPLOY_VERSION=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
+
 if [ -z "$ENV_BETA" ]
 then
     #	release 从 VCS 中 export trunk
@@ -88,7 +103,7 @@ then
     #svn_version=`svn --xml info $svn | grep 'revision' | head -1 | awk -F '"' '{ print $2 }'`	#   获取当前 SVN 的版本"
     if [ -z "$VERSION" ]
     then
-        version=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
+        version=$DEPLOY_VERSION
     else
         version=$VERSION
     fi
@@ -100,19 +115,27 @@ else
     version="beta";
 fi
 
+#version: target version, has beta
+#VERSION: target vesion
+#DEPLOY_VERSION: last git version
+if [ -z "$VERSION" ]
+then
+    VERSION=$DEPLOY_VERSION
+fi
+
 if [ $GITFILE -ne 0 ]
 then
     cecho "=== last git info, please check ===" $c_error
     cecho "`git log --stat=200 -n 1`"
 
-    if [ -z "$VERSION" ]
+    if [ $VERSION = $DEPLOY_VERSION ]
     then
-        last_version=`git log | head -10 | grep 'commit' | head -1 | awk -F ' ' '{ print $2 }'`	#   获取当前 git 的版本"
-        files=`git show $last_version --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
+        files=`git show $VERSION --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
     else
         files=`git diff $VERSION --stat=200 | grep -P '\|\s+\d+\s(\+|-)' | awk '{print $1}'`
     fi
 fi
+
 
 # init
 if [ $DEPLOY = 1 ]
@@ -173,6 +196,12 @@ do
         filterFiles="${filterFiles} ${file}"
     fi
 done
+
+if [ -z "$filterFiles" ]
+then
+    cecho "\n=== 没有要上传的文件，发布中止 === \n" $c_notify
+    exit
+fi
 echo ""
 deploy_confirm "确认文件列表？"
 if [ 1 != $? ]; then
@@ -183,7 +212,7 @@ fi
 cecho "\n=== 文件打包 === \n" $c_notify
 time=`date "+%Y%m%d%H%M%S"`
 src_tgz="$HOME/patch.${version}.${USER}.${time}.tgz"
-tar cvfz $src_tgz -C $PROJECT_HOME $filterFiles > /dev/null 2>&1
+tar cvfz $src_tgz -C $PROJECT_HOME $filterFiles
 echo "$src_tgz"
 if [ ! -s "$src_tgz" ]; then
     cecho "错误：文件打包失败" $c_error
@@ -322,3 +351,6 @@ then
 fi
 
 cecho "\n=== 上线完毕 ===\n" $c_notify
+
+# mark deploy info
+echo $DEPLOY_VERSION > $DEPLOY_INFO
