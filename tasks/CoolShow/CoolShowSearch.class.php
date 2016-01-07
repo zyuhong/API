@@ -1648,7 +1648,7 @@ class CoolShowSearch
                 }
 
                 if (array_key_exists($pKey, $arrPrice )) {
-                    $protocol->price_tag = $arrPrice[$mKey]['price'];
+                    $protocol->price_tag = $arrPrice[$pKey]['price'];
                 }
             }
         }
