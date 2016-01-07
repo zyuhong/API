@@ -14,7 +14,7 @@ use Cache;
 class WatermarkController extends BaseController
 {
     const CACHE_TIME = 300;
-    const SUBSCRIPT_NEW = 86400*30;
+    const SUBSCRIPT_NEW = 2592000;
 
     public function catList(Request $request)
     {
@@ -30,9 +30,11 @@ class WatermarkController extends BaseController
         $key = "list:$id:" . substr(md5($cat.$offset.$page.$num.$vcode), 8, 16);
 
         $cacheEnable = env('CACHE_ENABLE', true);
-        $cache = Cache::get($key);
-        if ($cache && $cacheEnable) {
-            return response()->json($cache);
+        if ($cacheEnable) {
+            $cache = Cache::get($key);
+            if ($cache && $cacheEnable) {
+                return response()->json($cache);
+            }
         }
 
         if (!isset($_GET['offset'])) {
