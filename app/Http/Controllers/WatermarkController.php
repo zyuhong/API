@@ -156,7 +156,7 @@ class WatermarkController extends BaseController
         # new subscript logic
         if ($detail->created_at > date('Y-m-d H:i:s', time() - self::SUBSCRIPT_NEW)) {
             $result['subscripts'] = [
-                'new' => ['position' => 'rt']
+                'new' => ['position' => 'rt', 'res_url' => '']
             ];
         }
 
