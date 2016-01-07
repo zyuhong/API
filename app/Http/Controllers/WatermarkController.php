@@ -13,7 +13,8 @@ use Cache;
 
 class WatermarkController extends BaseController
 {
-    const CACHE_TIME = 3600;
+    const CACHE_TIME = 300;
+    const SUBSCRIPT_NEW = 86400*30;
 
     public function catList(Request $request)
     {
@@ -22,12 +23,15 @@ class WatermarkController extends BaseController
         $offset = min(intval($request->get('offset', 0)), 640);
         $page = min(max(intval($request->get('page', 1)), 1), 64);
         $num = min(max(intval($request->get('num', 10)), 1), 100);
-        $vcode = $request->get('vcode');
+
+        # first version is 40002
+        $vcode = intval($request->get('vcode', 40002));
 
         $key = "list:$id:" . substr(md5($cat.$offset.$page.$num.$vcode), 8, 16);
 
+        $cacheEnable = env('CACHE_ENABLE', true);
         $cache = Cache::get($key);
-        if ($cache) {
+        if ($cache && $cacheEnable) {
             return response()->json($cache);
         }
 
@@ -53,7 +57,7 @@ class WatermarkController extends BaseController
         ];
         $first = null;
         foreach ($cats as $i => $cat) {
-            $watermarksCount = $cat->resources()->where('is_online', 1)->count();
+            $watermarksCount = $cat->getValidResourcesCount($vcode);
 
             if ($watermarksCount || $id) {
                 # mark first
@@ -70,13 +74,16 @@ class WatermarkController extends BaseController
             }
         }
 
+        # if has first cat, fix cat info
         if (!is_null($first)) {
-            $result['cats'][0]['watermarks'] = $this->getCatResources($first, $offset, $num);
+            $result['cats'][0]['watermarks'] = $this->getCatResources($first, $vcode, $offset, $num);
         }
 
         $result['total_number'] = count($result['cats']);
 
-        Cache::put($key, $result, self::CACHE_TIME);
+        if ($cacheEnable) {
+            Cache::put($key, $result, self::CACHE_TIME);
+        }
 
         return response()->json($result);
     }
@@ -86,12 +93,15 @@ class WatermarkController extends BaseController
         $id = $request->input('id');
         $key = "detail:$id";
 
-        $cache = Cache::get($key);
-        if ($cache) {
-            return response()->json($cache);
+        $cacheEnable = env('CACHE_ENABLE', true);
+        if ($cacheEnable) {
+            $cache = Cache::get($key);
+            if ($cache) {
+                return response()->json($cache);
+            }
         }
 
-        $detail = WatermarkDetail::find($id, ['id', 'name', 'cover', 'preview', 'resource', 'hash', 'sort']);
+        $detail = WatermarkDetail::find($id, ['id', 'name', 'cover', 'preview', 'resource', 'hash', 'sort', 'created_at']);
 
         if (empty($detail)) {
             $result = ['result' => false];
@@ -105,7 +115,9 @@ class WatermarkController extends BaseController
             'watermarks' => $this->fixDetailArray($detail, 'detail')
         ];
 
-        Cache::put($key, $result, self::CACHE_TIME);
+        if ($cacheEnable) {
+            Cache::put($key, $result, self::CACHE_TIME);
+        }
 
         return response()->json($result);
     }
@@ -113,14 +125,9 @@ class WatermarkController extends BaseController
     /**
      * 获取分类下的资源
      */
-    private function getCatResources($cat, $offset = 0, $num = 10)
+    private function getCatResources($cat, $vcode, $offset = 0, $num = 10)
     {
-        $details = $cat->resources()
-            ->where('is_online', 1)
-            ->orderBy('sort', 'desc')
-            ->skip($offset)
-            ->take($num)
-            ->get();
+        $details = $cat->getValidResources($vcode, $offset, $num);
 
         $detailsArray = [];
         foreach ($details as $detail) {
@@ -145,6 +152,13 @@ class WatermarkController extends BaseController
             'preview' => $cdn . $detail->preview,
             'sort' => $detail->sort
         ];
+
+        # new subscript logic
+        if ($detail->created_at > date('Y-m-d H:i:s', time() - self::SUBSCRIPT_NEW)) {
+            $result['subscripts'] = [
+                'new' => ['position' => 'rt']
+            ];
+        }
 
         if ($mode == 'detail') {
             $result['resource'] = $cdn . $detail->resource;
