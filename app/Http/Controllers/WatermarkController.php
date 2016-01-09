@@ -28,10 +28,12 @@ class WatermarkController extends BaseController
     public function check(Request $request)
     {
         $time = $request->get('time', 0);
+        # first version is 40002
+        $vcode = intval($request->get('vcode', 40002));
 
         $maxTime = null;
         $cacheEnable = env('CACHE_ENABLE', true);
-        $key = 'wm:new_maxtime';
+        $key = 'wm:new_maxtime:' . $vcode;
 
         if ($cacheEnable) {
             $cache = Cache::get($key);
@@ -41,7 +43,8 @@ class WatermarkController extends BaseController
         }
 
         if (is_null($maxTime)) {
-            $maxTime = strtotime(WatermarkDetail::max('online_at'));
+            $maxTime = WatermarkDetail::where('vcode', '>=', $vcode)->max('online_at');
+            $maxTime = $maxTime === null ? 0 : strtotime($maxTime);
 
             if ($cacheEnable) {
                 Cache::put($key, $maxTime, self::CACHE_TIME);
@@ -55,7 +58,7 @@ class WatermarkController extends BaseController
             'cache_separate' => self::CLIENT_CACHE_SEPARATE
         ];
 
-        if ($time > $maxTime) {
+        if ($time >= $maxTime) {
             $result['has_new'] = false;
         } else {
             $result['has_new'] = true;
