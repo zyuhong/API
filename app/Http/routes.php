@@ -20,3 +20,5 @@ $app->get('/watermark/list', 'WatermarkController@catList');
 $app->post('/watermark/list', 'WatermarkController@catList');
 $app->get('/watermark/detail', 'WatermarkController@detail');
 $app->post('/watermark/detail', 'WatermarkController@detail');
+$app->get('/watermark/check', 'WatermarkController@check');
+$app->post('/watermark/check', 'WatermarkController@check');

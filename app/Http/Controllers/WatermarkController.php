@@ -15,6 +15,54 @@ class WatermarkController extends BaseController
 {
     const CACHE_TIME = 300;
     const SUBSCRIPT_NEW = 2592000;
+    const CLIENT_CACHE_SEPARATE = 86400;
+
+    /**
+     * 检查是否有新的水印，客户端用来打tips标记
+     * @return
+     *     result => boolean, 表示结果是否正常
+     *     time => 时间戳,　最大上线操作时间
+     *     has_new => boolean, 表示是否有新的资源
+     *     cache_separate => int, 客户端查询间隔时间
+     */
+    public function check(Request $request)
+    {
+        $time = $request->get('time', 0);
+
+        $maxTime = null;
+        $cacheEnable = env('CACHE_ENABLE', true);
+        $key = 'wm:new_maxtime';
+
+        if ($cacheEnable) {
+            $cache = Cache::get($key);
+            if ($cache) {
+                $maxTime = (int)$cache;
+            }
+        }
+
+        if (is_null($maxTime)) {
+            $maxTime = strtotime(WatermarkDetail::max('online_at'));
+
+            if ($cacheEnable) {
+                Cache::put($key, $maxTime, self::CACHE_TIME);
+            }
+        }
+
+        $result = [
+            'result' => true,
+            'time' => $maxTime,
+            'has_new' => true,
+            'cache_separate' => self::CLIENT_CACHE_SEPARATE
+        ];
+
+        if ($time > $maxTime) {
+            $result['has_new'] = false;
+        } else {
+            $result['has_new'] = true;
+        }
+
+        return response()->json($result);
+    }
 
     public function catList(Request $request)
     {
@@ -158,7 +206,7 @@ class WatermarkController extends BaseController
         # new subscript logic
         if ($detail->created_at > date('Y-m-d H:i:s', time() - self::SUBSCRIPT_NEW)) {
             $result['subscripts'] = [
-                'new' => ['position' => 'rt', 'res_url' => '']
+                'new' => ['position' => 'lt', 'res_url' => '']
             ];
         }
 
