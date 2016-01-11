@@ -21,7 +21,7 @@ class PrevProtocol{
     {
         global $g_arr_host_config;
         if ($prev['type'] == TAG_THEME_TYPE_INPUT) {
-            $this->img_url = 'http://coolshowdl.coolyun.com' . $prev['prev_url'];
+            $this->img_url = 'http://download.coolyun.com' . $prev['prev_url'];
         } else {
             $this->img_url = $g_arr_host_config['cdnhost'] . $prev['prev_url'];
         }
@@ -125,7 +125,7 @@ class ThemesProtocol extends Protocol
             $strUrl = $prev['prev_url'];
         }
         if ($this->type == TAG_THEME_TYPE_INPUT) {
-            $this->main_prev_url 	= 'http://coolshowdl.coolyun.com' . $strUrl;
+            $this->main_prev_url 	= 'http://download.coolyun.com' . $strUrl;
         } else {
             $this->main_prev_url 	= $g_arr_host_config['cdnhost'] . $strUrl;//$prev['prev_url'];
         }
