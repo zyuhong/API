@@ -19,7 +19,7 @@ if ($engineCodeType == 0 && $engineCode == 0 && $channel == 0) {
 } elseif ($engineCodeType == TAG_ENGINE_TYPE_TT) {
     $date = '20151225';
     $versionName = '1.1';
-    $version = '2';
+    $version = '1';
     $silent = 1;
     $wholenet = 1;
     $url = 'http://d.res.zhuti.qiku.com/coolshow/tiantianlocker_V1.1_2_20151225_1429.apk';
