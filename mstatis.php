@@ -60,22 +60,22 @@ if (!isset($_GET['id'])) {
 }
 
 //MYSQL记录
-$statis = new StatisInterface();
-$result = $statis->saveStatis();
+//$statis = new StatisInterface();
+//$result = $statis->saveStatis();
 
 //mongodb记录
 $rt = new RecordTask();
 $result = $rt->saveStaticRecord();
 
-$logArr = $_REQUEST;
-if (isset($_POST['statis'])) {
-    unset($logArr['statis']);
-    $statis = json_decode($_POST['statis'], 1);
-
-    if ($statis) {
-        $logArr = array_merge($statis, $logArr);
-    }
-}
-Log::appendJson($logArr, 'statis', '_time');
+//$logArr = $_REQUEST;
+//if (isset($_POST['statis'])) {
+//    unset($logArr['statis']);
+//    $statis = json_decode($_POST['statis'], 1);
+//
+//    if ($statis) {
+//        $logArr = array_merge($statis, $logArr);
+//    }
+//}
+//Log::appendJson($logArr, 'statis', '_time');
 
 echo get_rsp_result(true);

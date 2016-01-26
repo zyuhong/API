@@ -124,14 +124,14 @@ class Wallpaper extends CoolShow
 
     public function getAmazeWallpaperSql($nStart, $nLimit, $nType = 0)
     {
-        $this->_resetRatio();
+        //$this->_resetRatio();
         $sql = sprintf(SQL_SELECT_AMAZE_WALLPAPER_INFO, $this->_nHeight, $nStart, $nLimit);
         return $sql;
     }
 
     public function getCountAmazeWallpaperSql()
     {
-        $this->_resetRatio();
+        //$this->_resetRatio();
         $sql = sprintf(SQL_COUNT_AMAZE_WALLPAPER_INFO, $this->_nHeight);
         return $sql;
     }
