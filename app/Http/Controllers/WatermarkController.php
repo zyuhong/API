@@ -13,7 +13,7 @@ use Cache;
 
 class WatermarkController extends BaseController
 {
-    const CACHE_TIME = 300;
+    const CACHE_TIME_MINUTES = 3;
     const SUBSCRIPT_NEW = 2592000;
     const CLIENT_CACHE_SEPARATE = 86400;
 
@@ -47,7 +47,7 @@ class WatermarkController extends BaseController
             $maxTime = $maxTime === null ? 0 : strtotime($maxTime);
 
             if ($cacheEnable) {
-                Cache::put($key, $maxTime, self::CACHE_TIME);
+                Cache::put($key, $maxTime, self::CACHE_TIME_MINUTES);
             }
         }
 
@@ -135,7 +135,7 @@ class WatermarkController extends BaseController
         $result['total_number'] = count($result['cats']);
 
         if ($cacheEnable) {
-            Cache::put($key, $result, self::CACHE_TIME);
+            Cache::put($key, $result, self::CACHE_TIME_MINUTES);
         }
 
         return response()->json($result);
@@ -169,7 +169,7 @@ class WatermarkController extends BaseController
         ];
 
         if ($cacheEnable) {
-            Cache::put($key, $result, self::CACHE_TIME);
+            Cache::put($key, $result, self::CACHE_TIME_MINUTES);
         }
 
         return response()->json($result);
