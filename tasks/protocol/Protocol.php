@@ -103,9 +103,9 @@ abstract class Protocol
 		$this->isCharge				= $bCharge?true:false;
 		$this->download_times 		=  (int)isset($row['download_times'])?$row['download_times']:0;
 		if($bCharge){
-			$this->download_times 		+= ((int)($this->id)) %1000; //rand(1000, 10000);
+			$this->download_times 		+= ((int)($this->cpid)) %1000; //rand(1000, 10000);
 		}else{
-			$this->download_times 		+= ((int)($this->id)) %10000; //rand(1000, 10000);
+			$this->download_times 		+= ((int)($this->cpid)) %10000; //rand(1000, 10000);
 		}
 		
 // 		$date = isset($row['tdate'])?$row['tdate']:date('Y-m-d');

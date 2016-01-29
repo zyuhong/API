@@ -28,6 +28,7 @@ abstract class CoolShow
 	public 	  $nPay;			// 付费资源数量（比例）
 	public    $nFree;			// 免费资源数量（比例）
 	protected $strPayCondition;	// 查询中的付费条件
+    protected $strCoolShowChannel;   //360OS、Coolpad
 	
 	function __construct()
 	{
@@ -52,6 +53,7 @@ abstract class CoolShow
 		$this->nPay			= 1;
 		$this->nFree		= 1;
 		$this->strPayCondition = '';
+        $this->strCoolShowChannel = '';
 	}
 
 	public function setSceneWallpaper($bSceneWallpaper)
@@ -147,7 +149,7 @@ abstract class CoolShow
 							 $nKernel = 0, $nVercode = 0, 
 							 $nWidth = 0, $nHeight = 0, 
 							 $nChannel = 0, $bNewVer = false, 
-							 $nSort = 0, 
+							 $nSort = 0, $strCSChannel,
 							 $nProtocolCode = 0, 
 							 $nCharge = 2)
 	{
@@ -168,6 +170,7 @@ abstract class CoolShow
 		}
 		
 		$this->nCharge = $nCharge;
+        $this->strCoolShowChannel = $strCSChannel;
 		
 		if(strlen($this->_strProduct) > 30) substr($this->_strProduct, 0, 30);
 	}

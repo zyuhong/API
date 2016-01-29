@@ -1,5 +1,6 @@
 <?php
 require_once 'lib/WriteLog.lib.php';
+require_once 'lib/CRedis.lib.php';
 require_once 'configs/config.php';
 
 require_once 'tasks/Records/Request.class.php';
@@ -189,9 +190,29 @@ class RecordTask
 		Log::appendJson($mydl, 'data', '_time');
 		$queue = new QueueTask();
 		$queue->push('dl', $nCoolType, json_encode($dl), 'coolshow_dl_count');
+
+        //添加活动主题下载记录
+        //$this->saveActivityDL($mydl);
 		
 		return true;
 	}
+    public function saveActivityDL($arr)
+    {
+        $cpid = $arr['cpid'];
+        $meid = $arr['meid'];
+        if (empty($meid)) {
+            return false;
+        }
+
+        $checkCpid = [];
+        if (in_array($cpid, $checkCpid)) {
+            global $g_arr_redis_config;
+            $redis = new CRedis($g_arr_redis_config['activity']);
+            $redis->selectDB(3);
+            $checkKey = $cpid . '_activity_dl_' . $meid;
+            $redis->incr($checkKey);
+        }
+    }
 	/**
 	 * 订单记录
 	 * @param unknown_type $nCoolType

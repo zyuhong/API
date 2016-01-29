@@ -62,6 +62,7 @@ class CoolShowSearch
 
 		$strProduct= '';
 		$nProtocolCode = 0;
+        $strCoolShowChannel = '';
 		$json_param = isset($_POST['statis'])?$_POST['statis']:'';
 		if (! empty($json_param)) {
 			$json_param = stripslashes($json_param);
@@ -69,6 +70,7 @@ class CoolShowSearch
 	
 			$strProduct = isset($arr_param['product'])?$arr_param['product']:'';
 			$nProtocolCode = (int)(isset($arr_param['protocolCode'])?$arr_param['protocolCode']:0);#新增的版本判断依据
+            $strCoolShowChannel = isset($arr_param['coolshowchannel']) ? $arr_param['coolshowchannel'] : '';
 		}
 		$nProtocolCode  = (int)(isset($_GET['protocolCode'])?$_GET['protocolCode']:$nProtocolCode);#新版本在主GET参数中追加20150522
 		
@@ -79,7 +81,7 @@ class CoolShowSearch
 		$coolshow->setParam($strProduct, $nType, $nSubType,
 							$nKernel, $nVercode,
 							$nWidth * 2, $nHeight, $nChannel, false, 
-						    $nSort,
+						    $nSort, $strCoolShowChannel,
 							$nProtocolCode,
 							$nCharge);
 	}
