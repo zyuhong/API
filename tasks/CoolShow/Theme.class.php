@@ -102,12 +102,10 @@ class Theme extends CoolShow
 		
 		$strCondition = $strType.$strIsCharge.$strKernel.$this->strPayCondition.$strCharge.$strChoice;
 		
-		//按机型过滤
-		$tmparray1 = explode('8681', $this->_strProduct);
-		$tmparray2 = explode('8692', $this->_strProduct);
-	    if(count($tmparray1)>1 || count($tmparray2)>1){
-	    	$strCondition .= sprintf(' AND t.cpid not in ("510261832", "510261827", "510261820") ');
-	    } 
+		//按os系统区分
+		if ($this->strCoolShowChannel != '360OS') {
+		    $strCondition .= sprintf(' AND t.cpid not in ("601291633", "601291637", "601292026", "601291813", "601291719", "601291643", "601291718", "601291647", "601291648") ');
+		}
 		
 		return $strCondition;
 	}

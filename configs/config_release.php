@@ -351,7 +351,7 @@ $g_arr_tablename = array(
 //按机型过滤
 $g_arr_product_filter = array(
     'banner'=>array(
-        'theme'=>'("2231508052")',
+        'theme'=>'("2637225114")',
     ),
 
 );
