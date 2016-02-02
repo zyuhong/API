@@ -60,8 +60,8 @@ if (!isset($_GET['id'])){
 }
 
 //MYSQL记录
-$statis = new StatisInterface();
-$result = $statis->saveStatis();
+//$statis = new StatisInterface();
+//$result = $statis->saveStatis();
 
 //mongodb记录
 $rt = new RecordTask();

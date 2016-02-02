@@ -71,13 +71,13 @@ class RecordTask
 		$req->setRecord();
 		$req->setCoolType($nCoolType);
 		
-		$result = $record->saveRecord($nCoolType, $req);
-		if(!$result){
-			Log::write('RecordTask::saverRequest():saveRecord() failed', 'log');
-// 			return false;
-		}
-
-		$record->close();
+//		$result = $record->saveRecord($nCoolType, $req);
+//		if(!$result){
+//			Log::write('RecordTask::saverRequest():saveRecord() failed', 'log');
+//// 			return false;
+//		}
+//
+//		$record->close();
 	}
 	
 	public function saveRequest($nCoolType)
@@ -141,13 +141,13 @@ class RecordTask
 			$br = new Browse();
 			$br->setRecord();
 	
-			$result = $record->saveRecord($nCoolType, $br);
-			if(!$result){
-				Log::write('RecordTask::saveAdBrowse():saveRecord() failed', 'log');
+//			$result = $record->saveRecord($nCoolType, $br);
+//			if(!$result){
+//				Log::write('RecordTask::saveAdBrowse():saveRecord() failed', 'log');
 // 				return false;
-			}
-	
-			$record->close();
+//			}
+//
+//			$record->close();
 			
 		}catch (Exception $e){
 			Log::write('RecordTask::saveAdBrowse():QueueTask():push() failed', 'log');
@@ -167,11 +167,11 @@ class RecordTask
 		$dl->setRecord();
 // 		Log::write('RecordTask::saveDownload() cpid:'.$dl->cpid.', channer:'.$dl->channel, 'error');
 		
-		$result = $record->saveRecord($nCoolType, $dl);
-		if(!$result){
-			Log::write('RecordTask::saveDownload():saveRecord() failed', 'log');
-// 			return false;
-		}
+//		$result = $record->saveRecord($nCoolType, $dl);
+//		if(!$result){
+//			Log::write('RecordTask::saveDownload():saveRecord() failed', 'log');
+//// 			return false;
+//		}
 		
 // 		$record = new DownloadRecord();
 // 		$dlCount = new DownloadCount();
@@ -277,13 +277,13 @@ class RecordTask
 		$banner = new Banner();
 		$banner->setRecord();
 		
-		$result = $record->saveRecord($nCoolType, $banner);
-		if(!$result){
-			Log::write('RecordTask::saveBanner():saveRecord() failed', 'log');
+//		$result = $record->saveRecord($nCoolType, $banner);
+//		if(!$result){
+//			Log::write('RecordTask::saveBanner():saveRecord() failed', 'log');
 // 			return false;
-		}
-
-		$record->close();
+//		}
+//
+//		$record->close();
 		
 		$queue = new QueueTask();
 		$queue->push('banner', $nCoolType, json_encode($banner), 'coolshow_banner_count');
@@ -297,13 +297,13 @@ class RecordTask
 		$albums = new Albums();
 		$albums->setRecord();
 	
-		$result = $record->saveRecord($nCoolType, $albums);
-		if(!$result){
-			Log::write('RecordTask::saveAlbums():saveRecord() failed', 'log');
-			// 			return false;
-		}
-	
-		$record->close();
+//		$result = $record->saveRecord($nCoolType, $albums);
+//		if(!$result){
+//			Log::write('RecordTask::saveAlbums():saveRecord() failed', 'log');
+//			// 			return false;
+//		}
+//
+//		$record->close();
 	
 		$queue = new QueueTask();
 		$queue->push('albums', $nCoolType, json_encode($albums), 'coolshow_albums_count');
@@ -335,13 +335,13 @@ class RecordTask
 		$apply  = new Apply();
 		$apply->setRecord();
 		
-		$result = $record->saveRecord($nCoolType, $apply);
-		if(!$result){
-			Log::write('RecordTask::saveApply():saveRecord() failed', 'log');
+//		$result = $record->saveRecord($nCoolType, $apply);
+//		if(!$result){
+//			Log::write('RecordTask::saveApply():saveRecord() failed', 'log');
 // 			return false;
-		}
-
-		$record->close();
+//		}
+//
+//		$record->close();
 		
 		$myapply = (array)$apply;		
 		$myapply['optype'] = '3';
@@ -429,13 +429,13 @@ class RecordTask
         //$set->setCoolType($nCoolType);
         $set->setCoolType(0);   //更新：2015-11-07
 
-        $result = $record->saveRecord(0, $set);
-        if(!$result){
-            Log::write('RecordTask::saveSetting():saveRecord() failed', 'log');
-            // 			return false;
-        }
-
-        $record->close();
+//        $result = $record->saveRecord(0, $set);
+//        if(!$result){
+//            Log::write('RecordTask::saveSetting():saveRecord() failed', 'log');
+//            // 			return false;
+//        }
+//
+//        $record->close();
         return true;
     }
 	
@@ -447,13 +447,13 @@ class RecordTask
 		$lucene->setRecord();
 		$lucene->setCoolType($nCoolType);
 	
-		$result = $record->saveRecord($nCoolType, $lucene);
-		if(!$result){
-			Log::write('RecordTask::saveLucene():saveRecord() failed', 'log');
-			// 			return false;
-		}
-	
-		$record->close();
+//		$result = $record->saveRecord($nCoolType, $lucene);
+//		if(!$result){
+//			Log::write('RecordTask::saveLucene():saveRecord() failed', 'log');
+//			// 			return false;
+//		}
+//
+//		$record->close();
 		return true;
 	}
 	
