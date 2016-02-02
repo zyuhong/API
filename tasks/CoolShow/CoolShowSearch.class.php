@@ -266,7 +266,8 @@ class CoolShowSearch
                 return $result;
             }
 
-            $result = $this->_memcached->getSearchResult($strSql.$coolshow->nCharge);
+            $memKey = $strSql . $coolshow->nCharge . $coolshow->_nWidth;
+            $result = $this->_memcached->getSearchResult($memKey);
             if($result){
                 return json_encode($result);
             }
@@ -303,7 +304,7 @@ class CoolShowSearch
 					        $coolshow->strType => $arrProtocol
             );
 
-            $this->_memcached->setSearchResult($strSql.$coolshow->nCharge, $result, 60*60);
+            $this->_memcached->setSearchResult($memKey, $result, 60*60);
 			
 		} catch (Exception $e) {
             Log::write('CoolShowSearch::getCoolShow() excepton error:'.$e->getMessage(), 'log');

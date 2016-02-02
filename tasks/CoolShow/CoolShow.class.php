@@ -10,7 +10,7 @@ abstract class CoolShow
 	protected $_nSubType;		//子分类
 	protected $_nKernel;		//酷秀版本内核
 	protected $_nVercode;		//酷秀应用版本号
-	protected $_nWidth;			
+	public $_nWidth;
 	protected $_nHeight;
 	protected $_nChannel;		//渠道号，区分访问来源
 	public    $_bSceneWallpaer; //是否锁屏壁纸
