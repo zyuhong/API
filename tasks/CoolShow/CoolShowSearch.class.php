@@ -1086,55 +1086,55 @@ class CoolShowSearch
 	
 	private function _getScore($nCoolType, $strCpid)
 	{
-		$scoreRecord = new ScoreRecord();
-		$arrScore = $scoreRecord->searchCpidScore($nCoolType, $strCpid);
-		if($arrScore === false){
-			Log::write('CoolShowSearch::getScore():searchCpidScore() failed', 'log');
-			return false;
-		}
-		
-		$nOverall = 0;
-		$nStar1 = 0;
-		$nStar2 = 0;
-		$nStar3 = 0;
-		$nStar4 = 0;
-		$nStar5 = 0;
-		$nTotal = 0;
-		$nTotalScore = 0;
-		foreach ($arrScore as $s){
-			$nScore = isset($s['score'])?$s['score']:0;
-			$nCount = isset($s['count'])?$s['count']:0;
-			
-			if( 9 <= $nScore){
-				$nStar5 += $nCount;
-			}
-			if(7 <= $nScore && $nScore <= 8){
-				$nStar4 += $nCount;
-			}
-			if(5 <= $nScore && $nScore <= 6){
-				$nStar3 += $nCount;
-			}
-			if(3 <= $nScore && $nScore <= 4){
-				$nStar2 += $nCount;
-			}
-			if($nScore <= 2){
-				$nStar1 += $nCount;
-			}
-
-			$nTotalScore += $nScore * $nCount;
-			$nTotal += $nCount;
-		}
-		if ($nTotal != 0){
-			$nOverall = round($nTotalScore/$nTotal, 1);
-			$nStar1 = (int)($nStar1/$nTotal*100);
-			$nStar2 = (int)($nStar2/$nTotal*100);
-			$nStar3 = (int)($nStar3/$nTotal*100);
-			$nStar4 = (int)($nStar4/$nTotal*100);
-			$nStar5 = (int)($nStar5/$nTotal*100);
-		}
+//		$scoreRecord = new ScoreRecord();
+//		$arrScore = $scoreRecord->searchCpidScore($nCoolType, $strCpid);
+//		if($arrScore === false){
+//			Log::write('CoolShowSearch::getScore():searchCpidScore() failed', 'log');
+//			return false;
+//		}
+//
+//		$nOverall = 0;
+//		$nStar1 = 0;
+//		$nStar2 = 0;
+//		$nStar3 = 0;
+//		$nStar4 = 0;
+//		$nStar5 = 0;
+//		$nTotal = 0;
+//		$nTotalScore = 0;
+//		foreach ($arrScore as $s){
+//			$nScore = isset($s['score'])?$s['score']:0;
+//			$nCount = isset($s['count'])?$s['count']:0;
+//
+//			if( 9 <= $nScore){
+//				$nStar5 += $nCount;
+//			}
+//			if(7 <= $nScore && $nScore <= 8){
+//				$nStar4 += $nCount;
+//			}
+//			if(5 <= $nScore && $nScore <= 6){
+//				$nStar3 += $nCount;
+//			}
+//			if(3 <= $nScore && $nScore <= 4){
+//				$nStar2 += $nCount;
+//			}
+//			if($nScore <= 2){
+//				$nStar1 += $nCount;
+//			}
+//
+//			$nTotalScore += $nScore * $nCount;
+//			$nTotal += $nCount;
+//		}
+//		if ($nTotal != 0){
+//			$nOverall = round($nTotalScore/$nTotal, 1);
+//			$nStar1 = (int)($nStar1/$nTotal*100);
+//			$nStar2 = (int)($nStar2/$nTotal*100);
+//			$nStar3 = (int)($nStar3/$nTotal*100);
+//			$nStar4 = (int)($nStar4/$nTotal*100);
+//			$nStar5 = (int)($nStar5/$nTotal*100);
+//		}
 
 		$score = new ScoreProtocol();
-		$score->setScore($nOverall, $nTotal, $nStar1, $nStar2, $nStar3, $nStar4, $nStar5);
+		//$score->setScore($nOverall, $nTotal, $nStar1, $nStar2, $nStar3, $nStar4, $nStar5);
 		return $score;
 	}
 	
