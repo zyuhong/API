@@ -24,9 +24,14 @@ class Album extends CoolShow
         $tmparray1 = explode('8681', $strProduct);
         $tmparray2 = explode('8692', $strProduct);
         $tmparray3 = explode('8676', $strProduct);
+        $tmparray4 = explode('8675', $strProduct);
+        $tmparray5 = explode('8297', $strProduct);
+        $tmparray6 = explode('8670', $strProduct);
+        $tmparray7 = explode('8690', $strProduct);
         global $g_arr_product_filter;
         $qvalid = 0;
-        if (count($tmparray1) == 1 && count($tmparray2) == 1 && count($tmparray3) == 1) {
+        if (count($tmparray1) == 1 && count($tmparray2) == 1 && count($tmparray3) == 1 && count($tmparray4) == 1 
+            && count($tmparray5) == 1 && count($tmparray6) == 1 && count($tmparray7) == 1) {
             $qvalid = 1;
         }
         
