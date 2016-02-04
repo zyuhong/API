@@ -192,7 +192,7 @@ class RecordTask
 		$queue->push('dl', $nCoolType, json_encode($dl), 'coolshow_dl_count');
 
         //添加活动主题下载记录
-        //$this->saveActivityDL($mydl);
+        $this->saveActivityDL($mydl);
 		
 		return true;
 	}
@@ -204,7 +204,7 @@ class RecordTask
             return false;
         }
 
-        $checkCpid = [];
+        $checkCpid = ['602041556'];
         if (in_array($cpid, $checkCpid)) {
             global $g_arr_redis_config;
             $redis = new CRedis($g_arr_redis_config['activity']);
