@@ -204,7 +204,7 @@ class RecordTask
             return false;
         }
 
-        $checkCpid = ['602041556'];
+        $checkCpid = ['602041556', '602051815'];
         if (in_array($cpid, $checkCpid)) {
             global $g_arr_redis_config;
             $redis = new CRedis($g_arr_redis_config['activity']);
