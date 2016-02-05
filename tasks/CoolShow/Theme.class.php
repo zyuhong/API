@@ -106,15 +106,18 @@ class Theme extends CoolShow
 	    $tmparray1 = explode('8681', $this->_strProduct);
         $tmparray2 = explode('8692', $this->_strProduct);
         $tmparray3 = explode('8676', $this->_strProduct);
-        $tmparray4 = explode('8675', $this->_strProduct);
-        $tmparray5 = explode('8297', $this->_strProduct);
-        $tmparray6 = explode('8670', $this->_strProduct);
-        $tmparray7 = explode('8690', $this->_strProduct);
+        //$tmparray4 = explode('8675', $this->_strProduct);
+        //$tmparray5 = explode('8297', $this->_strProduct);
+        //$tmparray6 = explode('8670', $this->_strProduct);
+        //$tmparray7 = explode('8690', $this->_strProduct);
         $qvalid = 0;
-        if (count($tmparray1) == 1 && count($tmparray2) == 1 && count($tmparray3) == 1 && count($tmparray4) == 1 
-            && count($tmparray5) == 1 && count($tmparray6) == 1 && count($tmparray7) == 1) {
+        if (count($tmparray1) == 1 && count($tmparray2) == 1 && count($tmparray3) == 1 ) {
             $qvalid = 1;
         }
+        /*if (count($tmparray1) == 1 && count($tmparray2) == 1 && count($tmparray3) == 1 && count($tmparray4) == 1 
+            && count($tmparray5) == 1 && count($tmparray6) == 1 && count($tmparray7) == 1) {
+            $qvalid = 1;
+        }*/
         #if ($this->strCoolShowChannel != '360OS') {
         if ($qvalid) {
             $strCondition .= sprintf(' AND t.cpid not in ("601291633", "601291637", "601292026", "601291813", "601291719", "601291643", "601291718", "601291647", "601291648", "602041556") ');
