@@ -74,7 +74,7 @@ class StatisInterface
 			case self::COOLSHOW_OPTYPE_PREV:{
 				if ($this->nModuleType == COOLXIU_TYPE_WIDGET
 					&& $this->nMSubType == 1) {
-					$this->_statis->recordBrowseRequest($this->strId, COOLXIU_TYPE_WIDGET, COOLXIU_TYPE_THEMES, $height, $width, $this->strCpid, '', $this->nChannel);
+					//$this->_statis->recordBrowseRequest($this->strId, COOLXIU_TYPE_WIDGET, COOLXIU_TYPE_THEMES, $height, $width, $this->strCpid, '', $this->nChannel);
 					return true;
 				}
 // 				$this->_statis->recordBrowseRequest($this->strId, $this->nMSubType, $this->nModuleType, $height, $width, $this->strCpid, '', $this->nChannel);
@@ -84,11 +84,11 @@ class StatisInterface
 				
 			}break;
 			case self::COOLSHOW_OPTYPE_DOWNLOAD:{
-				$this->_statis->recordDownloadRequest($this->strId, $this->nModuleType, $height, $width, $this->strCpid, '', $this->nMSubType, $this->nChannel);
+//				$this->_statis->recordDownloadRequest($this->strId, $this->nModuleType, $height, $width, $this->strCpid, '', $this->nMSubType, $this->nChannel);
 //				$rt->saveDownload($this->nModuleType);
 			}break;
 			case self::COOLSHOW_OPTYPE_APPLY:{
-				$this->_statis->recordApply($height, $width, $this->nMSubType, $this->nModuleType, $this->strId, $this->strCpid);
+//				$this->_statis->recordApply($height, $width, $this->nMSubType, $this->nModuleType, $this->strId, $this->strCpid);
 				$rt->saveApply($this->nModuleType);
 			}break;
 		}
@@ -104,7 +104,7 @@ class StatisInterface
 		switch ($this->nOpType) {
 			case self::COOLSHOW_OPTYPE_PREV:{
 				if ($this->nModuleType == COOLXIU_TYPE_WIDGET && $this->nType == 1) {
-					$this->_statis->recordBrowseRequest($this->strId, COOLXIU_TYPE_WIDGET, COOLXIU_TYPE_THEMES, $height, $width, $this->strCpid, '', $this->nChannel);
+//					$this->_statis->recordBrowseRequest($this->strId, COOLXIU_TYPE_WIDGET, COOLXIU_TYPE_THEMES, $height, $width, $this->strCpid, '', $this->nChannel);
 					return true;
 				}
 // 				$this->_statis->recordBrowseRequest($this->strId, $this->nType, $this->nModuleType, $height, $width, $this->strCpid, '', $this->nChannel);

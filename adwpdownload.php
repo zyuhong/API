@@ -25,14 +25,14 @@ try{
 // 		exit;
 // 	}
 	
-	require_once 'tasks/statis/ReqStatis.class.php';
-	$reqStatis = new ReqStatis();
-	$cpid = isset($_GET['cpid'])?$_GET['cpid']:'';
-	$type = (int)(isset($_GET['type'])?$_GET['type']:0);
-	$channel = (int)(isset($_GET['channel'])?$_GET['channel']:0);
-	$height = 0;
-	$width  = 0;
- 	$reqStatis->recordDownloadRequest($id, COOLXIU_TYPE_ANDROIDESK_WALLPAPER, $height, $width, $cpid, $url, $type, $channel);
+//	require_once 'tasks/statis/ReqStatis.class.php';
+//	$reqStatis = new ReqStatis();
+//	$cpid = isset($_GET['cpid'])?$_GET['cpid']:'';
+//	$type = (int)(isset($_GET['type'])?$_GET['type']:0);
+//	$channel = (int)(isset($_GET['channel'])?$_GET['channel']:0);
+//	$height = 0;
+//	$width  = 0;
+// 	$reqStatis->recordDownloadRequest($id, COOLXIU_TYPE_ANDROIDESK_WALLPAPER, $height, $width, $cpid, $url, $type, $channel);
  	
  	require_once 'tasks/Records/RecordTask.class.php';
  	$rt = new RecordTask();

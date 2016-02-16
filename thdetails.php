@@ -18,7 +18,6 @@ try{
     $coolshow = new CoolShowSearch();
     $json_result = $coolshow->getCoolShowDetail($nCoolType, $id, $channel);
 
-    header('Access-Control-Allow-Origin: http://lottery.zhuti.qiku.com');
     echo $json_result;
 	
 }catch(Exception $e){

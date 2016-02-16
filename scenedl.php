@@ -69,11 +69,11 @@ try {
 		exit;
 	}
 	
-	require_once 'tasks/statis/ReqStatis.class.php';
-	$reqStatis = new ReqStatis();
-	$type = 0;
-	$channel = isset($_GET['channel'])?$_GET['channel']:0;
-	$reqStatis->recordDownloadRequest($id, COOLXIU_TYPE_SCENE, 0, 0, $cpid, $url, $type, $channel);
+//	require_once 'tasks/statis/ReqStatis.class.php';
+//	$reqStatis = new ReqStatis();
+//	$type = 0;
+//	$channel = isset($_GET['channel'])?$_GET['channel']:0;
+//	$reqStatis->recordDownloadRequest($id, COOLXIU_TYPE_SCENE, 0, 0, $cpid, $url, $type, $channel);
 	
 	require_once 'tasks/Records/RecordTask.class.php';
 	$rt = new RecordTask();

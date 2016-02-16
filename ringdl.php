@@ -40,10 +40,10 @@ try {
 		exit();
 	}
 	
-	require_once 'tasks/statis/ReqStatis.class.php';
-	$reqStatis = new ReqStatis();
-	$type = isset($_GET['type'])?$_GET['type']:0;
-	$reqStatis->recordDownloadRequest($id, COOLXIU_TYPE_RING, 0, 0, '', $url, $type);
+//	require_once 'tasks/statis/ReqStatis.class.php';
+//	$reqStatis = new ReqStatis();
+//	$type = isset($_GET['type'])?$_GET['type']:0;
+//	$reqStatis->recordDownloadRequest($id, COOLXIU_TYPE_RING, 0, 0, '', $url, $type);
 	
 	require_once 'tasks/Records/RecordTask.class.php';
 	$rt = new RecordTask();

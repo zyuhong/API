@@ -124,8 +124,8 @@
 			$result = getAdroidestCoverList($wp_list, $width, $height, $start, $req_num, $req_type);
 			$adid = isset($_GET['adid'])?$_GET['adid']:"";
 
-            $reqStatis = new ReqStatis();
-			$reqStatis->recordCoverListRequest($adid);
+//            $reqStatis = new ReqStatis();
+//			$reqStatis->recordCoverListRequest($adid);
 		}break;
 		case YL_ADROIDESK_WP_RANDOM:
             $result = getAmazeWallpaper($num, $req_type);

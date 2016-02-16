@@ -26,15 +26,15 @@ try{
 			if($apply_type == 4){
 				$cooltype = COOLXIU_TYPE_THEMES;
 			}
-			require_once 'tasks/statis/ReqStatis.class.php';
-			$reqStatis = new ReqStatis();
-			$wpid = $id;
-			$result = $reqStatis->recordApply($height, $width, $apply_type, $cooltype, $id);
-			if(!$result){
-				Log::write("wpdlStatis::recordApply failed", "log");
-				$result = get_rsp_result(false, 'the record apply failed');
-				exit($result);
-			}
+//			require_once 'tasks/statis/ReqStatis.class.php';
+//			$reqStatis = new ReqStatis();
+//			$wpid = $id;
+//			$result = $reqStatis->recordApply($height, $width, $apply_type, $cooltype, $id);
+//			if(!$result){
+//				Log::write("wpdlStatis::recordApply failed", "log");
+//				$result = get_rsp_result(false, 'the record apply failed');
+//				exit($result);
+//			}
 			
 			require_once 'tasks/Records/RecordTask.class.php';
 			$rt = new RecordTask();
