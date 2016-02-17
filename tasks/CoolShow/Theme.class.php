@@ -110,11 +110,12 @@ class Theme extends CoolShow
         $tmparray5 = explode('8297', $this->_strProduct);
         $tmparray6 = explode('8670', $this->_strProduct);
         $tmparray7 = explode('8690', $this->_strProduct);
+        $tmparray8 = explode('150', $this->_strProduct);
         $qvalid = 0;
         $dvalid = 0;
         $svalid = 0;
         //屏蔽非奇酷机型
-        if (count($tmparray1) == 1 && count($tmparray2) == 1 && count($tmparray3) == 1 ) {
+        if (count($tmparray1) == 1 && count($tmparray2) == 1 && count($tmparray3) == 1 && count($tmparray8) == 1) {
             $qvalid = 1;
         }
         //屏蔽非大神机型，大神和奇酷的同一主题锁屏不同
@@ -123,7 +124,7 @@ class Theme extends CoolShow
         }
         //只在奇酷和大神机器上显示
         if (count($tmparray1) == 1 && count($tmparray2) == 1 && count($tmparray3) == 1 && count($tmparray4) == 1
-            && count($tmparray5) == 1 && count($tmparray6) == 1 && count($tmparray7) == 1) {
+            && count($tmparray5) == 1 && count($tmparray6) == 1 && count($tmparray7) == 1 && count($tmparray8) == 1) {
             $svalid = 1;
         }
         #if ($this->strCoolShowChannel != '360OS') {
