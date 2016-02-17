@@ -114,8 +114,8 @@ class Wallpaper extends CoolShow
 	public function getChoiceWallpaperSql($nStart, $nLimit, $bChoice = 0, $nType = 0)
 	{
 		$this->_resetRatio();
-        //$strCondition = $this->getNewCode($nType);
-		$strCondition = sprintf(' AND type = %d ', $nType);
+        $strCondition = $this->getNewCode($nType);
+		//$strCondition = sprintf(' AND type = %d ', $nType);
 		if($bChoice){
 			$strCondition = '';
 		}
