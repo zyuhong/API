@@ -114,9 +114,10 @@ class Wallpaper extends CoolShow
 	public function getChoiceWallpaperSql($nStart, $nLimit, $bChoice = 0, $nType = 0)
 	{
 		$this->_resetRatio();
+        //$strCondition = $this->getNewCode($nType);
 		$strCondition = sprintf(' AND type = %d ', $nType);
 		if($bChoice){
-			$strCondition = '';// AND choice = 1 ';
+			$strCondition = '';
 		}
 		$sql = sprintf(SQL_SELECT_CHOICE_WALLPAPER_INFO, $this->_nWidth, $this->_nHeight, $strCondition, $nStart, $nLimit);
 		return $sql;
@@ -232,16 +233,40 @@ class Wallpaper extends CoolShow
 	{
 		
 	}
-
     /**
-     * @param $nCode:新分类
+     * @param $nCode
+     * @return string
      * 新分类映射旧分类
      */
     public function getNewCode($nCode)
     {
         global $g_wp_code_relation;
         if (! array_key_exists($nCode, $g_wp_code_relation)) {
-            return $nCode;
+            $arrCode = $nCode;
+        } else {
+            $arrCode = $g_wp_code_relation[$nCode];
         }
+
+        if (! is_array($arrCode)) {
+            $strCondition = sprintf(' AND type = %d ', $arrCode);
+
+            return $strCondition;
+        }
+
+        if (count($arrCode) == 1) {
+            $strCondition = sprintf(' AND type = %d ', $arrCode[0]);
+
+            return $strCondition;
+        }
+
+        $strType = '';
+        foreach ($arrCode as $code) {
+            $strType .= $code . ',';
+        }
+
+        $strType = substr($strType, 0, strlen($strType) - 1);
+        $strType = '(' . $strType . ')';
+        $strCondition = sprintf(' AND type in %s ', $strType);
+        return $strCondition;
     }
 }

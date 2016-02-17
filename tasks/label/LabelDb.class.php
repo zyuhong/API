@@ -48,7 +48,6 @@ class LabelDb extends DBManager
 				return json_encode($result);
 			}
 
-// 			Log::write('LabelDb::searchLabel() SQL:'.$sql, 'debug');
 			$rows = $this->executeQuery($sql);
 			if($rows === false){
 				Log::write('LabelDb::searchLabel() SQL:'.$sql.' failed', 'log');
@@ -66,7 +65,7 @@ class LabelDb extends DBManager
 			$bResult = $this->_memcached->setSearchResult($sql.$protocol, $result, 3600);
 			if(!$bResult){
 				Log::write("LabelDb::searchLabel failed", "log");
-			}		
+			}
 		}catch(Exception $e){
 			Log::write("LabelDb::searchLabel()exception error:".$e->getMessage(), "log");
 			return false;
