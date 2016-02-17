@@ -366,7 +366,7 @@ $g_wp_code_relation = [
 //按机型过滤
 $g_arr_product_filter = array(
     'banner'=>array(
-        'theme'=>'("2637225114", "1878400473")',
+        'theme'=>'("2637225114", "1878400473", "3836391041")',
     ),
 
 );
