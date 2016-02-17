@@ -115,11 +115,11 @@ class Wallpaper extends CoolShow
 	{
 		$this->_resetRatio();
         $strCondition = $this->getNewCode($nType);
-		//$strCondition = sprintf(' AND type = %d ', $nType);
+        $strOrder = $this->getOrder();
 		if($bChoice){
 			$strCondition = '';
 		}
-		$sql = sprintf(SQL_SELECT_CHOICE_WALLPAPER_INFO, $this->_nWidth, $this->_nHeight, $strCondition, $nStart, $nLimit);
+		$sql = sprintf(SQL_SELECT_CHOICE_WALLPAPER_INFO, $this->_nWidth, $this->_nHeight, $strCondition, $strOrder, $nStart, $nLimit);
 		return $sql;
 	}
 
@@ -140,9 +140,9 @@ class Wallpaper extends CoolShow
 	public function getCountChoiceWallpaperSql($bChoice = 0, $nType = 0)
 	{
 		$this->_resetRatio();
-		$strCondition = sprintf(' AND type = %d ', $nType);
+        $strCondition = $this->getNewCode($nType);
 		if($bChoice){
-			$strCondition = '';// AND choice = 1 ';
+			$strCondition = '';
 		}
 		$sql = sprintf(SQL_COUNT_CHOICE_WALLPAPER_INFO, $this->_nWidth, $this->_nHeight, $strCondition);
 		return $sql;
@@ -268,5 +268,15 @@ class Wallpaper extends CoolShow
         $strType = '(' . $strType . ')';
         $strCondition = sprintf(' AND type in %s ', $strType);
         return $strCondition;
+    }
+
+    public function getOrder()
+    {
+        $strOrder = ' ORDER BY asort DESC, insert_time DESC';
+        if ($this->_nSort == COOLXIU_SEARCH_HOT) {
+            $strOrder = ' ORDER BY mdl DESC';
+        }
+
+        return $strOrder;
     }
 }

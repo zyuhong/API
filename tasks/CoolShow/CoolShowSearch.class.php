@@ -367,7 +367,7 @@ class CoolShowSearch
 	public function getBannerList($nCoolType, $bAlbum = 0, $nStart = 0, $nNum = 0, $nProtocolCode = 0, $strProduct = '')
 	{
 		try {
-			$coolshow = new Album();			
+			$coolshow = new Album();
 			$bSceneWallpaper = false;
 			$strAlbum = 'albums'.$nCoolType;
 			if($nCoolType == COOLXIU_TYPE_SCENE_WALLPAPER){
