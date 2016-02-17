@@ -112,6 +112,7 @@ class Theme extends CoolShow
         $tmparray7 = explode('8690', $this->_strProduct);
         $qvalid = 0;
         $dvalid = 0;
+        $svalid = 0;
         //屏蔽非奇酷机型
         if (count($tmparray1) == 1 && count($tmparray2) == 1 && count($tmparray3) == 1 ) {
             $qvalid = 1;
@@ -120,10 +121,11 @@ class Theme extends CoolShow
         if (count($tmparray4) == 1 && count($tmparray5) == 1 && count($tmparray6) == 1 && count($tmparray7) == 1) {
             $dvalid = 1;
         }
-        /*if (count($tmparray1) == 1 && count($tmparray2) == 1 && count($tmparray3) == 1 && count($tmparray4) == 1
+        //只在奇酷和大神机器上显示
+        if (count($tmparray1) == 1 && count($tmparray2) == 1 && count($tmparray3) == 1 && count($tmparray4) == 1
             && count($tmparray5) == 1 && count($tmparray6) == 1 && count($tmparray7) == 1) {
-            $qvalid = 1;
-        }*/
+            $svalid = 1;
+        }
         #if ($this->strCoolShowChannel != '360OS') {
         if ($qvalid) {
             $strCondition .= sprintf(' AND t.cpid not in ("601291633", "601291637", "601292026", "601291813", "601291719", "601291643", "601291718", "601291647", "601291648", "602041556") ');
@@ -131,6 +133,9 @@ class Theme extends CoolShow
         if ($dvalid) {
             $strCondition .= sprintf(' AND t.cpid != "602051815" ');
         }
+        if ($svalid) {
+            $strCondition .= sprintf(' AND t.cpid != "602171758" ');
+        }        
 
         return $strCondition;
     }
