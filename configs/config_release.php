@@ -349,7 +349,7 @@ $g_arr_tablename = array(
 //壁纸分类映射关系,详见表tb_qiku_wp_label说明
 $g_wp_code_relation = [
     0 => [0],
-    1 => [20],
+    1 => [0],
     2 => [1],
     3 => [2, 5],
     4 => [4],
