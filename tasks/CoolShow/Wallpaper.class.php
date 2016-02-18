@@ -115,12 +115,11 @@ class Wallpaper extends CoolShow
 	{
 		$this->_resetRatio();
         $strCondition = $this->getNewCode($nType);
-        //$strOrder = $this->getOrder();
+        $strOrder = $this->getOrder();
 		if($bChoice){
 			$strCondition = '';
 		}
-		//$sql = sprintf(SQL_SELECT_CHOICE_WALLPAPER_INFO, $this->_nWidth, $this->_nHeight, $strCondition, $strOrder, $nStart, $nLimit);
-        $sql = sprintf(SQL_SELECT_CHOICE_WALLPAPER_INFO, $this->_nWidth, $this->_nHeight, $strCondition, $nStart, $nLimit);
+		$sql = sprintf(SQL_SELECT_CHOICE_WALLPAPER_INFO, $this->_nWidth, $this->_nHeight, $strCondition, $strOrder, $nStart, $nLimit);
 		return $sql;
 	}
 

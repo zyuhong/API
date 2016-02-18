@@ -69,17 +69,17 @@ defined("SQL_SELECT_WLLPAPER_BANNER_LARGE_URL")
 /**
  * 获取酷派精品壁纸列表
  */	
-//defined("SQL_SELECT_CHOICE_WALLPAPER_INFO")
-//	or define("SQL_SELECT_CHOICE_WALLPAPER_INFO", "SELECT wp.* FROM tb_yl_wallpaper wp "
-//                                                ." LEFT JOIN tb_yl_wallpaper_download wpdl on wp.id = wpdl.cpid "
-//												." WHERE wp.valid = 1 AND width=%d AND height=%d %s "
-//												." %s  "
-//												." LIMIT %d, %d ");
 defined("SQL_SELECT_CHOICE_WALLPAPER_INFO")
-    or define("SQL_SELECT_CHOICE_WALLPAPER_INFO", "SELECT * FROM tb_yl_wallpaper "
-                                        ." WHERE valid = 1 AND width=%d AND height=%d %s "
-                                        ."  ORDER BY asort DESC, insert_time DESC  "
-                                        ." LIMIT %d, %d ");
+	or define("SQL_SELECT_CHOICE_WALLPAPER_INFO", "SELECT wp.* FROM tb_yl_wallpaper wp "
+                                                ." LEFT JOIN tb_yl_wallpaper_download wpdl on wp.id = wpdl.cpid "
+												." WHERE wp.valid = 1 AND width=%d AND height=%d %s "
+												." %s  "
+												." LIMIT %d, %d ");
+//defined("SQL_SELECT_CHOICE_WALLPAPER_INFO")
+//    or define("SQL_SELECT_CHOICE_WALLPAPER_INFO", "SELECT * FROM tb_yl_wallpaper "
+//                                        ." WHERE valid = 1 AND width=%d AND height=%d %s "
+//                                        ."  ORDER BY asort DESC, insert_time DESC  "
+//                                        ." LIMIT %d, %d ");
 	
 defined("SQL_COUNT_CHOICE_WALLPAPER_INFO")
 	or define("SQL_COUNT_CHOICE_WALLPAPER_INFO", "SELECT COUNT(*) FROM tb_yl_wallpaper "
