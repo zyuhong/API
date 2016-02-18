@@ -578,6 +578,10 @@ class CoolShowSearch
 				Log::write('CoolShowSearch::_getAlbums():getProtocol() failed', 'log');
 				return false;
 			}
+
+            //增加角标和价格字段
+            $ratio = $this->getRatio();
+            $this->addMarkAndPriceProtocol($arrProtocol, $nCoolType, $ratio);
 			
 			return $arrProtocol;
 		}catch(Exception $e){
@@ -1151,18 +1155,18 @@ class CoolShowSearch
 		}
 		
 		$arrProtocol = array();
-		
-		foreach ($rows as $row){
-			$strSql = $coolshow->getSelectThemeByCpidSql($row['recommend']);
-			$rows = $this->_getDb()->getCoolShow($strSql);
-			if($rows === false || count($rows) <= 0){
-				Log::write('CoolShowSearch::_getRecommend():_getDb():getCoolShow() failed, SQL:'.$strSql, 'log');
-				return false;
-			}
-			
-			$arrTemp = $coolshow->getProtocol($rows);
-			$arrProtocol = array_merge($arrProtocol, $arrTemp);
-		}
+
+        foreach ($rows as $row) {
+            $strSql = $coolshow->getSelectThemeByCpidSql($row['recommend']);
+            $rows = $this->_getDb()->getCoolShow($strSql);
+            if ($rows === false) {
+                Log::write('CoolShowSearch::_getRecommend():_getDb():getCoolShow() failed, SQL:'.$strSql, 'log');
+                return false;
+            }
+
+            $arrTemp = $coolshow->getProtocol($rows);
+            $arrProtocol = array_merge($arrProtocol, $arrTemp);
+        }
 			
 		return $arrProtocol;
 	}
