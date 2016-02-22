@@ -835,17 +835,17 @@ class CoolShowSearch
 	
 	public function searchLucene($nCoolType, $strKeyWord, $bColor, $nPage, $nLimit)
 	{
-		try{	
+		try{
 			$coolshow = CoolShowFactory::getCoolShow($nCoolType);
 			$this->_setCoolShowParam($coolshow);
 			$data = $coolshow->getLuceneParam($nCoolType, $strKeyWord, $bColor, $nPage, $nLimit);
 			$coolshow->setChannel(REQUEST_CHANNEL_LUCENE);
-	
-			$result = $this->_memcached->getSearchResult($data.$nCoolType);
-			if($result){
-// 				Log::write('CoolXiuDb::searchLucene():getSearchResult()'.$sql, 'log');
-				return json_encode($result);
-			}
+
+            $memKey = $data . $nCoolType . $coolshow->_nWidth;
+            $result = $this->_memcached->getSearchResult($memKey);
+            if ($result) {
+                return json_encode($result);
+            }
 			
 			$result = $this->_searchLucene($coolshow, $data);
 			$arrProtocol = ($result === false)?array():$result;
@@ -853,17 +853,24 @@ class CoolShowSearch
 			if ($nCoolType == COOLXIU_TYPE_SCENE){
 				$coolshow->resetKernel();
 				$data = $coolshow->getLuceneParam($nCoolType, $strKeyWord);
-// 				Log::write('CoolXiuDb::searchLucene():getLuceneParam() data'.$data, 'log');
 				$result = $this->_searchLucene($coolshow, $data);
 				$arrTempProtocol = ($result === false)?array():$result;
 				$arrProtocol = array_merge($arrTempProtocol, $arrProtocol);
 			}
+
+            if ($nCoolType == COOLXIU_TYPE_THEMES
+                || $nCoolType == COOLXIU_TYPE_FONT
+                || $nCoolType == COOLXIU_TYPE_SCENE
+                || $nCoolType == COOLXIU_TYPE_LIVE_WALLPAPER) {
+                $ratio = $this->getRatio();
+                $this->addMarkAndPriceProtocol($arrProtocol, $nCoolType, $ratio);
+            }
 			
 			$result =  array('total_number'=> count($arrProtocol),
 							 'ret_number'  => count($arrProtocol),
 							 $coolshow->strType     => $arrProtocol
 						);
-			$this->_memcached->setSearchResult($data.$nCoolType, $result, 12*60*60);
+			$this->_memcached->setSearchResult($memKey, $result, 12*60*60);
 		}catch(Exception $e){
 			Log::write("CoolShowSearch::searchLucene(): excepton error:".$e->getMessage(), "log");
 			$result = get_rsp_result(false, 'get lucene exception');
@@ -1350,11 +1357,10 @@ class CoolShowSearch
 				return false;
 			}
 
-			$result = $this->_memcached->getSearchResult($strSql);
-			if($result){
-// 				Log::write('CoolShowSearch::getChoiceWallpaer():getSearchResult()'.$strSql, 'log');
-				return $result;
-			}
+            $result = $this->_memcached->getSearchResult($strSql);
+            if ($result) {
+                return $result;
+            }
 				
 			$arrProtocol = $this->_getProtocol($coolshow, $strSql);
 			if($arrProtocol === false){
@@ -1379,7 +1385,6 @@ class CoolShowSearch
 			);
 		
 			$this->_memcached->setSearchResult($strSql, $result, 12*60*60);
-		
 		}catch(Exception $e){
 			Log::write('CoolShowSearch::getWallpaper() excepton error:'.$e->getMessage(), 'log');
 			return false;
