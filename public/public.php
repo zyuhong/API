@@ -338,14 +338,12 @@ function checkSign($signParam){
     $sign = trim($signParam['sign']);
     unset($signParam['sign']);
     ksort($signParam);
-    //处理型号空格问题
-    //$signParam['product'] = str_replace(" ", "%20", $signParam['product']);
 
     $signStr = http_build_query($signParam);
 
     $calSign = hash_hmac("sha1", $signStr, $key);
     if ($calSign == $sign) {
-        Log::write("sign pass", "log");
+        //Log::write("sign pass", "log");
         return true;
     }
     Log::write("sign fail", "log");

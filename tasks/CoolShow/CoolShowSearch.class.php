@@ -106,9 +106,10 @@ class CoolShowSearch
 	
 	private  function _getProtocolMix(CoolShow $coolshow, $start, $limit)
 	{
-		if(!$coolshow->bHavePaid || $limit == 0){
-			return false;
-		}
+        if (! $coolshow->bHavePaid || $limit == 0) {
+            Log::write("CoolShowSearch::getCoolShow():_getProtocolMix bHavePaid is false or limit = 0", "log");
+            return false;
+        }
 		$coolshow->setPayRatio();
 		$coolshow->setPay(true);
 		$nPayStart = $coolshow->getStart(true, $start);
@@ -286,7 +287,7 @@ class CoolShowSearch
             }
 
             if (! $arrProtocol) {
-                Log::write('CoolShowSearch::searchCoolXiuList():_getProtocol() failed', 'log');
+                //Log::write('CoolShowSearch::searchCoolXiuList():_getProtocol() failed', 'log');
                 $result = get_rsp_result(false, 'get protocol failed');
                 return $result;
             }
