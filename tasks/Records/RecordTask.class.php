@@ -95,8 +95,8 @@ class RecordTask
 	// 		}
 			
 	// 		$record->close();
-	                $myreq = (array)$req;
-	                $myreq['optype'] = '0';
+            $myreq = (array)$req;
+            $myreq['optype'] = '0';
 			Log::appendJson($myreq, 'data', '_time');
 			$queue = new QueueTask();
 	  		$queue->push('request', $nCoolType, json_encode($req), 'coolshow_req_count');
@@ -165,6 +165,14 @@ class RecordTask
 		
 		$dl = new Download();
 		$dl->setRecord();
+
+        if ($nCoolType == COOLXIU_TYPE_WALLPAPER || $nCoolType == COOLXIU_TYPE_ANDROIDESK_WALLPAPER) {
+            if (strlen($dl->id) >= 8) {
+                Log::write("id exception, id=" . $dl->id, "debug");
+                return true;
+            }
+        }
+
 // 		Log::write('RecordTask::saveDownload() cpid:'.$dl->cpid.', channer:'.$dl->channel, 'error');
 		
 //		$result = $record->saveRecord($nCoolType, $dl);
@@ -192,7 +200,7 @@ class RecordTask
 		$queue->push('dl', $nCoolType, json_encode($dl), 'coolshow_dl_count');
 
         //添加活动主题下载记录
-        $this->saveActivityDL($mydl);
+        //$this->saveActivityDL($mydl);
 		
 		return true;
 	}
