@@ -406,14 +406,14 @@ class CoolShowSearch
 				return $result;
 			}
 			
-			if(($nCoolType == COOLXIU_TYPE_ANDROIDESK_WALLPAPER 
-				|| $nCoolType == COOLXIU_TYPE_WALLPAPER)
-				&& $bAlbum == 0){
-				//合并安卓壁纸资源
-				$arrAndroidBanner = $this->_getAndroideskBanner($bSceneWallpaper);
-				$arrTemp = array_merge($protocol['top'], $arrAndroidBanner);
-				$protocol['top'] = $arrTemp;
-			}			
+//			if(($nCoolType == COOLXIU_TYPE_ANDROIDESK_WALLPAPER
+//				|| $nCoolType == COOLXIU_TYPE_WALLPAPER)
+//				&& $bAlbum == 0){
+//				//合并安卓壁纸资源
+//				$arrAndroidBanner = $this->_getAndroideskBanner($bSceneWallpaper);
+//				$arrTemp = array_merge($protocol['top'], $arrAndroidBanner);
+//				$protocol['top'] = $arrTemp;
+//			}
 			
 			$result = array('result'=>true,
 							'banners'=>$protocol);

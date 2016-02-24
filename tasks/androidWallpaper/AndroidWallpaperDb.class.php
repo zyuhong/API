@@ -32,7 +32,7 @@ class AndroidWallpaperDb extends DBManager{
 		$this->_memcached->connectMemcached($g_arr_memcache_config);
 		
 		global $g_arr_db_config;
-		$this->connectMySqlPara($g_arr_db_config['androidesk']);		
+		$this->connectMySqlPara($g_arr_db_config['androidesk']);
 	}
 
 	public function setProduct($product){
