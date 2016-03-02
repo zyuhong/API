@@ -117,7 +117,8 @@ class CoolShowSearch
 		$strSql = $coolshow->getCoolShowListSql( $nPayStart, $nPayLimit);
 		$arrPay = $this->_getProtocol($coolshow, $strSql);
 		$nPayFix = $nPayLimit- count($arrPay);
-		$nPayCount = $this->_getCoolShowCount($coolshow);
+		//$nPayCount = $this->_getCoolShowCount($coolshow);
+        $nPayCount = count($arrPay);
 		
 		$coolshow->setPay(false);
 		$nFreeStart = $coolshow->getStart(false, $start);
@@ -125,7 +126,8 @@ class CoolShowSearch
 		$strSql = $coolshow->getCoolShowListSql($nFreeStart, $nFreeLimit);
 		$arrFree = $this->_getProtocol($coolshow, $strSql);
 		$nFreeFix = $nFreeLimit- count($arrFree);
-		$nFreeCount = $this->_getCoolShowCount($coolshow);
+		//$nFreeCount = $this->_getCoolShowCount($coolshow);
+        $nFreeCount = count($arrFree);
 		
 		if($nPayFix > 0){
 			$coolshow->setPay(false);
