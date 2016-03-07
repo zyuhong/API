@@ -60,13 +60,13 @@ class Scene extends CoolShow
 				$strOrderBy   = ' ORDER BY download_times DESC ';
 				break;
 			case  COOLXIU_SEARCH_LAST:
-				$strOrderBy   = ' ORDER BY scene.insert_time DESC ';
+				$strOrderBy   = ' ORDER BY scene.createTime DESC ';
 				break;
 			case  COOLXIU_SEARCH_CHOICE:
-				$strOrderBy   = ' ORDER BY scene.insert_time DESC ';
+				$strOrderBy   = ' ORDER BY scene.createTime DESC ';
 				break;
 			case  COOLXIU_SEARCH_HOLIDAY:
-				$strOrderBy   = ' ORDER BY scene.insert_time DESC ';
+				$strOrderBy   = ' ORDER BY scene.createTime DESC ';
 				break;
 			default:
 				//$strOrderBy   = ' ORDER BY t.asort DESC ';
