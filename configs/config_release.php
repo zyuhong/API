@@ -114,6 +114,7 @@ $g_arr_queue_config = array(
         15=>'queue_theme_req',
         16=>'queue_theme_req',
         17=>'queue_theme_req',
+        25=>'queue_single_wp_req',
     ),
     'browse'=>array(
         0=>'queue_theme_browse',
@@ -127,6 +128,7 @@ $g_arr_queue_config = array(
         15=>'queue_theme_browse',
         16=>'queue_theme_browse',
         17=>'queue_theme_browse',
+        25=>'queue_single_wp_browse',
     ),
     'dl'=>array(
         0=>'queue_theme_dl',
@@ -137,6 +139,7 @@ $g_arr_queue_config = array(
         6=>'queue_scene_dl',
         13=>'queue_livewp_dl',
         14=>'queue_alarm_dl',
+        25=>'queue_single_wp_dl',
     ),
     'apply'=>array(
         0=>'queue_theme_apply',
@@ -147,6 +150,7 @@ $g_arr_queue_config = array(
         6=>'queue_scene_apply',
         13=>'queue_livewp_apply',
         14=>'queue_alarm_apply',
+        25=>'queue_single_wp_apply',
     ),
     'banner'=>array(
         0=>'queue_theme_banner',
@@ -157,6 +161,7 @@ $g_arr_queue_config = array(
         6=>'queue_scene_banner',
         13=>'queue_livewp_banner',
         14=>'queue_alarm_banner',
+        25=>'queue_single_wp_banner',
     ),
     'albums'=>array(
         0=>'queue_theme_albums',
@@ -167,6 +172,7 @@ $g_arr_queue_config = array(
         6=>'queue_scene_albums',
         13=>'queue_livewp_albums',
         14=>'queue_alarm_albums',
+        25=>'queue_single_wp_albums',
     ),
     'adbrowse'=>array(
         0=>'queue_theme_browse',
@@ -255,10 +261,12 @@ define("COOLXIU_TYPE_X_RING", 12);		//酷秀第三方合作铃声
 
 define("COOLXIU_TYPE_SETTING", 21);		//酷秀设置项
 
-define("COOLXIU_TYPE_MY_RSC", 22);		//酷秀第三方合作铃声
+define("COOLXIU_TYPE_MY_RSC", 22);		//已购资源
 
 define("COOLXIU_TYPE_AD_BANNER", 23);   //广告Banner
 define("COOLXIU_TYPE_AD_ADVER", 24);    //主题详情广告
+define("COOLXIU_TYPE_SINGLE_WALLPAPER", 25);  //单幅壁纸
+define("COOLXIU_TYPE_MIX", 26);  //混搭
 
 define('COOLXIU_TYPE_PREV_BROWSER', 1);
 define('COOLXIU_TYPE_PREV_COMMON', 0);
@@ -297,6 +305,7 @@ define('REQUEST_CHANNEL_CHOICE',    12);
 define('REQUEST_CHANNEL_LIVEWP',    13);
 define('REQUEST_CHANNEL_CONTACT',    15);
 define('REQUEST_CHANNEL_ICON',    17);
+define('REQUEST_CHANNEL_CHARGE_ALL',    18);
 //安卓壁纸
 
 /**
