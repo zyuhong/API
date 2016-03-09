@@ -34,6 +34,10 @@ if(isset($_POST['statis'])){
  * 
  */
 
+if ($nCoolType == COOLXIU_TYPE_SINGLE_WALLPAPER) {
+    $nCoolType = COOLXIU_TYPE_ANDROIDESK_WALLPAPER;
+}
+
 if($protocolCode >= 2){
 	$json_result = $coolshow->getBannerList($nCoolType, $bAlbum, $nStart, $nNum, $protocolCode, $strProduct);
 }else{
