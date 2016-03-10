@@ -10,7 +10,6 @@ require_once 'tasks/protocol/ThemesDetailsProtocol.php';
 
 class Theme extends CoolShow
 {
-
 	private $_nModule;
 	public function __construct($nModule = COOLXIU_TYPE_THEMES)
 	{
@@ -61,46 +60,47 @@ class Theme extends CoolShow
 		return $sql;
 	}
 
-	private function _getCondition()
-	{
-		$strIsCharge = '';
-		if($this->_nProtocolCode < 1 /*$this->_nVercode >= 86 */){
-			$strIsCharge = ' AND t.ischarge = 0 ';
-		}
-				
-		$strKernel = sprintf(' AND tinfo.kernel = %d ', $this->_nKernel);
-		if($this->_nKernel >= 4){
-			$strKernel = sprintf(' AND tinfo.kernel >= 3 ', $this->_nKernel);
-		}
-		
-		if ($this->_nModule == COOLXIU_TYPE_THEMES_CONTACT #新增短信和联系人模块
-			|| $this->_nModule == COOLXIU_TYPE_THEMES_MMS
-			|| $this->_nModule == COOLXIU_TYPE_THEMES_ICON){
-			$strKernel = sprintf(' AND tinfo.kernel >= 5 ', $this->_nKernel);
-		}
-		$strChoice = '';
-		if ($this->_nSort == COOLXIU_SEARCH_CHOICE){
-			$strChoice = ' AND t.choice = 1 ';
-		}
-		
-		$this->_resetRatio();
-		
-		if(strcmp('Coolpad8750', $this->_strProduct) == 0){
-			$this->_nKernel = 2;
-		}		
-		
-		$strType = '';
-		if($this->_nSubType != 0 && $this->_nType == 0 ){
-// 			if($this->_nSubType == 1){//推荐单独处理
-// 				$strType .=  ' AND choice =1  ';
-// 			}else{
-				$strType .=  sprintf(' AND subtype =  %d ', $this->_nSubType);
-// 			}
-		}
-		
-		$strCharge = $this->getCharge();
-		
-		$strCondition = $strType.$strIsCharge.$strKernel.$this->strPayCondition.$strCharge.$strChoice;
+    private function _getCondition()
+    {
+        $strIsCharge = '';
+        if ($this->_nProtocolCode < 1 /*$this->_nVercode >= 86 */) {
+            $strIsCharge = ' AND t.ischarge = 0 ';
+        }
+
+        $strKernel = sprintf(' AND tinfo.kernel = %d ', $this->_nKernel);
+        if ($this->_nKernel >= 4) {
+            $strKernel = sprintf(' AND tinfo.kernel >= 3 AND tinfo.kernel <= %d ', $this->_nKernel);
+        }
+
+        if ($this->_nModule == COOLXIU_TYPE_THEMES_CONTACT #新增短信和联系人模块
+            || $this->_nModule == COOLXIU_TYPE_THEMES_MMS
+            || $this->_nModule == COOLXIU_TYPE_THEMES_ICON
+        ) {
+            $strKernel = sprintf(' AND tinfo.kernel >= 5 ', $this->_nKernel);
+        }
+        $strChoice = '';
+        if ($this->_nSort == COOLXIU_SEARCH_CHOICE) {
+            $strChoice = ' AND t.choice = 1 ';
+        }
+
+        $this->_resetRatio();
+
+        if (strcmp('Coolpad8750', $this->_strProduct) == 0) {
+            $this->_nKernel = 2;
+        }
+
+        $strType = '';
+        if ($this->_nSubType != 0 && $this->_nType == 0 ) {
+            //if($this->_nSubType == 1){//推荐单独处理
+            //$strType .=  ' AND choice =1  ';
+            //}else{
+            $strType .=  sprintf(' AND subtype =  %d ', $this->_nSubType);
+        //}
+        }
+
+        $strCharge = $this->getCharge();
+
+        $strCondition = $strType . $strIsCharge . $strKernel . $this->strPayCondition . $strCharge . $strChoice;
 
         //按os系统区分
         $tmparray1 = explode('8681', $this->_strProduct);
