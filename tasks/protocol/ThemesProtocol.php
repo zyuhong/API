@@ -75,6 +75,8 @@ class ThemesProtocol extends Protocol
 
 	public $adicon;				//广告图片
 	public $adurl;				//广告地址
+
+    public $theme_type;         //主题锁屏类型：默认：common 微乐主题：dynamic 天天主题：tiantianlocker
 	function __construct(){
 		parent::__construct();
 		$this->id					=	0;
@@ -115,6 +117,8 @@ class ThemesProtocol extends Protocol
 		$this->ad					= 0;
 		$this->adicon				= '';
 		$this->adurl				= '';
+
+        $this->theme_type       = '';
 	}
 
     public function setMainPrev($prev)
@@ -230,6 +234,8 @@ class ThemesProtocol extends Protocol
             $this->adicon			=  $g_arr_host_config['cdnhost'].$strAdIcon;//isset($theme_row['adicon'])?$theme_row['adicon']:'';
         }
 		$this->adurl			= isset($theme_row['adurl'])?$theme_row['adurl']:'';
+
+        $this->theme_type = isset($theme_row['theme_type']) ? $theme_row['theme_type'] : 'common';
 	}
 }
 ?>
